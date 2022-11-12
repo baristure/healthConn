@@ -1,0 +1,66 @@
+.btn {
+  @apply inline-flex items-center justify-center font-medium text-sm;
+  @apply md:px-6 py-3 md:text-sm leading-6 rounded-md text-sm px-2;
+  &.btn-lg {
+      @apply h-12 md:px-10 py-1 md:text-sm leading-6 rounded-md text-sm px-6;
+  }
+  &.btn-md {
+      @apply h-10 md:px-8 py-1 md:text-sm leading-5 rounded-md text-2xs px-5;
+  }
+  &.btn-sm {
+      @apply h-8 md:px-4 py-1 md:text-sm leading-4 rounded-md text-2xs px-2;
+  }
+  &.btn-xs {
+      @apply px-3 py-0.5 text-2xs leading-3 rounded-md;
+  }
+  &.btn-primary {
+    @apply bg-primary text-white;
+  }
+  &.btn-primary-soft {
+    @apply bg-primary-10 text-white;
+  }
+  &.btn-success {
+    @apply bg-success text-white;
+  }
+  &.btn-success-soft {
+    @apply bg-success-50 text-white;
+  }
+  &.btn-warning {
+    @apply bg-warning text-white;
+  }
+  &.btn-warning-soft {
+    @apply bg-warning-10 text-white;
+  }
+
+  &.btn-error {
+    @apply bg-error text-white;
+  }
+  &.btn-error-soft {
+    @apply bg-error-50 text-white;
+  }
+  &.btn-gray {
+    @apply bg-contrast-05 text-primary;
+  }
+
+  &.btn-square {
+    @apply p-3 text-sm rounded-md;
+  }
+  &.btn-rounded {
+    @apply p-2.5 text-sm rounded-full;
+  }
+  &.hover-primary {
+    @apply hover:bg-primary-hover hover:text-white;
+  }
+  &.hover-success {
+    @apply hover:bg-success-hover hover:text-white;
+  }
+  &.hover-warning {
+    @apply hover:bg-warning-hover hover:text-white;
+  }
+  &.hover-error {
+    @apply hover:bg-error-hover hover:text-white;
+  }
+  &.hover-gray {
+    @apply hover:bg-contrast-10 hover:text-primary;
+  }
+}

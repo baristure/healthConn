@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.box {
+  @apply mt-2 min-w-full  rounded-md;
+}
+
+.select{
+  @apply border-b text-sm rounded-md leading-3	p-2 bg-contrast-10 border-gray-300 mr-2 focus:outline-none w-full  
+}
