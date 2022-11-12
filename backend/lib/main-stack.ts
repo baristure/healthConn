@@ -80,12 +80,18 @@ export class MainStack extends cdk.Stack {
       rdsDomain
     } = dnsStack;
 
+    const {
+      bastionHost: {
+        instancePublicIp: bastionHostPublicIp
+      }
+    } = ec2Stack;
+
     new CfnOutput(
       this,
       "ssh-port-forwarding-command",
       {
         exportName: "ssh-port-forwarding-command",
-        value: `ssh -i keypair.pem -N -L ${rdsPort}:${rdsDomain}:${rdsPort}`
+        value: `ssh -i keypair.pem -N -L ${rdsPort}:${rdsDomain}:${rdsPort} ec2-user@${bastionHostPublicIp}`
       }
     );
   }
