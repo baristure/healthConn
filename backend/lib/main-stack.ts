@@ -7,6 +7,8 @@ import { DatabaseStack } from './nested-stacks/DatabaseStack';
 import { Ec2Stack } from './nested-stacks/Ec2Stack';
 import { DnsStack } from './nested-stacks/DnsStack';
 import { CfnOutput } from 'aws-cdk-lib';
+import { LambdaStack } from './nested-stacks/LambdaStack';
+import { ApiStack } from './nested-stacks/ApiStack';
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env")
@@ -80,13 +82,47 @@ export class MainStack extends cdk.Stack {
       rdsDomain
     } = dnsStack;
 
+    const {
+      bastionHost: {
+        instancePublicIp: bastionHostPublicIp
+      }
+    } = ec2Stack;
+
+    const lambdaStack = new LambdaStack(
+      this,
+      "lambda-stack",
+      {
+        app: app!,
+        env: env!,
+        description: "Creates Lambda functions",
+        lambdaSecurityGroup: networkStack.lambdaSecurityGroup,
+        vpc: networkStack.vpc
+      }
+    )
+
+    const apiStack =  new ApiStack(
+      this,
+      "api-stack",
+      {
+        app: app!,
+        env: env!,
+        description: "Creates APIs",
+        authorizerFunction: lambdaStack.authorizer
+      }
+    );
+
     new CfnOutput(
       this,
       "ssh-port-forwarding-command",
       {
         exportName: "ssh-port-forwarding-command",
-        value: `ssh -i keypair.pem -N -L ${rdsPort}:${rdsDomain}:${rdsPort}`
+        value: `ssh -i keypair.pem -N -L ${rdsPort}:${rdsDomain}:${rdsPort} ec2-user@${bastionHostPublicIp}`
       }
     );
+
+    new CfnOutput(this, "url-shortener-api-base-url", {
+      exportName: "url-shortener-api-base-url",
+      value: `https://${apiStack.restApi.restApiId}.execute-api.${process.env.AWS_DEFAULT_REGION}.amazonaws.com/${apiStack.stage.stageName}`
+    });
   }
 }

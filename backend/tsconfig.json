@@ -3,7 +3,9 @@
     "target": "ES2018",
     "module": "commonjs",
     "lib": [
-      "es2018"
+      "es2018",
+      "ES6",
+      "DOM"
     ],
     "declaration": true,
     "strict": true,
@@ -18,14 +20,17 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
     "types": [
-      "node"
+      "node",
+      "reflect-metadata"
     ],
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules",
