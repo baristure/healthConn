@@ -5,9 +5,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 
 import "./styles/global.css";
-import "./styles/buttons.scss";
-import "./styles/radiobutton.scss";
-import "./styles/loading.css";
+import "./styles/styles.scss";
+// import "./styles/loading.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
 

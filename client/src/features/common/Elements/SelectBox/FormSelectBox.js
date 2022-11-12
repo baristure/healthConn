@@ -1,7 +1,7 @@
 import Select from "react-select";
 import { useField, useFormikContext } from "formik";
 
-export default function FormSelector({ ...props }) {
+export default function FormSelectBox({ ...props }) {
   const [field, meta] = useField(props);
   const { setFieldValue, setFieldTouched } = useFormikContext();
   const customStyles = {

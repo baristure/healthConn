@@ -1,9 +1,10 @@
 import DatePicker from "react-datepicker";
 import { useState, useEffect } from "react";
-import { formatDate } from "../../../lib/utilities";
+import { formatDate } from "../../../../lib/utilities";
+import FormDatePicker from "./FormDatePicker";
 const newDate = new Date();
 
-export default function DateSelector(props) {
+export default function Datepicker(props) {
   const [dateValue, setDateValue] = useState({
     startDate: newDate,
     endDate: newDate,
@@ -27,6 +28,8 @@ export default function DateSelector(props) {
     });
     // eslint-disable-next-line
   }, [dateValue]);
+
+  if (props.isForm) return <FormDatePicker {...props} />;
 
   return (
     <div>

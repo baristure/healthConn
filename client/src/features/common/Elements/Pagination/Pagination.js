@@ -1,5 +1,5 @@
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { usePagination, DOTS } from "../../../hooks/usePagination";
+import { usePagination, DOTS } from "../../../../hooks/usePagination";
 
 const Pagination = (props) => {
   const {

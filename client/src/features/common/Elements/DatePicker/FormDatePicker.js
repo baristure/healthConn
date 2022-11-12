@@ -3,7 +3,7 @@ import { useField, useFormikContext } from "formik";
 import { useState, useEffect } from "react";
 const newDate = new Date();
 
-export default function DateSelector({ ...props }) {
+export default function FormDatePicker({ ...props }) {
   const [field, meta] = useField(props);
   const { setFieldValue } = useFormikContext();
   const [dateRange, setDateRange] = useState({

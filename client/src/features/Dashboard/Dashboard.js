@@ -1,10 +1,12 @@
-import Card from "../common/Card";
-import Button from "../common/Elements/Button";
-import { faker } from "@faker-js/faker";
-import Loading from "../common/Loading";
-import Checkbox from "../common/Elements/Checkbox";
-import { DateSelector, Selector, Input } from "../common/Elements";
 import { toast } from "react-toastify";
+import { faker } from "@faker-js/faker";
+
+import Card from "../common/Elements/Card/Card";
+import Button from "../common/Elements/Button/Button";
+import Loading from "../common/Elements/Loading/Loading";
+import Checkbox from "../common/Elements/Checkbox/Checkbox";
+import { SelectBox, Input, Datepicker } from "../common/Elements";
+
 function Dashboard() {
   const showToast = (type, msg) => {
     console.log("girdi");
@@ -16,6 +18,7 @@ function Dashboard() {
       toast.info(msg);
     }
   };
+
   return (
     <>
       <main className="flex-1">
@@ -147,7 +150,7 @@ function Dashboard() {
                   </div>
 
                   <div className="w-1/2 mb-5">
-                    <Selector
+                    <SelectBox
                       label={"Please select"}
                       options={[
                         {
@@ -169,13 +172,13 @@ function Dashboard() {
                     />
                   </div>
                   <div className="w-1/2 mb-5">
-                    <DateSelector
+                    <Datepicker
                       label="Time Range"
                       name="dateRange"
                       type="range"
                       onChange={(val) => console.log(val)}
                     />
-                    <DateSelector
+                    <Datepicker
                       label="Time Select"
                       name="dateSelect"
                       onChange={(val) => console.log(val)}

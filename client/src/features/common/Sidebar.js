@@ -5,7 +5,7 @@ import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
 import { Dialog, Transition } from "@headlessui/react";
 
 import { changeOpen, changeSideBarOpen } from "../../store/slices/navbarSlice";
-import Button from "./Elements/Button";
+import Button from "./Elements/Button/Button";
 const navBarItems = [
   {
     icon: "/icons/home.svg",

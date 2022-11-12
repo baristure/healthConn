@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
 
-import { Dashboard } from "./examplePages/index";
+import { Dashboard } from "./index";
 
 const AppRoutes = () => {
   return (
