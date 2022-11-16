@@ -1,7 +1,7 @@
 import FormCheckbox from "./FormCheckbox";
 
 export default function Checkbox(props) {
-  if (props.isForm) return <FormCheckbox {...props} />;
+  if (props.isform) return <FormCheckbox {...props} />;
   const colorClass =
     props.color === "primary"
       ? "input-primary"

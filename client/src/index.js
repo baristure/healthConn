@@ -6,7 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./styles/global.css";
 import "./styles/styles.scss";
-// import "./styles/loading.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
 

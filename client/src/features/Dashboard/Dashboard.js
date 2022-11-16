@@ -7,7 +7,7 @@ import Loading from "../common/Elements/Loading/Loading";
 import Checkbox from "../common/Elements/Checkbox/Checkbox";
 import { SelectBox, Input, Datepicker } from "../common/Elements";
 
-function Dashboard() {
+export const Dashboard = () => {
   const showToast = (type, msg) => {
     console.log("girdi");
     if (type === "error") {
@@ -145,6 +145,8 @@ function Dashboard() {
                     <Input
                       type="text"
                       name="textInput"
+                      // isForm={true}
+                      label="Username"
                       onChange={(e) => console.log(e.target.value)}
                     />
                   </div>
@@ -211,9 +213,8 @@ function Dashboard() {
             </div>
           </Card>
         </div>
+        <div className="w-1/2 mt-6 sm:px-6 lg:px-8 px-4 mb-4"></div>
       </main>
     </>
   );
-}
-
-export default Dashboard;
+};

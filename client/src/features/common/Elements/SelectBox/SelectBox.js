@@ -2,7 +2,7 @@ import Select from "react-select";
 import FormSelectBox from "./FormSelectBox";
 
 export default function SelectBox(props) {
-  if (props.isForm) return <FormSelectBox {...props} />;
+  if (props.isform) return <FormSelectBox {...props} />;
 
   const customStyles = {
     control: (base, state) => ({

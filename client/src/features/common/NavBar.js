@@ -16,7 +16,7 @@ export default function NavBar() {
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
-      {({ open }) => (
+      {() => (
         <>
           <div className="w-full bg-primary-navbar pl-2 sm:pl-6 lg:pl-8">
             <div className="relative flex items-center justify-between h-16">
