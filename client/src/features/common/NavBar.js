@@ -6,6 +6,7 @@ import { TbGridDots } from "react-icons/tb";
 
 import { useDispatch } from "react-redux";
 import { changeSideBarOpen } from "../../store/slices/navbarSlice";
+import { NavLink } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -100,15 +101,15 @@ export default function NavBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="http://localhost:3000/"
+                          <NavLink
+                            to="/signout"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Sign out
-                          </a>
+                          </NavLink>
                         )}
                       </Menu.Item>
                     </Menu.Items>
