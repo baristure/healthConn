@@ -1,6 +1,6 @@
 /* This NavBar requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure, Menu, Transition, Tab } from "@headlessui/react";
 
 import { TbGridDots } from "react-icons/tb";
 
@@ -11,10 +11,36 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function NavBar() {
+export default function NavBar({ isOpen, isAuth }) {
   const dispatch = useDispatch();
-
+// hover:border-b-blue-800
   return (
+    // <Disclosure as="header" className="bg-transparent">
+    //   <div className="flex justify-between w-11/12 my-0 mx-auto py-5">
+    //     <div className="flex justify-between items-center w-2/4">
+    //       <div className="flex items-center">
+    //         <img
+    //           className="text-white ml-2 h-12 block w-auto hidden sm:block "
+    //           src="/icons/logo.png"
+    //           alt="Workflow"
+    //         />
+    //         <h1 className="font-sans text-2xl font-bold tracking-wide antialiased ml-3">
+    //           Health Conn
+    //         </h1>
+    //       </div>
+    //       <Tab.Group className="flex items-center justify-between w-2/4 font-sans font-medium tracking-wide antialiased">
+    //         <Tab.List>
+    //           <Tab className="outline-none border-none">Home</Tab> 
+    //           <Tab className="outline-none border-none">Product</Tab>
+    //           <Tab className="outline-none border-none">Pricing</Tab>
+    //           <Tab className="outline-none border-none">Contact</Tab>
+    //         </Tab.List>
+    //       </Tab.Group>
+    //     </div>
+
+    //     <div className="flex"></div>
+    //   </div>
+    // </Disclosure>
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>

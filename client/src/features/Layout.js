@@ -18,11 +18,11 @@ const AppRoutes = () => {
 function Layout() {
   const navbarState = useSelector((state) => state.navbar);
   const isOpen = navbarState.isOpen;
-
-  const isAuth = true;
+//bg-contrast-5
+  const isAuth = false;
   return (
-    <div className="m-0 p-0 bg-contrast-5">
-      <NavBar isOpen={isOpen} />
+    <div className="m-0 p-0">
+      <NavBar isOpen={isOpen} isAuth={isAuth} />
       {!isAuth ? (
         <div>Please login</div>
       ) : (
