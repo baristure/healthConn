@@ -29,6 +29,10 @@ export const loginSlice = createSlice({
   reducers: {
     clearState: (state) => {
       state.user = null;
+      state.isFetching = false
+      state.isSuccess = false
+      state.isError = false
+      state.errorMessage = ""
 
       return state;
     },

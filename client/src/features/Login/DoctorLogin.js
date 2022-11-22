@@ -8,7 +8,7 @@ const initialValues = {
   email: "",
   password: "",
 };
-export const Login = () => {
+export const DoctorLogin = () => {
   const [formValues, setFormValues] = useState(initialValues);
 
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export const Login = () => {
   if (!user && !isFetching) {
     return (
       <div className="h-full flex flex-col items-center justify-center">
-        <h1 className="text-4xl">Welcome to Patient Login Page</h1>
+        <h1 className="text-4xl">Welcome to Doctor Login Page</h1>
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -54,7 +54,9 @@ export const Login = () => {
           </Form>
         </Formik>
         <div className="flex flex-col items-end mb-16">
-          <NavLink className="underline" to="/login-as-doctor">Login as Doctor</NavLink>
+          <NavLink className="underline" to="/login">
+            Login as Patient
+          </NavLink>
           <NavLink className="underline" to="/register">
             Go to Register Page
           </NavLink>
