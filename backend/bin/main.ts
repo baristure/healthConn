@@ -7,21 +7,13 @@ import path from "path";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env")
-});
-
-const {
-  APP_NAME: appName,
-  ENV_NAME: envName,
-  AWS_ACCOUNT_ID: awsAccountId,
-  AWS_DEFAULT_REGION: awsDefaultRegion
-} = process.env;
-
+})
 
 const app = new cdk.App();
 new MainStack(app, 'MainStack', {
+  stackName: `${process.env.CDK_ENVIRONMENT_NAME}-${process.env.CDK_APP_NAME}`,
   env: {
-    account: awsAccountId,
-    region: awsDefaultRegion
-  },
-  stackName: `${appName}-${envName}-main-stack`
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION 
+  }
 });

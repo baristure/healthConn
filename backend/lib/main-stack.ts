@@ -1,128 +1,105 @@
 import * as cdk from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { NetworkStack } from './nested-stacks/NetworkStack';
+import { DbStack } from './nested-stacks/db-stack';
+import { Ec2Stack } from './nested-stacks/ec2-stack';
+import { LambdaStack } from './nested-stacks/lambda-stack';
+import { NetworkStack } from './nested-stacks/network-stack';
+import { S3Stack } from './nested-stacks/s3-stack';
 import path from "path";
 import dotenv from "dotenv";
-import { DatabaseStack } from './nested-stacks/DatabaseStack';
-import { Ec2Stack } from './nested-stacks/Ec2Stack';
-import { DnsStack } from './nested-stacks/DnsStack';
-import { CfnOutput } from 'aws-cdk-lib';
-import { LambdaStack } from './nested-stacks/LambdaStack';
-import { ApiStack } from './nested-stacks/ApiStack';
+import { ApiStack } from './nested-stacks/api-stack';
+import { IamStack } from './nested-stacks/iam-stack';
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env")
-});
-
-const {
-  APP_NAME: app,
-  ENV_NAME: env,
-} = process.env;
+})
 
 export class MainStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const networkStack = new NetworkStack(
-      this,
-      "network-stack",
-      {
-        description: "Creates VPC, subnets, security groups, gateways and route tables",
-        app: app!,
-        env: env!
-      }
-    );
+    const envName = process.env.CDK_ENVIRONMENT_NAME!;
+    const appName = process.env.CDK_APP_NAME!;
 
-    const databaseStack = new DatabaseStack(
-      this,
-      "database-stack",
-      {
-        description: "Creates RDS clusters",
-        app: app!,
-        env: env!,
-        vpc: networkStack.vpc,
-        rdsSecurityGroup: networkStack.rdsSecurityGroup,
-        rdsSubnetGroup: networkStack.rdsSubnetGroup
-      }
-    );
+    const networkStack = new NetworkStack(this, "network-stack", {
+      envName,
+      appName,
+      description: "Creates networks, subnets, security groups, gateways, route tables."
+    });
 
-    const ec2Stack = new Ec2Stack(
-      this,
-      "ec2-stack",
-      {
-        description: "Creates EC2 instances",
-        app: app!,
-        env: env!,
-        vpc: networkStack.vpc,
-        bastionHostSecurityGroup: networkStack.bastionHostSecurityGroup
-      }
-    );
+    const dbSecretName = `${envName}/${appName}/db-credentials`;
 
-    const dnsStack = new DnsStack(
-      this,
-      "dns-stack",
-      {
-        description: "Creates hosted zones and DNS records",
-        app: app!,
-        env: env!,
-        vpc: networkStack.vpc,
-        rdsCluster: databaseStack.rdsCluster
-      }
-    );
+    const dbStack = new DbStack(this, "db-stack", {
+      envName,
+      appName,
+      dbSecurityGroup: networkStack.getDbSecurityGroup(),
+      vpc: networkStack.getVpc(),
+      dbSubnetGroup: networkStack.getDbSubnetGroup(),
+      description: "Creates RDS clusters.",
+      dbSecretName
+    });
+
+    const ec2Stack = new Ec2Stack(this, "ec2-stack", {
+      envName,
+      appName,
+      vpc: networkStack.getVpc(),
+      bastionHostSecurityGroup: networkStack.getBastionHostSecurityGroup(),
+      description: "Creates EC2 instances."
+    });
+
+    const s3Stack = new S3Stack(this, "s3-stack", {
+      envName,
+      appName,
+      description: "Createst S3 buckets."
+    });
+
+    const iamStack = new IamStack(this, "iam-stack", {
+      envName,
+      appName,
+      description: "Creates IAM roles and policies."
+    });
+
+    const lambdaStack = new LambdaStack(this, "lambda-stack", {
+      envName,
+      appName,
+      assetsBucket: s3Stack.getAssetsBucket(),
+      ssmPrivateKeyParameterName: `/ec2/keypair/${ec2Stack.getKeypair().attrKeyPairId}`,
+      description: "Creates Lambda functions.",
+      dbSecretName,
+      dbCluster: dbStack.getDbCluster(),
+      vpc: networkStack.getVpc(),
+      lambdaSecurityGroup: networkStack.getLambdaSecurityGroup(),
+      dbSecretAccessPolicy: iamStack.getDbSecretAccessPolicy(),
+      ssmGetParameterPolicy: iamStack.getSsmGetParameterPolicy(),
+      secretKey: process.env.SECRET_KEY!
+    });
+
+    const apiStack = new ApiStack(this, "api-stack", {
+      envName,
+      appName,
+      description: "Creates REST API",
+      registerFunction: lambdaStack.getRegister(),
+      credentials: iamStack.getApiCredentials(),
+      authorizerFunction: lambdaStack.getAuthorizer(),
+      loginFunction: lambdaStack.getLogin(),
+    });
 
     const {
-      rdsCluster: {
-        clusterEndpoint: {
-          port: rdsPort
-        }
+      clusterEndpoint: {
+        hostname: dbHost,
+        port: dbPort
       }
-    } = databaseStack;
+    } = dbStack.getDbCluster();
 
-    const {
-      rdsDomain
-    } = dnsStack;
+    new CfnOutput(this, "ssh-port-forwarding-command", {
+      exportName: "ssh-port-forwarding-command",
+      value: `ssh -i keypair.pem -N -L ${dbPort}:${dbHost}:${dbPort} ec2-user@${ec2Stack.getBastionHost().instancePublicIp}`
+    });
 
-    const {
-      bastionHost: {
-        instancePublicIp: bastionHostPublicIp
-      }
-    } = ec2Stack;
-
-    const lambdaStack = new LambdaStack(
-      this,
-      "lambda-stack",
-      {
-        app: app!,
-        env: env!,
-        description: "Creates Lambda functions",
-        lambdaSecurityGroup: networkStack.lambdaSecurityGroup,
-        vpc: networkStack.vpc
-      }
-    )
-
-    const apiStack =  new ApiStack(
-      this,
-      "api-stack",
-      {
-        app: app!,
-        env: env!,
-        description: "Creates APIs",
-        authorizerFunction: lambdaStack.authorizer
-      }
-    );
-
-    new CfnOutput(
-      this,
-      "ssh-port-forwarding-command",
-      {
-        exportName: "ssh-port-forwarding-command",
-        value: `ssh -i keypair.pem -N -L ${rdsPort}:${rdsDomain}:${rdsPort} ec2-user@${bastionHostPublicIp}`
-      }
-    );
-
-    new CfnOutput(this, "url-shortener-api-base-url", {
-      exportName: "url-shortener-api-base-url",
-      value: `https://${apiStack.restApi.restApiId}.execute-api.${process.env.AWS_DEFAULT_REGION}.amazonaws.com/${apiStack.stage.stageName}`
+    new CfnOutput(this, "link-to-private-key", {
+      exportName: "link-to-private-key",
+      value: lambdaStack.getLinkToPrivateKey()
     });
   }
 }

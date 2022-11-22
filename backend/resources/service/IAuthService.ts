@@ -3,6 +3,7 @@ import {
   AuthResponse
 } from "aws-lambda";
 
-export default interface IAuthorizationService {
+export default interface IAuthService {
+
   generateAuthResponse(event: CustomAuthorizerEvent): AuthResponse;
 }
