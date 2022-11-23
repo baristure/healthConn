@@ -5,6 +5,7 @@ import SelectBox from "./SelectBox/SelectBox";
 import Checkbox from "./Checkbox/Checkbox";
 import FormObserver from "./FormObserver";
 import Loading from "./Loading/Loading";
+import FormRadioButton from "./RadioButton/FormRadioButton";
 
 export {
   Button,
@@ -14,4 +15,5 @@ export {
   Checkbox,
   FormObserver,
   Loading,
+  FormRadioButton,
 };

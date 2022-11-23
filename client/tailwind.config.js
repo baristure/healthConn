@@ -16,7 +16,7 @@ module.exports = {
       "primary-navbar": "#1B50DB",
       "primary-10": "#cedbe9",
       "primary-50": "#86a5c8",
-      primary: "#0D4C92",
+      primary: "#1363DF",
       "primary-text": "#0090FF",
       "primary-dark": "#005699",
       "primary-hover": "#0287EF",

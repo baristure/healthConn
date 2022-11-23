@@ -35,14 +35,14 @@ export const ExamplePage = () => {
               <Input
                 type="text"
                 name="username"
-                isform={true}
+                isform
                 label="Username"
                 placeholder="Enter an username"
               />
               <Input
                 type="text"
                 name="password"
-                isform={true}
+                isform
                 label="Password"
                 placeholder="Enter a password"
               />
