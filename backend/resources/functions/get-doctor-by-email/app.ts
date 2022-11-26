@@ -9,9 +9,7 @@ import validator from "../../middlewares/validator";
 import IDoctorRepository from "../../repository/IDoctorRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-
 const handler = async (event: GetDoctorByEmailEvent): Promise<APIGatewayProxyStructuredResultV2> => {
-
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {

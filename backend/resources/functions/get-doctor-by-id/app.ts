@@ -11,7 +11,6 @@ import ResponseUtils from "../../utils/ResponseUtils";
 
 
 const handler = async (event: GetDoctorByIdEvent): Promise<APIGatewayProxyStructuredResultV2> => {
-
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
