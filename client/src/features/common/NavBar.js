@@ -1,7 +1,7 @@
 /* This NavBar requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition, Tab } from "@headlessui/react";
-
+import { useNavigate } from "react-router-dom";
 import { TbGridDots } from "react-icons/tb";
 
 import { useDispatch } from "react-redux";
@@ -15,6 +15,7 @@ function classNames(...classes) {
 
 export default function NavBar({ isOpen, loggedIn }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // hover:border-b-blue-800
   return (
     // divide-contrast-80 divide-x text
@@ -38,12 +39,13 @@ export default function NavBar({ isOpen, loggedIn }) {
                     />
                   </div>
                   <img
-                    className="text-white ml-2 h-12 block w-auto hidden sm:block "
+                    className="text-white ml-2 mr-2 h-12 block w-auto hidden sm:block "
                     src="/icons/logo.png"
                     alt="Workflow"
                   />
+                  <span className="font-sans text-white text-2xl antialiased font-bold">Medical</span>
                 </div>
-                <div className=" md:flex xs:w-80 xs:hidden sm:ml-6">
+                <div className="md:flex xs:w-80 xs:hidden sm:ml-6">
                   {loggedIn && (
                     <Tab.Group className="flex items-center justify-between w-full font-sans font-medium text-white tracking-wide antialiased">
                       <Tab.List>
@@ -144,7 +146,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                       size="md"
                       for="rounded"
                       className="mr-3"
-                      callback={() => console.log("Hello World")}
+                      callback={() => navigate("/login")}
                     >
                       Log in
                     </Button>
@@ -154,7 +156,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                       hover="gray"
                       size="lg"
                       className="mr-3"
-                      callback={() => console.log("Hello World")}
+                      callback={() => navigate("/register")}
                     >
                       Join us &rarr;
                     </Button>

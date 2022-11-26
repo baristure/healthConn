@@ -23,7 +23,6 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
   return (
     <Routes>
       <Route exact path="/" element={<WelcomePage />} />
-      {/* <Route exact path="/" element={<Dashboard />} /> */}
       <Route path="/login" element={<Login />} />
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
       <Route path="/register" element={<Register />} />

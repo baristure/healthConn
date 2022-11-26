@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../common/Elements/Button/Button";
 
 const WelcomePage = () => {
+  const navigate = useNavigate();
   return (
     <div className="md:flex md:flex-row w-full items-center p-5 xs:flex-col xs:justify-center">
       <div className="md:basis-1/4 basis-1/2">
@@ -18,6 +20,7 @@ const WelcomePage = () => {
             hover="primary"
             className="mr-3"
             size="md"
+            callback={() => navigate("/login")}
           >
             Log in
           </Button>
@@ -27,7 +30,7 @@ const WelcomePage = () => {
             hover="gray"
             size="lg"
             className="mr-3"
-            callback={() => console.log("Hello World")}
+            callback={() => navigate("/register")}
           >
             Join us &rarr;
           </Button>
