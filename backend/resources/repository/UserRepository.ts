@@ -36,12 +36,24 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async save(user: UserInput): Promise<User | null> {
-    const [ savedUser ] = await this.knex.insert({
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      password: user.password,
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      mobile_number,
+      type,
+      image_url
+    } = user;
 
+    const [ savedUser ] = await this.knex.insert({
+      first_name,
+      last_name,
+      email,
+      password,
+      mobile_number,
+      type,
+      image_url
     })
       .into("users")
       .returning("*");
