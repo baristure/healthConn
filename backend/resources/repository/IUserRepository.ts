@@ -6,4 +6,5 @@ export default interface IUserRepository {
   getUserById(id: string): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
   save(user: UserInput): Promise<User | null>;
+  update(id: string, changes: Partial<UserInput>): Promise<User | null>;
 }
