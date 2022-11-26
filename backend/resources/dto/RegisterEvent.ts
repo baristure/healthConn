@@ -34,6 +34,8 @@ export const validationSchema = yup.object({
       .max(255)
       .required(),
     password: yup.string()
+      .min(8)
+      .max(32)
       .matches(/[\d]/, "password field should contain at least 1 digit")
       .matches(/[a-z]/, "password field should contain at least 1 lowercase letter")
       .matches(/[A-Z]/, "password field should contain at least 1 uppercase letter")
