@@ -65,3 +65,4 @@ export const lambdaHandler = middy(handler)
   .use(httpErrorHandler())
   .use(jsonBodyParser())
   .use(validator(validationSchema));
+  

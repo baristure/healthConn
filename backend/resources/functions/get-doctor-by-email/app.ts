@@ -1,7 +1,10 @@
 import "reflect-metadata";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
-import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
+import jsonBodyParser from "@middy/http-json-body-parser";
+import {
+  APIGatewayProxyStructuredResultV2
+} from "aws-lambda";
 import { GetDoctorByEmailEvent, validationSchema } from "../../dto/GetDoctorByEmailEvent";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
@@ -31,4 +34,6 @@ const handler = async (event: GetDoctorByEmailEvent): Promise<APIGatewayProxyStr
 
 export const lambdaHandler = middy(handler)
   .use(httpErrorHandler())
+  .use(jsonBodyParser())
   .use(validator(validationSchema));
+  
