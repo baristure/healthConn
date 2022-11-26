@@ -23,6 +23,9 @@ const handler = async (event: RegisterEvent): Promise<APIGatewayProxyStructuredR
       last_name,
       email,
       password,
+      mobile_number,
+      type,
+      image_url
     }
   } = event;
 
@@ -39,7 +42,10 @@ const handler = async (event: RegisterEvent): Promise<APIGatewayProxyStructuredR
       first_name,
       last_name,
       email,
-      password: hashSync(password)
+      password: hashSync(password),
+      mobile_number,
+      type,
+      image_url
     }
   );
 
