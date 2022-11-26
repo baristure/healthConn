@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 
 import { navbarReducer } from "./slices/navbarSlice";
 import { loadingReducer } from "./slices/loadingSlice";
+import { loginReducer } from "../features/Login/loginSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -16,6 +17,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   loading: loadingReducer,
   navbar: navbarReducer,
+  login: loginReducer,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 

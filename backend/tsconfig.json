@@ -7,6 +7,10 @@
       "ES6",
       "DOM"
     ],
+    "types": [
+      "node",
+      "reflect-metadata"
+    ],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -22,15 +26,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "esModuleInterop": true,
-    "types": [
-      "node",
-      "reflect-metadata"
-    ],
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "moduleResolution": "node"
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

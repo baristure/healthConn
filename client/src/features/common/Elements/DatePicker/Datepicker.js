@@ -29,7 +29,7 @@ export default function Datepicker(props) {
     // eslint-disable-next-line
   }, [dateValue]);
 
-  if (props.isForm) return <FormDatePicker {...props} />;
+  if (props.isform) return <FormDatePicker {...props} />;
 
   return (
     <div>

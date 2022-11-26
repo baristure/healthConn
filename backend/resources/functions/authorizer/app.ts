@@ -1,13 +1,13 @@
+import "reflect-metadata";
 import {
-  CustomAuthorizerEvent,
-  AuthResponse
+  AuthResponse, CustomAuthorizerEvent
 } from "aws-lambda";
-
 import container from "../../config/inversify.config";
-import TYPES from "../../config/TYPES";
-import IAuthorizationService from "../../services/IAuthorizationService";
+import { TYPES } from "../../config/types";
+import IAuthService from "../../service/IAuthService";
 
-export const lambdaHandler = (event: CustomAuthorizerEvent): AuthResponse => {
-  const authService = container.get<IAuthorizationService>(TYPES.JwtAuthorizationService);
+export const lambdaHandler = async (event: CustomAuthorizerEvent): Promise<AuthResponse> => {
+
+  const authService = container.get<IAuthService>(TYPES.JwtAuthService);
   return authService.generateAuthResponse(event);
 };

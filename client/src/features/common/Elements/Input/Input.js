@@ -1,8 +1,8 @@
 import InputMask from "react-input-mask";
 
 import FormInput from "./FormInput";
-export default function Input(props) {
-  if (props.isForm) return <FormInput {...props} />;
+export default function Input({isform, ...props}) {
+  if (isform) return <FormInput {...props} />;
 
   return (
     <div>

@@ -6,13 +6,17 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./styles/global.css";
 import "./styles/styles.scss";
-// import "./styles/loading.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { persistor, store } from "./store/store";
 
 import App from "./App";
+
+if (process.env.NODE_ENV === "development") {
+  const { worker } = require("./mocks/server");
+  worker.start();
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
