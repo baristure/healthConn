@@ -11,6 +11,7 @@ import { DoctorLogin } from "./Login/DoctorLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import { Register } from "./Register/Register";
 import { SignOut } from "./SignOut/SignOut";
+import WelcomePage from "./WelcomePage";
 
 const Mock = (props) => {
   console.log("mock props", props);
@@ -20,7 +21,7 @@ const Mock = (props) => {
 const AppRoutes = (loggedIn, setLoggedIn) => {
   return (
     <Routes>
-      <Route exact path="/" element={<Dashboard />} />
+      <Route exact path="/" element={<WelcomePage />} />
       {/* <Route exact path="/" element={<Dashboard />} /> */}
       <Route path="/login" element={<Login />} />
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
@@ -49,7 +50,7 @@ function Layout() {
           <Sidebar isShowing={isOpen} />
         </aside>
         <main className="w-full overflow-y-auto">
-          {/* {AppRoutes(loggedIn, setLoggedIn)} */}
+          {AppRoutes(loggedIn, setLoggedIn)}
         </main>
       </div>
 

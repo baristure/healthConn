@@ -139,7 +139,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                   <div className="mb-2">
                     <Button
                        type="button"
-                       color="primary"
+                       color="success-soft"
                        hover="gray"
                        size="md"
                        for="rounded"
@@ -150,7 +150,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                     </Button>
                     <Button
                       type="button"
-                      color="primary"
+                      color="success"
                       hover="gray"
                       size="lg"
                       className="mr-3"
