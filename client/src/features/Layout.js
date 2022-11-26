@@ -21,6 +21,7 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
   return (
     <Routes>
       <Route exact path="/" element={<Dashboard />} />
+      {/* <Route exact path="/" element={<Dashboard />} /> */}
       <Route path="/login" element={<Login />} />
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
       <Route path="/register" element={<Register />} />
@@ -39,16 +40,16 @@ function Layout() {
   const navbarState = useSelector((state) => state.navbar);
   const isOpen = navbarState.isOpen;
   //bg-contrast-5
-  const isAuth = true;
+  // const isAuth = true;
   return (
     <div className="m-0 p-0">
-      <NavBar isOpen={isOpen} isAuth={isAuth} />
+      <NavBar isOpen={isOpen} loggedIn={loggedIn} />
       <div className="flex">
         <aside className="self-start sticky top-0">
           <Sidebar isShowing={isOpen} />
         </aside>
         <main className="w-full overflow-y-auto">
-          {AppRoutes(loggedIn, setLoggedIn)}
+          {/* {AppRoutes(loggedIn, setLoggedIn)} */}
         </main>
       </div>
 
