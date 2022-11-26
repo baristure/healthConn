@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
+import Footer from "./Footer";
 
 import { Dashboard, ExamplePage, Login } from "./index";
 import { DoctorLogin } from "./Login/DoctorLogin";
@@ -55,6 +56,7 @@ function Layout() {
       </div>
 
       <ToastContainer />
+      <Footer />
     </div>
   );
 }

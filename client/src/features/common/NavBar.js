@@ -138,13 +138,13 @@ export default function NavBar({ isOpen, loggedIn }) {
                 ) : (
                   <div className="mb-2">
                     <Button
-                       type="button"
-                       color="success-soft"
-                       hover="gray"
-                       size="md"
-                       for="rounded"
-                       className="mr-3"
-                       callback={() => console.log("Hello World")}
+                      type="button"
+                      color="success-soft"
+                      hover="gray"
+                      size="md"
+                      for="rounded"
+                      className="mr-3"
+                      callback={() => console.log("Hello World")}
                     >
                       Log in
                     </Button>
