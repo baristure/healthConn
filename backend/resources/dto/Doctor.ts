@@ -1,26 +1,25 @@
-import  { gender } from "./Patient";
+import  { Gender } from "./Patient";
 
-export enum title {
+export enum Title {
   DOCTOR= "doctor",
-  PROFSSOR = "professor",
+  PROFESSOR = "professor",
   NURSE = "nurse",
 };
 
-export enum lifestyleType {
-  SEDENTERY = "sedentary",
-  BALANCED = "balanced", 
-  ACTIVE = "active",
-};
-
-export interface Patient {
-  user_id: string;
-  office_number: string;
+export interface Doctor {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  mobile_number: string;
+  office_number?: string;
   speciality: string;
   rating: number;
-  title: title;
+  title: Title;
   resume: string;
-  services: string;
-  gender: gender;
+  image_url: string;
+  gender: Gender;
   created_at: Date;
   updated_at: Date;
 };

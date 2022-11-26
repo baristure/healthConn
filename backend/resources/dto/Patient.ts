@@ -9,7 +9,7 @@ export enum bloodGroup {
   AB_MINUS = "AB-",
 };
 
-export enum gender {
+export enum Gender {
   MALE= "male",
   FEMALE = "female",
 };
@@ -26,7 +26,7 @@ export interface Patient {
   weight: number;
   length: number;
   birth_date: Date;
-  gender: gender;
+  gender: Gender;
   lifestyle: lifestyleType;
   allergies: string;
   created_at: Date;

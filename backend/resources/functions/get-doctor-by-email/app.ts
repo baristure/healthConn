@@ -2,33 +2,33 @@ import "reflect-metadata";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
-import { GetUserByIdEvent, validationSchema } from "../../dto/GetDoctorByidEvent";
+import { GetDoctorByEmailEvent, validationSchema } from "../../dto/GetDoctorByEmailEvent";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
-import IUserRepository from "../../repository/IUserRepository";
+import IDoctorRepository from "../../repository/IDoctorRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
 
-const handler = async (event: GetUserByIdEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+const handler = async (event: GetDoctorByEmailEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
-    pathParameters: {
-      user_id
+    queryStringParameters: {
+      email
     }
   } = event;
 
-  const userRepository = await container.getAsync<IUserRepository>(TYPES.UserRepository);
+  const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
 
-  const user = await userRepository.getUserById(user_id);
+  const doctor = await doctorRepository.getDoctorByEmail(email);
 
-  if (!user) {
+  if (!doctor) {
     return responseUtils.notFound();
   }
 
-  return responseUtils.success(user);
+  return responseUtils.success(doctor);
 };
 
 export const lambdaHandler = middy(handler)
