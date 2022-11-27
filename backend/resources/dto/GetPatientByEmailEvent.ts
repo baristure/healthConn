@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
 
-export interface GetUserByEmailEvent extends APIGatewayProxyEvent {
+export interface GetPatientByEmailEvent extends APIGatewayProxyEvent {
   pathParameters: {
     email: string;
   }

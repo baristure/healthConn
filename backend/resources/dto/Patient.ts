@@ -1,4 +1,4 @@
-export enum bloodGroup {
+export enum BloodType {
   A_PLUS = "A+",
   A_MINUS = "A-",
   B_PLUS = "B+",
@@ -14,21 +14,19 @@ export enum Gender {
   FEMALE = "female",
 };
 
-export enum lifestyleType {
-  SEDENTERY = "sedentary",
-  BALANCED = "balanced", 
-  ACTIVE = "active",
-};
-
 export interface Patient {
-  user_id: string;
-  blood_group: string;
-  weight: number;
-  length: number;
-  birth_date: Date;
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  mobile_number: string;
   gender: Gender;
-  lifestyle: lifestyleType;
-  allergies: string;
+  blood_type: BloodType;
+  weight: number;
+  height: number;
+  birth_date: Date;
+  story: string;
   created_at: Date;
   updated_at: Date;
 };
