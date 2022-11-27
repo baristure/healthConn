@@ -69,7 +69,7 @@ export const ComplaintForm = ({ bodyPart }) => {
           type="range"
           min="0"
           max="10"
-          step="0.5"
+          step="1"
           value={bodyParts[bodyPart].painLevel}
           onChange={(e) => handleComplaintForm({ painLevel: e.target.value })}
           className="w-full h-2 bg-blue-400 rounded-lg appearance-none cursor-pointer "
