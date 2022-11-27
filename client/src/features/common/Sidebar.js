@@ -14,8 +14,13 @@ const navBarItems = [
   },
   {
     icon: "/icons/reports.svg",
-    url: "/second",
-    text: "Second Page",
+    url: "/appointment",
+    text: "Take Appointment",
+  },
+  {
+    icon: "/icons/reports.svg",
+    url: "/appointments",
+    text: "Appointments",
   },
 ];
 export default function Sidebar({ isShowing }) {

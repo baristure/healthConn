@@ -5,10 +5,16 @@ import { ToastContainer } from "react-toastify";
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
 
-import { Dashboard, ExamplePage, Login, Appointment } from "./index";
-import { DoctorLogin } from "./Login/DoctorLogin";
-import { Register } from "./Register/Register";
-import { SignOut } from "./SignOut/SignOut";
+import {
+  Dashboard,
+  ExamplePage,
+  Login,
+  DoctorLogin,
+  Register,
+  SignOut,
+  Appointment,
+  Appointments,
+} from "./index";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/signout" element={<SignOut />} />
       <Route path="/appointment" element={<Appointment />} />
+      <Route path="/appointments" element={<Appointments />} />
     </Routes>
   );
 };
