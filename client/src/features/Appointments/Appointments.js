@@ -82,7 +82,7 @@ export const Appointments = () => {
                         <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
                           <Button color="primary" hover="primary" size="xs">
                             <NavLink to={`/appointments/${appointment.id}`}>
-                              Detay
+                              Detail
                             </NavLink>
                           </Button>
                         </td>
