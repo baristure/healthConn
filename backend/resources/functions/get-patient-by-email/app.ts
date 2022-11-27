@@ -10,17 +10,15 @@ import IPatientRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
 const handler = async (event: GetPatientByEmailEvent): Promise<APIGatewayProxyStructuredResultV2> => {
-
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
-    pathParameters: {
+    queryStringParameters: {
       email
     }
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-
   const patient = await patientRepository.getPatientByEmail(email);
 
   if (!patient) {

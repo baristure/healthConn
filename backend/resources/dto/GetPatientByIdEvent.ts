@@ -3,13 +3,13 @@ import * as yup from "yup";
 
 export interface GetPatientByIdEvent extends APIGatewayProxyEvent {
   queryStringParameters: {
-    patient_id: number;
+    patient_id: string;
   }
 };
 
 export const validationSchema = yup.object({
   queryStringParameters: yup.object({
-    patient_id: yup.number()
+    patient_id: yup.string()
       .required()
   })
     .required()

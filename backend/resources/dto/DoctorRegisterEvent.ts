@@ -44,7 +44,8 @@ export const validationSchema = yup.object({
     mobile_number: yup.string()
       .matches(/^\+\d+$/, "mobile_number field should be a valid E.164 phone number")
       .required(),
-    office_number: yup.string(),
+    office_number: yup.string()
+      .required(),
     speciality: yup.string()     
       .required(),
     title: yup.string()

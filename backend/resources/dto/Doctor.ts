@@ -13,7 +13,7 @@ export interface Doctor {
   email: string;
   password: string;
   mobile_number: string;
-  office_number?: string;
+  office_number: string;
   speciality: string;
   rating: number;
   title: Title;
