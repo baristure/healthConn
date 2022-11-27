@@ -89,10 +89,10 @@ export const Appointments = () => {
                         key={appointment.id}
                         className="divide-x divide-gray-200"
                       >
-                        <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm text-contrast-90 sm:pl-6 text-left">
+                        <td className="whitespace-nowrap p-4 text-sm text-contrast-90 sm:pl-6 text-left">
                           {appointment.service}
                         </td>
-                        <td class2Name="whitespace-nowrap p-4 text-sm text-contrast-90 text-left">
+                        <td className="whitespace-nowrap p-4 text-sm text-contrast-90  text-left">
                           {user.user_type === "doctor"
                             ? appointment.patient
                             : appointment.doctor}
