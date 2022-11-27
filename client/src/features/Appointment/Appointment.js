@@ -21,6 +21,7 @@ import {
   submitAppointment,
 } from "./appointmentSlice";
 import { format } from "date-fns";
+import { NavLink } from "react-router-dom";
 
 export const Appointment = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export const Appointment = () => {
           >
             <div className="lg:space-y-0 space-y-2 lg:space-x-2 space-x-0 flex lg:flex-row flex-col items-center justify-center w-full mt-4">
               <Button size="md" color="gray" hover="gray" className="w-full">
-                Dashboard
+                <NavLink to="/dashboard">Dashboard</NavLink>
               </Button>
               <Button
                 size="md"
@@ -83,7 +84,7 @@ export const Appointment = () => {
                 hover="primary"
                 className="w-full"
               >
-                Appointments
+                <NavLink to="/appointments">Appointments</NavLink>
               </Button>
             </div>
           </Card>
