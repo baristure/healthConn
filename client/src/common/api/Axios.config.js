@@ -6,5 +6,5 @@ const http = Axios.create({
   baseURL: BASE_URL,
 });
 
-http.defaults.headers.common["Authorization"] = `Bearer xxxxx`;
+// http.defaults.headers.common["Authorization"] = `Bearer xxxxx`;
 export default http;

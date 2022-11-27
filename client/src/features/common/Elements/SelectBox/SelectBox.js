@@ -53,7 +53,7 @@ export default function SelectBox(props) {
           options={props.options}
           onChange={props.onChange}
           defaultValue={props.defaultValue}
-          // value={props.value}
+          value={props.value}
           isSearchable={props.isSearchable ? true : false}
         />
       </div>

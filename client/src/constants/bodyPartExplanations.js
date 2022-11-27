@@ -1,0 +1,15 @@
+export const bodyPartExplanations = {
+  head: "Head",
+  left_shoulder: "Left Shoulder",
+  right_shoulder: "Right Shoulder",
+  left_arm: "Left Arm",
+  right_arm: "Right Arm",
+  chest: "Chest",
+  stomach: "Stomach",
+  left_leg: "Left Leg",
+  right_leg: "Right Leg",
+  right_hand: "Right Hand",
+  left_hand: "Left Hand",
+  left_foot: "Left Foot",
+  right_foot: "Right Foot",
+};

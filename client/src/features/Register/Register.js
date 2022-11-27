@@ -55,6 +55,7 @@ export const Register = () => {
         >
           <Form className="space-y-4 min-h-screen w-full px-4 flex flex-col sm:justify-center justify-start  items-center">
             <FormObserver watch={onUpdate} />
+            <h1 className="  font-semibold text-2xl text">Register</h1>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
@@ -71,7 +72,7 @@ export const Register = () => {
                 type="text"
                 name="last_name"
                 placeholder="Enter a your surname"
-              />{" "}
+              />
             </div>
             <div className="sm:w-1/3 w-full">
               <Input
@@ -92,19 +93,20 @@ export const Register = () => {
                 className=""
               />
             </div>
-            <div className="sm:w-1/3 w-full pt-4 flex flex-row justify-center ">
+            <div className="sm:w-1/3 w-full flex flex-row justify-center ">
               <FormRadioButton
                 items={[
-                  { label: "Doctor", value: "doctor" },
                   { label: "Patient", value: "patient" },
+                  { label: "Doctor", value: "doctor" },
                 ]}
                 checked={formValues.usertype}
                 name="usertype"
+                label="Account type"
               />
             </div>
 
             <br />
-            <Button type="submit" loading={loading}>
+            <Button type="submit" loading={loading} className="sm:w-1/3">
               Register
             </Button>
             <div className="flex flex-col items-end my-16">

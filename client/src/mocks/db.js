@@ -26,7 +26,7 @@ const db = factory({
         "AB Rh-",
       ]),
     weight: () => faker.random.numeric(2),
-    length: () => faker.random.numeric(3),
+    height: () => faker.random.numeric(3),
     birth_date: () => faker.date.birthdate({ min: 0, max: 99, mode: "age" }),
     gender: () => faker.helpers.arrayElement(["Male", "Female"]),
     allergies: () => faker.lorem.slug(),

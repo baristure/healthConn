@@ -1,7 +1,7 @@
 import InputMask from "react-input-mask";
 
 import FormInput from "./FormInput";
-export default function Input({isform, ...props}) {
+export default function Input({ isform, ...props }) {
   if (isform) return <FormInput {...props} />;
 
   return (
@@ -21,13 +21,18 @@ export default function Input({isform, ...props}) {
       )}
 
       {props.type === "textarea" ? (
-        <textarea className={`${props.className}`} {...props}></textarea>
+        <textarea
+          className={`block border-b text-contrast-90 text-sm rounded-lg p-2 bg-contrast-10 border-gray-300 mr-2 focus:outline-none w-full ${
+            props.className
+          } ${props.error ? "border-error" : ""}`}
+          {...props}
+        ></textarea>
       ) : props.mask ? (
         <InputMask
           mask={props.mask}
           maskChar={null}
           {...props}
-          className={`text-sm text-contrast-90 border-b p-2 bg-contrast-10 border-gray-300 mr-2 focus:outline-none w-full ${
+          className={`border-b text-contrast-90 text-sm rounded-md leading-3 h-9 p-2 bg-contrast-10 border-gray-300 mr-2 focus:outline-none w-full ${
             props.className
           } ${props.error ? "border-error" : ""}`}
         />

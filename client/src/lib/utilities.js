@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+
 export function handleError(error, setErrors) {
   if (error.response.status === 401 || error.response.status === 419) {
     // doğrulama yapılamadı

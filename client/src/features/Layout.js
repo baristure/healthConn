@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
 
-import { Dashboard, ExamplePage, Login } from "./index";
+import { Dashboard, ExamplePage, Login, Appointment } from "./index";
 import { DoctorLogin } from "./Login/DoctorLogin";
 import { Register } from "./Register/Register";
 import { SignOut } from "./SignOut/SignOut";
@@ -19,6 +19,7 @@ const AppRoutes = () => {
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
       <Route path="/register" element={<Register />} />
       <Route path="/signout" element={<SignOut />} />
+      <Route path="/appointment" element={<Appointment />} />
     </Routes>
   );
 };

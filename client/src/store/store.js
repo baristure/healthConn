@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 import { navbarReducer } from "./slices/navbarSlice";
 import { loadingReducer } from "./slices/loadingSlice";
 import { loginReducer } from "../features/Login/loginSlice";
+import { appointmentReducer } from "../features/Appointment/appointmentSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   loading: loadingReducer,
   navbar: navbarReducer,
   login: loginReducer,
+  appointment: appointmentReducer,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
