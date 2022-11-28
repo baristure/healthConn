@@ -9,8 +9,8 @@ import Button from "./Elements/Button/Button";
 const navBarItems = [
   {
     icon: "/icons/home.svg",
-    url: "/",
-    text: "Home",
+    url: "/dashboard",
+    text: "Dashboard",
   },
   {
     icon: "/icons/reports.svg",

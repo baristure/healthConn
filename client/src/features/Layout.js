@@ -79,11 +79,13 @@ function Layout() {
         <aside className="self-start sticky top-0">
           <Sidebar isShowing={isOpen} loggedIn={loggedIn} />
         </aside>
-        <main className="w-full overflow-y-auto">{AppRoutes()}</main>
+        <main className="w-full overflow-y-auto bg-contrast-10">
+          {AppRoutes()}
+        </main>
       </div>
 
       <ToastContainer />
-      <Footer />
+      <Footer loggedIn={loggedIn} />
     </div>
   );
 }
