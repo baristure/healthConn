@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import { format } from "date-fns";
 import { bodyPartExplanations } from "../../constants/bodyPartExplanations";
 import http from "../../common/api/Axios.config";
 import { Loading } from "../common/Elements";
-import { useUserType } from "../../hooks/useUserType";
 
-export const AppointmentDetail = () => {
+export const AppointmentDetail = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
-  const { appointmentId } = useParams();
-  const user = useUserType();
+  const searchParams = useSearchParams();
+
   const fetchAppointmentDetail = async () => {
-    setLoading(true);
-    const response = await http
-      .get(`/appointment-data/${appointmentId}`)
-      .then((res) => res.data)
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-    console.log(response);
-    setData(response);
+    // setLoading(true);
+    // const response = await http
+    //   .get(`/appointment-data?appointment=${appointmentId}`)
+    //   .then((res) => res.data)
+    //   .catch((err) => console.log(err))
+    //   .finally(() => setLoading(false));
+    // console.log(response);
+    // setData(response);
   };
+
   useEffect(() => {
     fetchAppointmentDetail();
   }, []);

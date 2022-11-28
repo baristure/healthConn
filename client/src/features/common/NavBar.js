@@ -40,10 +40,9 @@ export default function NavBar({ isOpen, loggedIn }) {
                   </div>
                   <img
                     className="text-white ml-2 mr-2 h-12 block w-auto hidden sm:block "
-                    src="/icons/logo.png"
+                    src="/icons/logo-new.png"
                     alt="Workflow"
                   />
-                  <span className="font-sans text-white text-2xl antialiased font-bold">Medical</span>
                 </div>
                 <div className="md:flex xs:w-80 xs:hidden sm:ml-6">
                   {loggedIn && (
@@ -154,7 +153,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                       type="button"
                       color="success"
                       hover="gray"
-                      size="lg"
+                      size="md"
                       className="mr-3"
                       callback={() => navigate("/register")}
                     >

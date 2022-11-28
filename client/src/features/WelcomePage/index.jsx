@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Elements/Button/Button";
 
-const WelcomePage = () => {
+export const WelcomePage = () => {
   const navigate = useNavigate();
   return (
     <div className="md:flex md:flex-row w-full items-center p-5 xs:flex-col xs:justify-center">
@@ -44,5 +44,4 @@ const WelcomePage = () => {
     </div>
   );
 };
-
-export default WelcomePage;
+ 
