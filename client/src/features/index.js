@@ -7,6 +7,7 @@ import { Register } from "./Register/Register";
 import { SignOut } from "./SignOut/SignOut";
 import { Appointments } from "./Appointments/Appointments";
 import { AppointmentDetail } from "./Appointments/AppointmentDetail";
+export * from "./Profile/Profile";
 
 export {
   Dashboard,

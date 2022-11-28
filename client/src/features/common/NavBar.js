@@ -75,15 +75,17 @@ export default function NavBar() {
                     <Menu.Items className="origin-top-right absolute right-4 mt-48 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="http://localhost:3000/"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </a>
+                          <>
+                            <NavLink
+                              to="/profile"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </NavLink>
+                          </>
                         )}
                       </Menu.Item>
                       <Menu.Item>

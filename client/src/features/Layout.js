@@ -15,6 +15,7 @@ import {
   Appointment,
   Appointments,
   AppointmentDetail,
+  Profile,
 } from "./index";
 
 const AppRoutes = () => {
@@ -28,6 +29,7 @@ const AppRoutes = () => {
       <Route path="/signout" element={<SignOut />} />
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/appointments" element={<Appointments />} />
+      <Route path="/profile" element={<Profile />} />
       <Route
         path="/appointments/:appointmentId"
         element={<AppointmentDetail />}
@@ -51,7 +53,7 @@ function Layout() {
           <aside className="self-start sticky top-0">
             <Sidebar isShowing={isOpen} />
           </aside>
-          <main className="w-full overflow-y-auto">{AppRoutes()}</main>
+          <main className="w-full overflow-y-auto flex">{AppRoutes()}</main>
         </div>
       )}
       <ToastContainer />
