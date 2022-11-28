@@ -107,7 +107,11 @@ module.exports = {
       full: 9999,
       auto: "auto",
     },
-    extend: {},
+    extend: {
+      height: {
+        'xl': '30rem',
+      }
+    },
   },
   variants: {
     extend: {
