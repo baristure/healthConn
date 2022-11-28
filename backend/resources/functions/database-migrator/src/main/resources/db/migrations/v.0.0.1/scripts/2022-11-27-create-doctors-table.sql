@@ -6,6 +6,7 @@ CREATE TABLE public.doctors (
 	"password" varchar(255) NOT NULL,
 	mobile_number varchar(255) NOT NULL,
 	office_number varchar(255) NOT NULL,
+	"location" text,
 	speciality varchar(255) NOT NULL,
 	rating numeric(3, 1) NULL DEFAULT 0,
 	title public."titles" NOT NULL,

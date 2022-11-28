@@ -1,6 +1,7 @@
 CREATE TABLE public.complaint_severity (
 	appointment_id int4 NOT NULL,
 	part varchar(255) NOT NULL,
+	"body_side" public."body_side" NOT NULL,
 	severity int4 NOT NULL,
 	"comment" text NULL,
 	CONSTRAINT complaint_severity_un UNIQUE (appointment_id, part),
