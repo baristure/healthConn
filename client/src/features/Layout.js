@@ -20,6 +20,8 @@ import {
   WelcomePage,
   Success,
 } from "./index";
+import Service from "./Service";
+import WelcomePage from "./WelcomePage";
 
 const Mock = (props) => {
   console.log("mock props", props);
@@ -64,6 +66,7 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
         path="/appointment-detail"
         element={<ProtectedRoute component={AppointmentDetail} />}
       />
+      <Route path="/services" element={<Service />} />
     </Routes>
   );
 };
