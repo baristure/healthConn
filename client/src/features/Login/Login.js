@@ -27,37 +27,46 @@ export const Login = () => {
   };
   if (!user && !isFetching) {
     return (
-      <div className="h-full flex flex-col items-center justify-center">
-        <h1 className="text-4xl">Welcome to Patient Login Page</h1>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          onReset={onReset}
-        >
-          <Form className="my-16">
-            <FormObserver watch={onUpdate} />
-            <Input
-              isform
-              label="Email"
-              type="email"
-              name="email"
-              placeholder="Enter a your email"
-            />
-            <Input
-              isform
-              label="Password"
-              type="password"
-              name="password"
-              placeholder="Enter a password"
-            />
-            <Button type="submit">ENTER</Button>
-          </Form>
-        </Formik>
-        <div className="flex flex-col items-end mb-16">
-          <NavLink className="underline" to="/login-as-doctor">Login as Doctor</NavLink>
-          <NavLink className="underline" to="/register">
-            Go to Register Page
-          </NavLink>
+      <div className="w-full border-b border-gray-200 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="w-full bg-white rounded-md pt-2">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            onReset={onReset}
+          >
+            <Form className="space-y-4 min-h-screen w-full px-4 flex flex-col sm:justify-center justify-start  items-center">
+              <FormObserver watch={onUpdate} />
+              <h1 className="font-semibold text-2xl text">Welcome to Patient Login Page</h1>
+              <div className="sm:w-1/3 w-full">
+                <Input
+                  isform
+                  label="Email"
+                  type="email"
+                  name="email"
+                  placeholder="Enter a your email"
+                />
+              </div>
+              <div className="sm:w-1/3 w-full">
+
+              <Input
+                isform
+                label="Password"
+                type="password"
+                name="password"
+                placeholder="Enter a password"
+              />
+              </div>
+              <Button className="sm:w-1/3" type="submit">ENTER</Button>
+              <div className="flex flex-col items-end mb-16">
+                <NavLink className="underline" to="/login-as-doctor">
+                  Login as Doctor
+                </NavLink>
+                <NavLink className="underline" to="/register">
+                  Go to Register Page
+                </NavLink>
+              </div>
+            </Form>
+          </Formik>
         </div>
       </div>
     );
