@@ -17,6 +17,7 @@ const initialValues = {
   last_name: "",
   email: "",
   password: "",
+  mobile_number: "",
   usertype: "patient",
 };
 
@@ -40,6 +41,8 @@ export const Register = () => {
     }
     console.log("data", data);
   };
+
+  console.log('formValues', formValues);
 
   const onUpdate = (value) => {
     setFormValues({ ...formValues, ...value });
@@ -77,6 +80,15 @@ export const Register = () => {
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
+                label="Phone number"
+                type="text"
+                name="mobile_number"
+                placeholder="+90 (532) 112 0911  OR  5321120911"
+              />
+            </div>
+            <div className="sm:w-1/3 w-full">
+              <Input
+                isform
                 label="Email"
                 type="email"
                 name="email"
@@ -87,7 +99,7 @@ export const Register = () => {
               <Input
                 isform
                 label="Password"
-                type="text"
+                type="password"
                 name="password"
                 placeholder="Enter a password"
                 className=""
