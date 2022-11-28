@@ -79,7 +79,9 @@ function Layout() {
         <aside className="self-start sticky top-0">
           <Sidebar isShowing={isOpen} loggedIn={loggedIn} />
         </aside>
-        <main className="w-full overflow-y-auto bg-contrast-10">
+        <main
+          className={`w-full overflow-y-auto ${loggedIn && "bg-contrast-5"}`}
+        >
           {AppRoutes()}
         </main>
       </div>
