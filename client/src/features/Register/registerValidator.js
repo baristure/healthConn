@@ -16,4 +16,12 @@ export const registerSchema = object({
     .required("Password can not be blank")
     .min(3, "Password can not be shorter than 3 chars")
     .max(12, "Password can not be longer than 12 chars."),
+  mobile_number: string()
+    .required("Phone number can not be blank")
+    // phone number regex
+    // https://stackoverflow.com/a/16699507/7975831
+    .matches(
+      /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
+      "Your number does not match with pattern"
+    ),
 });
