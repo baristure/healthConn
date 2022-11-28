@@ -8,6 +8,7 @@ module.exports = {
       white: colors.white,
       gray: colors.gray,
       indigo: colors.indigo,
+      red: colors.red,
       green: colors.green,
       yellow: colors.yellow,
       pink: colors.pink,

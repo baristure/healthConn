@@ -6,13 +6,18 @@ import { ToastContainer } from "react-toastify";
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
 import Footer from "./Footer";
-
-import { Dashboard, ExamplePage, Login } from "./index";
-import { DoctorLogin } from "./Login/DoctorLogin";
 import ProtectedRoute from "./ProtectedRoute";
-import { Register } from "./Register/Register";
-import { SignOut } from "./SignOut/SignOut";
-import WelcomePage from "./WelcomePage";
+import {
+  Dashboard,
+  ExamplePage,
+  Login,
+  DoctorLogin,
+  Register,
+  SignOut,
+  Appointment,
+  Appointments,
+  AppointmentDetail,
+} from "./index";
 
 const Mock = (props) => {
   console.log("mock props", props);
@@ -23,6 +28,8 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
   return (
     <Routes>
       <Route exact path="/" element={<WelcomePage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/example" element={<ExamplePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
       <Route path="/register" element={<Register />} />
@@ -30,7 +37,12 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
       <Route path="/example" element={<ExamplePage />} />
       <Route
         path="/private"
-        element={<ProtectedRoute component={Mock} loggedIn={loggedIn} />}
+        element={<ProtectedRoute component={Mock} loggedIn={loggedIn} />} />
+      <Route path="/appointment" element={<Appointment />} />
+      <Route path="/appointments" element={<Appointments />} />
+      <Route
+        path="/appointments/:appointmentId"
+        element={<AppointmentDetail />}
       />
     </Routes>
   );

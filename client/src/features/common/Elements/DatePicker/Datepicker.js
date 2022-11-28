@@ -81,7 +81,6 @@ export default function Datepicker(props) {
         <DatePicker
           selected={dateValue.startDate}
           dateFormat="dd/MM/yyyy"
-          maxDate={newDate}
           className={`border-b text-sm rounded-md leading-3	p-2 bg-contrast-10 h-9  border-gray-300 mr-2 focus:outline-none w-full ${
             props.className
           }  ${props.error ? "border-error" : ""}`}

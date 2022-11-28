@@ -46,8 +46,6 @@ export class LambdaStack extends NestedStack {
     return this.login;
   }
 
-
-
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
     const {
       appName,

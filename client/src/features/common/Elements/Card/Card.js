@@ -1,9 +1,18 @@
 import * as FontAwesome from "react-icons/fa";
 
-export default function Card({ children, icon, title, description }) {
+export default function Card({
+  children,
+  icon,
+  img,
+  title,
+  description,
+  className,
+}) {
   const Icon = FontAwesome[icon];
   return (
-    <div className="flex flex-col items-center justify-center bg-white rounded-md shadow-md overflow-hidden w-full">
+    <div
+      className={`flex flex-col items-center justify-center bg-white rounded-md shadow-md overflow-hidden w-full ${className}`}
+    >
       <div className="flex-1 items-center justify-center bg-white p-6 flex flex-col w-full">
         <div className="flex-1">
           <div className="flex flex-col mt-2 items-center justify-center">
@@ -12,13 +21,20 @@ export default function Card({ children, icon, title, description }) {
                 <Icon className="block h-5 w-5 text-primary" />
               </div>
             )}
+            {img && (
+              <img
+                className="h-16 w-16 bg-contrast-5 rounded-full flex items-center justify-center"
+                src={img}
+                alt=""
+              />
+            )}
             {title && (
               <h5 className="text-xl m-6 mb-0 font-medium text-contrast-90 text-center">
                 {title}
               </h5>
             )}
             {description && (
-              <p className="text-sm text-contrast-50 m-6 text-center">
+              <p className="text-md text-contrast-50 m-2 text-center">
                 {description}
               </p>
             )}

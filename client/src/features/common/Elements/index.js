@@ -6,7 +6,7 @@ import Checkbox from "./Checkbox/Checkbox";
 import FormObserver from "./FormObserver";
 import Loading from "./Loading/Loading";
 import FormRadioButton from "./RadioButton/FormRadioButton";
-
+import Card from "./Card/Card";
 export {
   Button,
   Input,
@@ -16,4 +16,5 @@ export {
   FormObserver,
   Loading,
   FormRadioButton,
+  Card,
 };
