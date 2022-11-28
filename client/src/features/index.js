@@ -7,6 +7,8 @@ import { Register } from "./Register/Register";
 import { SignOut } from "./SignOut/SignOut";
 import { Appointments } from "./Appointments/Appointments";
 import { AppointmentDetail } from "./Appointments/AppointmentDetail";
+import { WelcomePage } from "./WelcomePage/index";
+import { Success } from "./Appointment/Success";
 
 export {
   Dashboard,
@@ -18,4 +20,6 @@ export {
   Appointment,
   Appointments,
   AppointmentDetail,
+  WelcomePage,
+  Success,
 };

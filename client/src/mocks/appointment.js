@@ -54,7 +54,6 @@ export const appointmentHandler = [
     return res(ctx.status(200), ctx.json(data));
   }),
   rest.get("/appointment-data/:id", (req, res, ctx) => {
-    console.log("girdi");
     const data = {
       user: {
         first_name: "John",
@@ -94,6 +93,7 @@ export const appointmentHandler = [
             "Deserunt esse sint enim occaecat minim.\n Duis quis sint dolor veniam aute Lorem nisi consequat eu excepteur elit reprehenderit anim.",
         },
       ],
+      recognization: "",
     };
     return res(ctx.status(200), ctx.json(data));
   }),

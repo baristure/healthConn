@@ -9,8 +9,8 @@ import Button from "./Elements/Button/Button";
 const navBarItems = [
   {
     icon: "/icons/home.svg",
-    url: "/",
-    text: "Home",
+    url: "/dashboard",
+    text: "Dashboard",
   },
   {
     icon: "/icons/reports.svg",
@@ -23,7 +23,7 @@ const navBarItems = [
     text: "Appointments",
   },
 ];
-export default function Sidebar({ isShowing }) {
+export default function Sidebar({ isShowing, loggedIn }) {
   let activeStyle = {
     backgroundColor: "#E8EDF2",
   };
@@ -34,6 +34,7 @@ export default function Sidebar({ isShowing }) {
   const navbarState = useSelector((state) => state.navbar);
   const isEnlarge = navbarState.isOpen;
   const sideBarOpen = navbarState.sideBarOpen;
+  if (!loggedIn) return <></>;
   return (
     <>
       <div className="min-h-screen bg-gray-200 sm:block hidden">

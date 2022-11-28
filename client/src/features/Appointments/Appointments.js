@@ -3,12 +3,10 @@ import { format } from "date-fns";
 import { Button, Loading } from "../common/Elements";
 import { NavLink } from "react-router-dom";
 import http from "../../common/api/Axios.config";
-import { useUserType } from "../../hooks/useUserType";
 
-export const Appointments = () => {
+export const Appointments = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState(null);
-  const user = useUserType();
 
   const getAppointments = async () => {
     setLoading(true);
@@ -106,7 +104,9 @@ export const Appointments = () => {
                         </td>
                         <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
                           <Button color="primary" hover="primary" size="xs">
-                            <NavLink to={`/appointments/${appointment.id}`}>
+                            <NavLink
+                              to={`/appointments?appointment=${appointment.id}`}
+                            >
                               Detail
                             </NavLink>
                           </Button>
