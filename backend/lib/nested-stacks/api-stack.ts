@@ -85,14 +85,6 @@ export class ApiStack extends NestedStack {
       )
     )
 
-    const usersResource = this.restApi.root.addResource("users");
-    const userIdResource = usersResource.addResource("{user_id}");
-    const postsResource = userIdResource.addResource("posts");
-    const postIdResource = postsResource.addResource("{post_id}")
-    const allPostsResource = this.restApi.root.addResource("posts");
-
-    usersResource.addMethod(HttpMethod.GET);
-
     const deployment = new Deployment(
       this, 
       "api-deployment", 

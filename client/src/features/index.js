@@ -6,6 +6,7 @@ import { DoctorLogin } from "./Login/DoctorLogin";
 import { Register } from "./Register/Register";
 import { SignOut } from "./SignOut/SignOut";
 import { Appointments } from "./Appointments/Appointments";
+import { AppointmentDetail } from "./Appointments/AppointmentDetail";
 
 export {
   Dashboard,
@@ -16,4 +17,5 @@ export {
   SignOut,
   Appointment,
   Appointments,
+  AppointmentDetail,
 };

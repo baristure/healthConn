@@ -13,7 +13,7 @@ export const Confirmation = () => {
   const getBodyPartExplanation = (bodyPart) => {
     return bodyPartExplanations[bodyPart];
   };
-  console.log("selectedDate", selectedDate);
+
   const serviceName = "Cardiology";
   return (
     <div>
@@ -27,10 +27,7 @@ export const Confirmation = () => {
             <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
               <div className="lg:col-span-2"></div>
               <section className="lg:col-span-8">
-                <ul
-                  role="list"
-                  className="divide-y divide-gray-200 border-t border-gray-200"
-                >
+                <ul className="divide-y divide-gray-200 border-t border-gray-200">
                   <li className="flex py-4 sm:py-10">
                     <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
                       <div className="relative pr-9 sm:grid  sm:gap-x-6 sm:pr-0">
@@ -95,10 +92,7 @@ export const Confirmation = () => {
             <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
               <div className="lg:col-span-2"></div>
               <section className="lg:col-span-8 w-full">
-                <ul
-                  role="list"
-                  className="divide-y divide-gray-200 border-t border-gray-200 w-full"
-                >
+                <ul className="divide-y divide-gray-200 border-t border-gray-200 w-full">
                   {Object.keys(bodyParts).map((key, index) => {
                     if (bodyParts[key].selected)
                       return (

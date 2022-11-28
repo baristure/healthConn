@@ -14,6 +14,7 @@ import {
   SignOut,
   Appointment,
   Appointments,
+  AppointmentDetail,
 } from "./index";
 
 const AppRoutes = () => {
@@ -27,6 +28,10 @@ const AppRoutes = () => {
       <Route path="/signout" element={<SignOut />} />
       <Route path="/appointment" element={<Appointment />} />
       <Route path="/appointments" element={<Appointments />} />
+      <Route
+        path="/appointments/:appointmentId"
+        element={<AppointmentDetail />}
+      />
     </Routes>
   );
 };

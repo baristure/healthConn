@@ -1,54 +1,37 @@
-import { useEffect } from "react";
-
+import { format } from "date-fns";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Formik } from "formik";
 
-import {
-  Input,
-  FormObserver,
-  Button,
-  FormRadioButton,
-  Loading,
-  Card,
-} from "../common/Elements";
+import { Button, Loading, Card } from "../common/Elements";
 import { Booking } from "./Booking";
 import { Complaints } from "./Complaints/Complaints";
 import { Confirmation } from "./Confirmation";
 
-import {
-  handleProgress,
-  clearState,
-  submitAppointment,
-} from "./appointmentSlice";
-import { format } from "date-fns";
-import { NavLink } from "react-router-dom";
+import { handleProgress, submitAppointment } from "./appointmentSlice";
 
 export const Appointment = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.appointment);
   const progress = state.progress;
-  useEffect(() => {
-    // dispatch(clearState());
-  }, []);
 
   const onSubmit = () => {
     const submitAppointmentForm = {
-      date: format(Date.parse(state.selectedDate), "dd/MM/yyyy HH:mm"),
-      compaints: {},
+      date: state.selectedDate,
+      compaints: [],
       userId: state.userId,
       doctorId: state.doctorId,
       serviceId: state.serviceId,
     };
-    Object.keys(state.bodyParts).map((key) => {
+    Object.keys(state.bodyParts).forEach((key) => {
       if (state.bodyParts[key].selected) {
-        submitAppointmentForm.compaints[key] = {
+        submitAppointmentForm.compaints.push({
+          part: key,
           side: state.bodyParts[key].side,
-          painLevel: state.bodyParts[key].painLevel,
+          severity: state.bodyParts[key].painLevel,
           comment: state.bodyParts[key].comment,
-        };
+        });
       }
     });
-    // console.log({ submitAppointmentForm });
     dispatch(submitAppointment(submitAppointmentForm));
   };
 
