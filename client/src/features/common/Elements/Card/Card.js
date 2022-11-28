@@ -23,9 +23,9 @@ export default function Card({
             )}
             {img && (
               <img
-                className="h-16 w-16 bg-contrast-5 rounded-full flex items-center justify-center"
+                className="h-32 w-32 bg-contrast-5 rounded-full flex items-center justify-center"
                 src={img}
-                alt=""
+                alt={img}
               />
             )}
             {title && (
