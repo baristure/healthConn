@@ -7,6 +7,7 @@ import { TbGridDots } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { changeSideBarOpen } from "../../store/slices/navbarSlice";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +15,7 @@ function classNames(...classes) {
 
 export default function NavBar() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -83,22 +85,22 @@ export default function NavBar() {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              {t('your.profile')}
                             </NavLink>
                           </>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="http://localhost:3000/"
+                          <NavLink
+                            to="/settings"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Settings
-                          </a>
+                             {t('settings')}
+                          </NavLink>
                         )}
                       </Menu.Item>
                       <Menu.Item>
@@ -110,7 +112,7 @@ export default function NavBar() {
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            Sign out
+                            {t('sign.out')}
                           </NavLink>
                         )}
                       </Menu.Item>

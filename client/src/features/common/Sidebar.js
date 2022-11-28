@@ -3,27 +3,29 @@ import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { useTranslation,  } from "react-i18next";
 import { changeOpen, changeSideBarOpen } from "../../store/slices/navbarSlice";
 import Button from "./Elements/Button/Button";
+
 const navBarItems = [
   {
     icon: "/icons/home.svg",
     url: "/",
-    text: "Home",
+    text: "home",
   },
   {
     icon: "/icons/reports.svg",
     url: "/appointment",
-    text: "Take Appointment",
+    text: "take.appointment",
   },
   {
     icon: "/icons/reports.svg",
     url: "/appointments",
-    text: "Appointments",
+    text: "appointments",
   },
 ];
 export default function Sidebar({ isShowing }) {
+  const {t} = useTranslation();
   let activeStyle = {
     backgroundColor: "#E8EDF2",
   };
@@ -61,7 +63,7 @@ export default function Sidebar({ isShowing }) {
                 )}
               </Button>
               {isEnlarge ? (
-                <div className="font-bold mt-2 mb-2 px-2">Menu</div>
+                <div className="font-bold mt-2 mb-2 px-2">{t('menu')}</div>
               ) : (
                 <div className="font-bold mb-2 px-2">
                   <span></span>
@@ -91,7 +93,7 @@ export default function Sidebar({ isShowing }) {
                             data-tooltip-style="light"
                             className="ml-2"
                           >
-                            {navItem.text}
+                            {t(navItem.text)}
                           </span>
                         </>
                       )}
