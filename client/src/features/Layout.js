@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -19,9 +20,10 @@ import {
   AppointmentDetail,
   WelcomePage,
   Success,
+  Profile,
+  Settings,
 } from "./index";
 import Service from "./Service";
-import WelcomePage from "./WelcomePage";
 
 const Mock = (props) => {
   console.log("mock props", props);
@@ -67,6 +69,8 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
         element={<ProtectedRoute component={AppointmentDetail} />}
       />
       <Route path="/services" element={<Service />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 };

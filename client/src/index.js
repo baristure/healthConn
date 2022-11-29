@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 
+import './i18n/setup';
+
 import "./styles/global.css";
 import "./styles/styles.scss";
 import "react-datepicker/dist/react-datepicker.css";
