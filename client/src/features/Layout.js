@@ -5,7 +5,9 @@ import { ToastContainer } from "react-toastify";
 
 import NavBar from "./common/NavBar";
 import Sidebar from "./common/Sidebar";
-
+import Footer from "./Footer";
+import ProtectedRoute from "./ProtectedRoute";
+import { useAuth } from "../hooks/useAuth";
 import {
   Dashboard,
   ExamplePage,
@@ -16,51 +18,83 @@ import {
   Appointment,
   Appointments,
   AppointmentDetail,
+  WelcomePage,
+  Success,
   Profile,
   Settings,
 } from "./index";
+import Service from "./Service";
 
-const AppRoutes = () => {
+const Mock = (props) => {
+  console.log("mock props", props);
+  return <h1>PRIVATE</h1>;
+};
+
+const AppRoutes = (loggedIn, setLoggedIn) => {
   return (
     <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/example" element={<ExamplePage />} />
+      <Route exact path="/" element={<WelcomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/login-as-doctor" element={<DoctorLogin />} />
       <Route path="/register" element={<Register />} />
       <Route path="/signout" element={<SignOut />} />
-      <Route path="/appointment" element={<Appointment />} />
-      <Route path="/appointments" element={<Appointments />} />
+      <Route
+        path="/dashboard"
+        element={<ProtectedRoute component={Dashboard} loggedIn={loggedIn} />}
+      />
+      <Route
+        path="/example"
+        element={<ProtectedRoute component={ExamplePage} loggedIn={loggedIn} />}
+      />
+      <Route
+        path="/example"
+        element={<ProtectedRoute component={ExamplePage} />}
+      />
+      <Route path="/private" element={<ProtectedRoute component={Mock} />} />
+      <Route
+        path="/appointment"
+        element={<ProtectedRoute component={Appointment} />}
+      />
+      <Route
+        path="/appointment/success"
+        element={<ProtectedRoute component={Success} />}
+      />
+
+      <Route
+        path="/appointments"
+        element={<ProtectedRoute component={Appointments} />}
+      />
+      <Route
+        path="/appointment-detail"
+        element={<ProtectedRoute component={AppointmentDetail} />}
+      />
+      <Route path="/services" element={<Service />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/settings" element={<Settings />} />
-      <Route
-        path="/appointments/:appointmentId"
-        element={<AppointmentDetail />}
-      />
     </Routes>
   );
 };
 
 function Layout() {
-  const { t } = useTranslation();
+  const [loggedIn, userDetail] = useAuth();
   const navbarState = useSelector((state) => state.navbar);
   const isOpen = navbarState.isOpen;
-
-  const isAuth = true;
   return (
-    <div className="m-0 p-0 bg-contrast-5">
-      <NavBar isOpen={isOpen} />
-      {!isAuth ? (
-        <div>{t("please.login")}</div>
-      ) : (
-        <div className="flex">
-          <aside className="self-start sticky top-0">
-            <Sidebar isShowing={isOpen} />
-          </aside>
-          <main className="w-full overflow-y-auto flex">{AppRoutes()}</main>
-        </div>
-      )}
+    <div className="m-0 p-0">
+      <NavBar isOpen={isOpen} loggedIn={loggedIn} user={userDetail} />
+      <div className="flex">
+        <aside className="self-start sticky top-0">
+          <Sidebar isShowing={isOpen} loggedIn={loggedIn} />
+        </aside>
+        <main
+          className={`w-full overflow-y-auto ${loggedIn && "bg-contrast-5"}`}
+        >
+          {AppRoutes()}
+        </main>
+      </div>
+
       <ToastContainer />
+      <Footer loggedIn={loggedIn} />
     </div>
   );
 }

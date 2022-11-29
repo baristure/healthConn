@@ -20,7 +20,7 @@ export const loginWithCredentials = createAsyncThunk(
 export const loginSlice = createSlice({
   name: "login",
   initialState: {
-    user: null,
+    user: "null",
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -28,7 +28,7 @@ export const loginSlice = createSlice({
   },
   reducers: {
     clearState: (state) => {
-      state.user = null;
+      state.user = "null";
       state.isFetching = false;
       state.isSuccess = false;
       state.isError = false;

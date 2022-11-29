@@ -1,0 +1,42 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import Card from "../common/Elements/Card/Card";
+import serviceAPI from "../../common/api/Service";
+import { Loading } from "../common/Elements";
+
+const Service = () => {
+  const [serviceList, setServiceList] = React.useState();
+  const fetchServiceList = async () => {
+    const serviceList = await serviceAPI.get();
+    setServiceList(serviceList.data);
+  };
+
+  React.useEffect(() => {
+    fetchServiceList();
+  }, []);
+
+  return (
+    <div className="grid xl:grid-cols-4 md:grid-cols-3 md:gap-10 xs:grid-cols-2 xs:gap-8 p-5">
+      {serviceList ? (
+        serviceList.map((service) => {
+          return (
+            <NavLink
+              key={service.service_id}
+              to={`/service/${service.name.toLowerCase()}`}
+            >
+              <Card
+                key={service.service_id}
+                img={`/images/${service.name}.jpg`}
+                title={service.name}
+              />
+            </NavLink>
+          );
+        })
+      ) : (
+        <Loading />
+      )}
+    </div>
+  );
+};
+
+export default Service;
