@@ -19,9 +19,9 @@ import {
   AppointmentDetail,
   WelcomePage,
   Success,
+  Service,
+  DoctorList,
 } from "./index";
-import Service from "./Service";
-import WelcomePage from "./WelcomePage";
 
 const Mock = (props) => {
   console.log("mock props", props);
@@ -67,6 +67,7 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
         element={<ProtectedRoute component={AppointmentDetail} />}
       />
       <Route path="/services" element={<Service />} />
+      <Route path="/services/:service" element={<DoctorList />} />
     </Routes>
   );
 };

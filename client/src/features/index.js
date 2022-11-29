@@ -9,6 +9,8 @@ import { Appointments } from "./Appointments/Appointments";
 import { AppointmentDetail } from "./Appointments/AppointmentDetail";
 import { WelcomePage } from "./WelcomePage/index";
 import { Success } from "./Appointment/Success";
+import { Service } from "./Service";
+import { DoctorList } from "./DoctorList";
 
 export {
   Dashboard,
@@ -22,4 +24,6 @@ export {
   AppointmentDetail,
   WelcomePage,
   Success,
+  Service,
+  DoctorList
 };
