@@ -53,7 +53,7 @@ export const appointmentHandler = [
 
     return res(ctx.status(200), ctx.json(data));
   }),
-  rest.get("/appointment-data/:id", (req, res, ctx) => {
+  rest.get("/appointment-detail-data", (req, res, ctx) => {
     const data = {
       user: {
         first_name: "John",

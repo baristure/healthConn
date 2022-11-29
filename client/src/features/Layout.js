@@ -21,18 +21,18 @@ import {
   WelcomePage,
   Success,
   Profile,
-  Settings,  
+  Settings,
   Service,
   DoctorList,
 } from "./index";
-
 
 const Mock = (props) => {
   console.log("mock props", props);
   return <h1>PRIVATE</h1>;
 };
 
-const AppRoutes = (loggedIn, setLoggedIn) => {
+const AppRoutes = (loggedIn, userDetail) => {
+  console.log(loggedIn);
   return (
     <Routes>
       <Route exact path="/" element={<WelcomePage />} />
@@ -67,13 +67,19 @@ const AppRoutes = (loggedIn, setLoggedIn) => {
         element={<ProtectedRoute component={Appointments} />}
       />
       <Route
-        path="/appointment-detail"
+        path="/appointments/:appointmentId"
         element={<ProtectedRoute component={AppointmentDetail} />}
       />
       <Route path="/services" element={<Service />} />
       <Route path="/services/:service" element={<DoctorList />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/settings" element={<Settings />} />
+      <Route
+        path="/profile"
+        element={<ProtectedRoute component={Profile} user={userDetail} />}
+      />
+      <Route
+        path="/settings"
+        element={<ProtectedRoute component={Settings} />}
+      />
     </Routes>
   );
 };
@@ -92,7 +98,7 @@ function Layout() {
         <main
           className={`w-full overflow-y-auto ${loggedIn && "bg-contrast-5"}`}
         >
-          {AppRoutes()}
+          {AppRoutes(loggedIn, userDetail)}
         </main>
       </div>
 

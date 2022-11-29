@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { format } from "date-fns";
 import { bodyPartExplanations } from "../../constants/bodyPartExplanations";
@@ -9,17 +9,17 @@ import { Loading } from "../common/Elements";
 export const AppointmentDetail = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
-  const searchParams = useSearchParams();
+  const { appointmentId } = useParams();
 
   const fetchAppointmentDetail = async () => {
-    // setLoading(true);
-    // const response = await http
-    //   .get(`/appointment-data?appointment=${appointmentId}`)
-    //   .then((res) => res.data)
-    //   .catch((err) => console.log(err))
-    //   .finally(() => setLoading(false));
-    // console.log(response);
-    // setData(response);
+    setLoading(true);
+    const response = await http
+      .get(`/appointment-detail-data?appointment=${appointmentId}`)
+      .then((res) => res.data)
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+    console.log(response);
+    setData(response);
   };
 
   useEffect(() => {

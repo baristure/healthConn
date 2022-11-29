@@ -4,9 +4,11 @@
     "sign.out": "выход",
     "menu": "Меню",
     "please.login": "Пожалуйста, войдите",
+    "dashboard": "Дом",
     "home": "Дом",
     "take.appointment": "Записаться на прием",
     "appointments": "Назначения",
+    "services": "Назначения",
     "english": "Английский",
     "russian": "Русский",
     "turkish": "турецкий"

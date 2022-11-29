@@ -5,7 +5,7 @@ import Button from "../common/Elements/Button/Button";
 export const WelcomePage = () => {
   const navigate = useNavigate();
   return (
-    <div className="md:flex md:flex-row w-full items-center p-5 xs:flex-col xs:justify-center">
+    <div className="md:flex md:flex-row w-full items-center p-5 xs:flex-col xs:justify-center min-h-screen">
       <div className="md:basis-1/4 basis-1/2">
         <h1 className="font-sans text-6xl font-bold tracking-wider text-blue-900 mb-4 ">
           A Great Place to Receive Care
@@ -28,7 +28,7 @@ export const WelcomePage = () => {
             type="button"
             color="success"
             hover="gray"
-            size="lg"
+            size="md"
             className="mr-3"
             callback={() => navigate("/register")}
           >
@@ -44,4 +44,3 @@ export const WelcomePage = () => {
     </div>
   );
 };
- 

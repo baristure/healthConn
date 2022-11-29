@@ -12,7 +12,7 @@ export const worker = setupWorker(
   ...authenticationHandler,
   ...appointmentHandler,
   ...getServices,
-  ...getDoctorList
+  ...getDoctorList,
   ...meRouterHandler,
-  ...getServices,
+  ...getServices
 );

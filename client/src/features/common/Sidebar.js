@@ -3,10 +3,10 @@ import { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
 import { Dialog, Transition } from "@headlessui/react";
-import { useTranslation,  } from "react-i18next";
+import { useTranslation } from "react-i18next";
+
 import { changeOpen, changeSideBarOpen } from "../../store/slices/navbarSlice";
 import Button from "./Elements/Button/Button";
-
 const navBarItems = [
   {
     icon: "/icons/home.svg",
@@ -23,13 +23,17 @@ const navBarItems = [
     url: "/appointments",
     text: "appointments",
   },
+  {
+    icon: "/icons/reports.svg",
+    url: "/services",
+    text: "services",
+  },
 ];
 export default function Sidebar({ isShowing, loggedIn }) {
-  const {t} = useTranslation();
   let activeStyle = {
     backgroundColor: "#E8EDF2",
   };
-
+  const { t } = useTranslation();
   // const [isEnlarge, setIsEnlarge] = useState(true);
   //used redux sidebar state
   const dispatch = useDispatch();
@@ -64,7 +68,7 @@ export default function Sidebar({ isShowing, loggedIn }) {
                 )}
               </Button>
               {isEnlarge ? (
-                <div className="font-bold mt-2 mb-2 px-2">{t('menu')}</div>
+                <div className="font-bold mt-2 mb-2 px-2">{t("menu")}</div>
               ) : (
                 <div className="font-bold mb-2 px-2">
                   <span></span>

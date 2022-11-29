@@ -4,9 +4,11 @@
     "sign.out": "Sign out",
     "menu": "Menu",
     "please.login": "Please Login",
+    "dashboard": "Dashboard",
     "home": "Home",
     "take.appointment": "Take Appointment",
     "appointments": "Appointments",
+    "services": "Services",
     "english": "English",
     "russian": "Russian",
     "turkish": "Turkish"

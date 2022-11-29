@@ -1,13 +1,15 @@
 {
-    "your.profile": "Profilim",
-    "settings": "Ayarlar",
-    "sign.out": "Çıkış Yap",
-    "menu": "Menü",
-    "please.login": "Giriş Yap",
-    "home": "Ev",
-    "take.appointment": "Randevu al",
-    "appointments": "Randevularım",
-    "english": "İngilizce",
-    "russian": "Rusça",
-    "turkish": "Türkçe"
+  "your.profile": "Profilim",
+  "settings": "Ayarlar",
+  "sign.out": "Çıkış Yap",
+  "menu": "Menü",
+  "please.login": "Giriş Yap",
+  "dashboard": "Anasayfa",
+  "home": "Anasayfa",
+  "take.appointment": "Randevu al",
+  "appointments": "Randevularım",
+  "services": "Servisler",
+  "english": "İngilizce",
+  "russian": "Rusça",
+  "turkish": "Türkçe"
 }

@@ -1,17 +1,17 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Card from "../common/Elements/Card/Card";
 import serviceAPI from "../../common/api/Service";
 import { Loading } from "../common/Elements";
 
 export const Service = () => {
-  const [serviceList, setServiceList] = React.useState();
+  const [serviceList, setServiceList] = useState();
   const fetchServiceList = async () => {
     const serviceList = await serviceAPI.get();
     setServiceList(serviceList.data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchServiceList();
   }, []);
 

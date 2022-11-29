@@ -1,31 +1,15 @@
-import { Dashboard } from "./Dashboard/Dashboard";
-import { ExamplePage } from "./ExamplePage/ExamplePage";
-import { Login } from "./Login/Login";
-import { Appointment } from "./Appointment/Appointment";
-import { DoctorLogin } from "./Login/DoctorLogin";
-import { Register } from "./Register/Register";
-import { SignOut } from "./SignOut/SignOut";
-import { Appointments } from "./Appointments/Appointments";
-import { AppointmentDetail } from "./Appointments/AppointmentDetail";
-import { WelcomePage } from "./WelcomePage/index";
-import { Success } from "./Appointment/Success";
-import { Service } from "./Service";
-import { DoctorList } from "./DoctorList";
+export * from "./Dashboard/Dashboard";
+export * from "./ExamplePage/ExamplePage";
+export * from "./Login/Login";
+export * from "./Appointment/Appointment";
+export * from "./Login/DoctorLogin";
+export * from "./Register/Register";
+export * from "./SignOut/SignOut";
+export * from "./Appointments/Appointments";
+export * from "./Appointments/AppointmentDetail";
+export * from "./WelcomePage/WelcomePage";
+export * from "./Appointment/Success";
+export * from "./Service";
+export * from "./DoctorList/DoctorList";
 export * from "./Profile/Profile";
 export * from "./Settings/Settings";
-
-export {
-  Dashboard,
-  ExamplePage,
-  Login,
-  DoctorLogin,
-  Register,
-  SignOut,
-  Appointment,
-  Appointments,
-  AppointmentDetail,
-  WelcomePage,
-  Success,
-  Service,
-  DoctorList
-};
