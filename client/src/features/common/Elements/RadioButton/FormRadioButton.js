@@ -26,10 +26,11 @@ export default function FormRadioButton({ ...props }) {
                       }  ${props.className}`}
                       name={field.name}
                       value={item.value}
+                      disabled={props.disabled}
                     />
                     <label
                       htmlFor={componentId + "-" + index}
-                      className="flex items-center cursor-pointer"
+                      className={`flex items-center ${props.disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                     >
                       <span className="w-4 h-4 inline-block mr-1 rounded-full border border-grey"></span>
                       {item.label}

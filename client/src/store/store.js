@@ -8,17 +8,20 @@ import { navbarReducer } from "./slices/navbarSlice";
 import { loadingReducer } from "./slices/loadingSlice";
 import { loginReducer } from "../features/Login/loginSlice";
 import { appointmentReducer } from "../features/Appointment/appointmentSlice";
+import { profileReducer } from "../features/Profile/profileSlice";
 
 const rootPersistConfig = {
   key: "root",
   storage,
   stateReconciler: autoMergeLevel2,
+  blacklist: ['profile']
 };
 
 const rootReducer = combineReducers({
   loading: loadingReducer,
   navbar: navbarReducer,
   login: loginReducer,
+  profile: profileReducer,
   appointment: appointmentReducer,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

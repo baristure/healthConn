@@ -3,6 +3,7 @@ import { setupWorker } from "msw";
 
 import { authenticationHandler } from "./authentication";
 import { appointmentHandler } from "./appointment";
+import { meRouterHandler } from "./me";
 import { getServices } from "./service";
 import { getDoctorList } from "./doctorList";
 
@@ -12,4 +13,6 @@ export const worker = setupWorker(
   ...appointmentHandler,
   ...getServices,
   ...getDoctorList
+  ...meRouterHandler,
+  ...getServices,
 );

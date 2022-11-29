@@ -11,6 +11,8 @@ import { WelcomePage } from "./WelcomePage/index";
 import { Success } from "./Appointment/Success";
 import { Service } from "./Service";
 import { DoctorList } from "./DoctorList";
+export * from "./Profile/Profile";
+export * from "./Settings/Settings";
 
 export {
   Dashboard,

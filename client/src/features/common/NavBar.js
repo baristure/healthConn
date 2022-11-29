@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 import { changeSideBarOpen } from "../../store/slices/navbarSlice";
 import { NavLink } from "react-router-dom";
 import Button from "../common/Elements/Button/Button";
+import { useTranslation } from "react-i18next";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function NavBar({ isOpen, loggedIn }) {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // hover:border-b-blue-800
@@ -49,16 +51,16 @@ export default function NavBar({ isOpen, loggedIn }) {
                     <Tab.Group className="flex items-center justify-between w-full font-sans font-medium text-white tracking-wide antialiased">
                       <Tab.List>
                         <Tab className="outline-none border-none hover:text-blue-200">
-                          Home
+                          {t('home')}
                         </Tab>
                         <Tab className="outline-none border-none hover:text-blue-200">
-                          Product
+                          {t('product')}
                         </Tab>
                         <Tab className="outline-none border-none hover:text-blue-200">
-                          Pricing
+                          {t('pricing')}
                         </Tab>
                         <Tab className="outline-none border-none hover:text-blue-200">
-                          Contact
+                          {t('contact')}
                         </Tab>
                       </Tab.List>
                     </Tab.Group>
@@ -96,28 +98,28 @@ export default function NavBar({ isOpen, loggedIn }) {
                       <Menu.Items className="origin-top-right absolute right-4 mt-48 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="http://localhost:3000/"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Your Profile
-                            </a>
+                            <NavLink
+                            to="/profile"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                             {t('your.profile')}
+                          </NavLink>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="http://localhost:3000/"
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Settings
-                            </a>
+                            <NavLink
+                            to="/settings"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                             {t('settings')}
+                          </NavLink>
                           )}
                         </Menu.Item>
                         <Menu.Item>
@@ -129,7 +131,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Sign out
+                               {t('sign.out')}
                             </NavLink>
                           )}
                         </Menu.Item>
