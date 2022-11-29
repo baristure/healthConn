@@ -10,3 +10,12 @@
 .select{
   @apply border-b text-sm rounded-md leading-3	p-2 bg-contrast-10 border-gray-300 mr-2 focus:outline-none w-full  
 }
+
+.star-svg{
+  display: inline;
+}
+
+.react-simple-star-rating-tooltip {
+  font-size: 10px;
+  padding: 5px 8px;
+}

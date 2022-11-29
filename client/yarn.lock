@@ -8483,6 +8483,11 @@
     "react-transition-group" "^4.3.0"
     "use-isomorphic-layout-effect" "^1.1.2"
 
+"react-simple-star-rating@^4.1.0":
+  "integrity" "sha512-mUj1FxGPchOly1Zj00eakntIEIZKxBaiGcMW+UE5RK3/UWt6+6i8HUHnIH8ICXbjQYS+gWGi4NamwgvMZYTYzg=="
+  "resolved" "https://registry.npmjs.org/react-simple-star-rating/-/react-simple-star-rating-4.1.1.tgz"
+  "version" "4.1.1"
+
 "react-toastify@^9.0.5":
   "integrity" "sha512-pkFCla1z3ve045qvjEmn2xOJOy4ZciwRXm1oMPULVkELi5aJdHCN/FHnuqXq8IwGDLB7PPk2/J6uP9D8ejuiRw=="
   "resolved" "https://registry.npmjs.org/react-toastify/-/react-toastify-9.1.1.tgz"
