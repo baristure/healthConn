@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Layout from "./features/Layout";
 
 const App = () => {

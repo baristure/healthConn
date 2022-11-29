@@ -25,15 +25,19 @@ export const Complaints = () => {
         </div>
       </div>
       <div className="space-y-4">
-        <div className="text-center">Comments</div>
-        {Object.keys(bodyParts).map((key) => {
-          if (bodyParts[key]?.selected) return <ComplaintForm bodyPart={key} />;
-        })}
-        {!selected && (
-          <div className="text-center border-2 border-gray-200 rounded-md p-6 px-14">
-            Please select which part of do you feel pain
-          </div>
-        )}
+        <div className="mt-4  ">
+          <ul className="divide-y divide-gray-200 border-t border-b border-gray-200 sm:px-14">
+            {Object.keys(bodyParts).map((key) => {
+              if (bodyParts[key]?.selected)
+                return <ComplaintForm bodyPart={key} />;
+            })}
+            {!selected && (
+              <div className="text-center rounded-md p-6 px-14">
+                Please select which part of do you feel pain
+              </div>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

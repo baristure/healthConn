@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 
-import './i18n/setup';
+import "./i18n/setup";
 
 import "./styles/global.css";
 import "./styles/styles.scss";
@@ -15,10 +15,12 @@ import { persistor, store } from "./store/store";
 
 import App from "./App";
 
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/server");
-  worker.start();
-}
+console.log("worker", process.env.NODE_ENV);
+console.log("url", process.env.BASE_URL);
+// if (process.env.NODE_ENV === "development") {
+const { worker } = require("./mocks/server");
+worker.start();
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
