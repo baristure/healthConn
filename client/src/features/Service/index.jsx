@@ -4,7 +4,7 @@ import Card from "../common/Elements/Card/Card";
 import serviceAPI from "../../common/api/Service";
 import { Loading } from "../common/Elements";
 
-const Service = () => {
+export const Service = () => {
   const [serviceList, setServiceList] = React.useState();
   const fetchServiceList = async () => {
     const serviceList = await serviceAPI.get();
@@ -21,8 +21,9 @@ const Service = () => {
         serviceList.map((service) => {
           return (
             <NavLink
+              className="hover:shadow-lg hover:shadow-blue-200"
               key={service.service_id}
-              to={`/service/${service.name.toLowerCase()}`}
+              to={`/services/${service.name.toLowerCase()}`}
             >
               <Card
                 key={service.service_id}
@@ -38,5 +39,3 @@ const Service = () => {
     </div>
   );
 };
-
-export default Service;
