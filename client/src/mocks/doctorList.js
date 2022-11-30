@@ -11,7 +11,7 @@ export const getDoctorList = [
 
     const data = [
       {
-        id: faker.random.numeric(5),
+        id: 25896,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -21,7 +21,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 14935,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -31,7 +31,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 78965,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -41,7 +41,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 20390,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -51,7 +51,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 48702,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -61,7 +61,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 44780,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -71,7 +71,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 10023,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -81,7 +81,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 99653,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -91,7 +91,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 77850,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -101,7 +101,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 11125,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -111,7 +111,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 88956,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -121,7 +121,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 30303,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -131,7 +131,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 45028,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -141,7 +141,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 98556,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),
@@ -151,7 +151,7 @@ export const getDoctorList = [
         mobile_number: faker.phone.number(),
       },
       {
-        id: faker.random.numeric(5),
+        id: 48900,
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         office_number: faker.random.numeric(3),

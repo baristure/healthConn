@@ -24,6 +24,7 @@ import {
   Settings,
   Service,
   DoctorList,
+  DoctorInfo,
 } from "./index";
 
 const Mock = (props) => {
@@ -72,6 +73,7 @@ const AppRoutes = (loggedIn, userDetail) => {
       />
       <Route path="/services" element={<Service />} />
       <Route path="/services/:service" element={<DoctorList />} />
+      <Route path="/services/:service/:doctor_id" element={<DoctorInfo />} />
       <Route
         path="/profile"
         element={<ProtectedRoute component={Profile} user={userDetail} />}

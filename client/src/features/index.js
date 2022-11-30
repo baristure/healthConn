@@ -13,3 +13,4 @@ export * from "./Service";
 export * from "./DoctorList/DoctorList";
 export * from "./Profile/Profile";
 export * from "./Settings/Settings";
+export * from "./DoctorInfo/DoctorInfo";

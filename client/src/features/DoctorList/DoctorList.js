@@ -36,7 +36,7 @@ export const DoctorList = () => {
               <NavLink
                 className="hover:shadow-lg hover:shadow-blue-200"
                 key={doctor.id}
-                to={`/services/${service}/${doctor.id}}`}
+                to={`/services/${service}/${doctor.id}`}
               >
                 <Card
                   key={doctor.id}

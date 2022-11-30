@@ -6,6 +6,7 @@ import { appointmentHandler } from "./appointment";
 import { meRouterHandler } from "./me";
 import { getServices } from "./service";
 import { getDoctorList } from "./doctorList";
+import { getDoctor } from "./doctorInfo";
 
 // This configures a Service Worker with the given request handlers.
 export const worker = setupWorker(
@@ -14,5 +15,5 @@ export const worker = setupWorker(
   ...getServices,
   ...getDoctorList,
   ...meRouterHandler,
-  ...getServices
+  ...getDoctor
 );
