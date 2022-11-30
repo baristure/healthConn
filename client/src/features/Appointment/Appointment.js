@@ -13,7 +13,7 @@ import {
   submitAppointment,
 } from "./appointmentSlice";
 
-export const Appointment = () => {
+export const Appointment = ({ doctor }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.appointment);
   const progress = state.progress;
@@ -42,7 +42,7 @@ export const Appointment = () => {
   const GetProgressInformation = () => {
     if (progress === 1) return <Booking />;
     if (progress === 2) return <Complaints />;
-    if (progress === 3) return <Confirmation />;
+    if (progress === 3) return <Confirmation doctor={doctor} />;
   };
   if (state.isFetching)
     return (

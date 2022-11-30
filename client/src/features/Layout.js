@@ -1,3 +1,4 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
@@ -24,15 +25,11 @@ import {
   Settings,
   Service,
   DoctorList,
+  DoctorInfo,
 } from "./index";
 
-const Mock = (props) => {
-  console.log("mock props", props);
-  return <h1>PRIVATE</h1>;
-};
-
 const AppRoutes = (loggedIn, userDetail) => {
-  console.log(loggedIn);
+  const [doctor, setDoctor] = React.useState();
   return (
     <Routes>
       <Route exact path="/" element={<WelcomePage />} />
@@ -52,10 +49,9 @@ const AppRoutes = (loggedIn, userDetail) => {
         path="/example"
         element={<ProtectedRoute component={ExamplePage} />}
       />
-      <Route path="/private" element={<ProtectedRoute component={Mock} />} />
       <Route
         path="/appointment"
-        element={<ProtectedRoute component={Appointment} />}
+        element={<ProtectedRoute component={Appointment} doctor={doctor} />}
       />
       <Route
         path="/appointment/success"
@@ -72,6 +68,10 @@ const AppRoutes = (loggedIn, userDetail) => {
       />
       <Route path="/services" element={<Service />} />
       <Route path="/services/:service" element={<DoctorList />} />
+      <Route
+        path="/services/:service/:doctor_id"
+        element={<DoctorInfo setDoctor={setDoctor} />}
+      />
       <Route
         path="/profile"
         element={<ProtectedRoute component={Profile} user={userDetail} />}

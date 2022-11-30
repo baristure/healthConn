@@ -3,18 +3,13 @@ import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { bodyPartExplanations } from "../../constants/bodyPartExplanations";
 
-export const Confirmation = () => {
+export const Confirmation = ({ doctor }) => {
   const { selectedDate, bodyParts } = useSelector((state) => state.appointment);
-  const doctor = {
-    title: "Prof. Dr.",
-    first_name: "John",
-    last_name: "Doe",
-  };
+  const doctorTitle = "Prof. Dr.";
   const getBodyPartExplanation = (bodyPart) => {
     return bodyPartExplanations[bodyPart];
   };
 
-  const serviceName = "Cardiology";
   return (
     <div>
       <div className="p-4 mt-3 w-full">
@@ -36,7 +31,7 @@ export const Confirmation = () => {
                             <p className="font-semibold">
                               Service Name:
                               <span className="text-gray-700">
-                                {" " + serviceName}
+                                {" " + doctor.speciality}
                               </span>
                             </p>
                           </div>
@@ -53,7 +48,7 @@ export const Confirmation = () => {
                               Doctor Detail:
                               <span className="text-gray-700">
                                 {" "}
-                                {doctor.title +
+                                {doctorTitle +
                                   " " +
                                   doctor.first_name +
                                   " " +
