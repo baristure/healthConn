@@ -9,7 +9,6 @@ export default function Card({
   description,
   className,
   initialRating,
-  position
 }) {
   const Icon = FontAwesome[icon];
   return (
@@ -29,6 +28,7 @@ export default function Card({
                 className="h-32 w-32 bg-contrast-5 rounded-full flex items-center justify-center"
                 src={img}
                 alt={img}
+                loading="lazy"
               />
             )}
             {title && (

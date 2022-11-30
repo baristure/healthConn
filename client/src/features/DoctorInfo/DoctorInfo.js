@@ -5,13 +5,18 @@ import doctorAPI from "../../common/api/DoctorInfo";
 import { Loading } from "../common/Elements";
 import { Button } from "../common/Elements";
 
-export const DoctorInfo = () => {
+export const DoctorInfo = ({ setDoctor }) => {
   const { service, doctor_id } = useParams();
   const navigate = useNavigate();
   const [doctorInfo, setDoctorInfo] = React.useState();
   const fetchDoctorInfo = async () => {
     const info = await doctorAPI.get(service, doctor_id);
     setDoctorInfo(info.data);
+  };
+
+  const bookAppointment = (doctor) => {
+    setDoctor(doctor);
+    navigate("/appointment");
   };
 
   React.useEffect(() => {
@@ -131,7 +136,7 @@ export const DoctorInfo = () => {
                     hover="success"
                     size="md"
                     className="mr-3"
-                    callback={() => console.log("submit")}
+                    callback={() => bookAppointment(doctor)}
                   >
                     Book an Appointment &rarr;
                   </Button>
