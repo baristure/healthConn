@@ -1,15 +1,18 @@
 {
-    "your.profile": "Ваш профиль",
-    "settings": "настройки",
-    "sign.out": "выход",
+    "your.profile": "Мой Профиль",
+    "settings": "Настройки",
+    "sign.out": "Выход",
     "menu": "Меню",
     "please.login": "Пожалуйста, войдите",
-    "dashboard": "Дом",
-    "home": "Дом",
+    "dashboard": "Главная",
+    "home": "Главная",
     "take.appointment": "Записаться на прием",
-    "appointments": "Назначения",
-    "services": "Назначения",
+    "appointments": "Записи",
+    "services": "Сервисы",
     "english": "Английский",
     "russian": "Русский",
-    "turkish": "турецкий"
+    "turkish": "Турецкий",
+    "product": "Сервисы",
+    "pricing": "Стоимость",
+    "contact": "Контакты"
 }

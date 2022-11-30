@@ -18,7 +18,7 @@ export default function Card({
     >
       <div className="flex-1 items-center justify-center bg-white p-6 flex flex-col w-full">
         <div className="flex-1">
-          <div className={`flex ${position || "flex-col"} mt-2 items-center justify-center`}>
+          <div className={`flex flex-col mt-2 items-center justify-center`}>
             {icon && (
               <div className="h-10 w-10 bg-contrast-5 rounded-full flex items-center justify-center">
                 <Icon className="block h-5 w-5 text-primary" />

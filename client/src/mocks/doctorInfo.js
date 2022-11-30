@@ -1,9 +1,13 @@
 import { rest } from "msw";
 import { faker } from "@faker-js/faker";
 
+const filterDoctorList = (doctor_id, data) => {
+  return data.filter((item) => item.id === +doctor_id);
+};
+
 export const getDoctor = [
   rest.get("/services/:service/:doctor_id", (req, res, ctx) => {
-    const { service, doctor_id } = req.params;
+    const { doctor_id } = req.params;
 
     const data = [
       {
@@ -233,7 +237,7 @@ export const getDoctor = [
       },
     ];
 
-    // const filteredDoctorList = filterDoctorList(data, service);
-    return res(ctx.status(200), ctx.json(data));
+    const filteredDoctorList = filterDoctorList(doctor_id, data);
+    return res(ctx.status(200), ctx.json(filteredDoctorList));
   }),
 ];
