@@ -15,8 +15,6 @@ import { persistor, store } from "./store/store";
 
 import App from "./App";
 
-console.log("worker", process.env.NODE_ENV);
-console.log("url", process.env.BASE_URL);
 // if (process.env.NODE_ENV === "development") {
 const { worker } = require("./mocks/server");
 worker.start();

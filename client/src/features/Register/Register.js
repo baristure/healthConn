@@ -39,11 +39,7 @@ export const Register = () => {
       toast.success("User registered successfully!");
       resetForm();
     }
-    console.log("data", data);
   };
-
-  console.log('formValues', formValues);
-
   const onUpdate = (value) => {
     setFormValues({ ...formValues, ...value });
   };
