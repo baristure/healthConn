@@ -1,5 +1,6 @@
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
+import jsonBodyParser from "@middy/http-json-body-parser";
 import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { Knex } from "knex";
 import container from "../../config/inversify.config";
@@ -38,5 +39,6 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
 };
 
 export const lambdaHandler = middy(handler)
+  .use(jsonBodyParser())
   .use(validator(validationSchema))
   .use(httpErrorHandler())

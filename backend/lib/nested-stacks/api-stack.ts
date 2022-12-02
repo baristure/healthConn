@@ -11,6 +11,8 @@ interface ApiStackProps extends BaseNestedStackProps {
   credentials: IRole;
   authorizerFunction: IFunction;
   loginFunction: IFunction;
+  postAppointmentFunction: IFunction;
+  getAppointmentByIdFunction: IFunction;
 }
 
 export class ApiStack extends NestedStack {
@@ -83,6 +85,27 @@ export class ApiStack extends NestedStack {
         props.loginFunction,
         commonLambdaIntegrationOptions
       )
+    )
+    
+    const appointments = this.restApi.root.addResource("appointments");
+    const appointmentId = appointments.addResource("{id}");
+
+    appointments.addMethod(
+      HttpMethod.GET,
+      new LambdaIntegration(
+        props.postAppointmentFunction,
+        commonLambdaIntegrationOptions
+      ),
+      commonAuthorizerOptions 
+    );
+
+    appointmentId.addMethod(
+      HttpMethod.POST,
+      new LambdaIntegration(
+        props.getAppointmentByIdFunction,
+        commonLambdaIntegrationOptions
+      ),
+      commonAuthorizerOptions
     )
 
     const deployment = new Deployment(
