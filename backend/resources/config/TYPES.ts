@@ -7,5 +7,7 @@ export const TYPES = {
   RequestUtils: Symbol("RequestUtils"),
   ResponseUtils: Symbol("ResponseUtils"),
   DoctorRepository: Symbol("DoctorRepository"),
-  PatientRepository: Symbol("PatientRepository")
+  PatientRepository: Symbol("PatientRepository"),
+  AppointmentRepository: Symbol("AppointmentRepository"),
+  AppointmentService: Symbol("AppointmentService"),
 };
