@@ -91,7 +91,7 @@ export class ApiStack extends NestedStack {
     const appointmentId = appointments.addResource("{id}");
 
     appointments.addMethod(
-      HttpMethod.GET,
+      HttpMethod.POST,
       new LambdaIntegration(
         props.postAppointmentFunction,
         commonLambdaIntegrationOptions
@@ -100,7 +100,7 @@ export class ApiStack extends NestedStack {
     );
 
     appointmentId.addMethod(
-      HttpMethod.POST,
+      HttpMethod.GET,
       new LambdaIntegration(
         props.getAppointmentByIdFunction,
         commonLambdaIntegrationOptions
