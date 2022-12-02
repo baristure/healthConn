@@ -1,25 +1,23 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
-import { Title } from "./Doctor";
-import { Gender } from "./Patient";
+import { Gender, BloodType } from "./Patient";
 
-export interface DoctorInput {
+export interface PatientInput {
   first_name: string;
   last_name: string;
   email: string;
   password: string;
   mobile_number: string;
-  office_number?: string;
-  speciality: string;
-  title: Title;
-  resume: string;
-  image_url: string;
   gender: Gender;
-  rating?: number;
+  blood_type: BloodType;
+  weight: number;
+  height: number;
+  birth_date: Date;
+  story: string;
 };
 
-export interface DoctorRegisterEvent extends Omit<APIGatewayProxyEvent, "body"> {
-  body: DoctorInput
+export interface PatientRegisterEvent extends Omit<APIGatewayProxyEvent, "body"> {
+  body: PatientInput
 };
 
 export const validationSchema = yup.object({
@@ -44,22 +42,23 @@ export const validationSchema = yup.object({
     mobile_number: yup.string()
       .matches(/^\+\d+$/, "mobile_number field should be a valid E.164 phone number")
       .required(),
-    office_number: yup.string()
-      .required(),
-    speciality: yup.string()     
-      .required(),
-    title: yup.string()
-      .oneOf(Object.values(Title))
-      .required(),
-    resume: yup.string()
-      .required(),
-    image_url: yup.string()
-      .url()
-      .required(),
     gender: yup.string()
       .oneOf(Object.values(Gender))
       .required(),
-    rating: yup.number()
-      .positive(),
+    blood_type: yup.string()
+      .oneOf(Object.values(BloodType))
+      .required(),
+    weight: yup.number()
+      .positive()
+      .integer()
+      .required(),
+    height: yup.number()
+      .positive()
+      .integer()
+      .required(),
+    birth_date: yup.date()
+      .required(),
+    story: yup.string()
+      .required(),
   }).required()
 });

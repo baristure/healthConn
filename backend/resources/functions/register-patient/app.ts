@@ -9,12 +9,12 @@ import { hashSync } from "bcryptjs";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import ErrorConstants from "../../constants/ErrorConstants";
-import { RegisterEvent, validationSchema } from "../../dto/RegisterEvent";
+import { PatientRegisterEvent, validationSchema } from "../../dto/PatientRegisterEvent";
 import validator from "../../middlewares/validator";
-import IUserRepository from "../../repository/IUserRepository";
+import IPatientRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-const handler = async (event: RegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+const handler = async (event: PatientRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
@@ -23,27 +23,40 @@ const handler = async (event: RegisterEvent): Promise<APIGatewayProxyStructuredR
       last_name,
       email,
       password,
+      mobile_number,
+      gender,
+      blood_type,
+      weight,
+      height,
+      birth_date,
+      story,
     }
   } = event;
 
-  const userRepository = await container.getAsync<IUserRepository>(TYPES.UserRepository);
+  const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
+  const existingPatient = await patientRepository.getPatientByEmail(email);
 
-  const existingUser = await userRepository.getUserByEmail(email);
-
-  if (existingUser) {
+  if (existingPatient) {
     return responseUtils.validationError([ ErrorConstants.EMAIL_ALREADY_TAKEN ]);
   }
 
-  const savedUser = await userRepository.save(
+  const savedPatient = await patientRepository.save(
     {
       first_name,
       last_name,
       email,
-      password: hashSync(password)
+      password: hashSync(password),
+      mobile_number,
+      gender,
+      blood_type,
+      weight,
+      height,
+      birth_date,
+      story,
     }
   );
 
-  return responseUtils.success(savedUser);
+  return responseUtils.success(savedPatient);
 };
 
 export const lambdaHandler = middy(handler)

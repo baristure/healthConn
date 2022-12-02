@@ -35,7 +35,6 @@ const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStruc
   } = event;
 
   const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
-
   const existingDoctor = await doctorRepository.getDoctorByEmail(email);
 
   if (existingDoctor) {
@@ -66,3 +65,4 @@ export const lambdaHandler = middy(handler)
   .use(httpErrorHandler())
   .use(jsonBodyParser())
   .use(validator(validationSchema));
+  

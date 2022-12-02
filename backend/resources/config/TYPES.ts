@@ -6,5 +6,6 @@ export const TYPES = {
   JwtAuthService: Symbol("JwtAuthService"),
   RequestUtils: Symbol("RequestUtils"),
   ResponseUtils: Symbol("ResponseUtils"),
-  DoctorRepository: Symbol("DoctorRepository")
+  DoctorRepository: Symbol("DoctorRepository"),
+  PatientRepository: Symbol("PatientRepository")
 };

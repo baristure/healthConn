@@ -5,7 +5,7 @@ import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
-import IUserRepository from "../../repository/IUserRepository";
+import IUserRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 import { UpdateUserEvent, validationSchema } from "../../dto/UpdateUserEvent";
 

@@ -11,7 +11,7 @@ import JwtPayload from "../../dto/JwtPayload";
 import { LoginEvent, validationSchema } from "../../dto/LoginEvent";
 import { User } from "../../dto/User";
 import validator from "../../middlewares/validator";
-import IUserRepository from "../../repository/IUserRepository";
+import IUserRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
 const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResultV2> => {
