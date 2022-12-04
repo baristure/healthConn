@@ -34,7 +34,7 @@ const handler = async (event: PatientRegisterEvent): Promise<APIGatewayProxyStru
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const existingPatient = await patientRepository.getPatientByEmail(email);
+  const existingPatient = await patientRepository.getByEmail(email);
 
   if (existingPatient) {
     return responseUtils.validationError([ ErrorConstants.EMAIL_ALREADY_TAKEN ]);

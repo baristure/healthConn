@@ -35,8 +35,8 @@ export class AppointmentService implements IAppointmentService {
       complaints
     } = await this.appointmentRepository.create(appointment);
 
-    const doctor = await this.doctorRepository.getDoctorById(doctor_id);
-    const patient = await this.patientRepository.getPatientById(patient_id);
+    const doctor = await this.doctorRepository.getById(doctor_id);
+    const patient = await this.patientRepository.getById(patient_id);
 
     return {
       id,
@@ -63,8 +63,8 @@ export class AppointmentService implements IAppointmentService {
       complaints
     } = appointment;
 
-    const doctor = await this.doctorRepository.getDoctorById(doctor_id);
-    const patient = await this.patientRepository.getPatientById(patient_id);
+    const doctor = await this.doctorRepository.getById(doctor_id);
+    const patient = await this.patientRepository.getById(patient_id);
 
     return {
       id,

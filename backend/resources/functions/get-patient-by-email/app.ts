@@ -19,7 +19,7 @@ const handler = async (event: GetPatientByEmailEvent): Promise<APIGatewayProxySt
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const patient = await patientRepository.getPatientByEmail(email);
+  const patient = await patientRepository.getByEmail(email);
 
   if (!patient) {
     return responseUtils.notFound();

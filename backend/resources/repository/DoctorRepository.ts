@@ -16,7 +16,7 @@ export default class DoctorRepository implements IDoctorRepository {
     this.knex = knex;
   }
 
-  public async getDoctorById(id: number): Promise<Doctor | null> {
+  public async getById(id: number): Promise<Doctor | null> {
     return this.knex.select("*")
       .from("doctors")
       .where({
@@ -25,7 +25,7 @@ export default class DoctorRepository implements IDoctorRepository {
       .first();
   }
 
-  public async getDoctorByEmail(email: string): Promise<Doctor | null> {
+  public async getByEmail(email: string): Promise<Doctor | null> {
     return this.knex.select("*")
       .from("doctors")
       .where({

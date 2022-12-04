@@ -1,17 +1,18 @@
-import "reflect-metadata";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import _ from "lodash";
+import "reflect-metadata";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
-import JwtPayload from "../../dto/JwtPayload";
+import { Doctor } from "../../dto/Doctor";
 import { LoginEvent, validationSchema } from "../../dto/LoginEvent";
-import { User } from "../../dto/User";
+import { Patient } from "../../dto/Patient";
+import { UserRepositoryFactory } from "../../factory/UserRepositoryFactory";
 import validator from "../../middlewares/validator";
-import IUserRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
 const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResultV2> => {
@@ -21,12 +22,15 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
     body: {
       email,
       password
+    },
+    queryStringParameters: {
+      user_type
     }
   } = event;
 
-  const userRepository = await container.getAsync<IUserRepository>(TYPES.UserRepository);
-
-  const existingUser = await userRepository.getUserByEmail(email);
+  const userRepositoryFactory = await container.getAsync<UserRepositoryFactory>(TYPES.UserRepositoryFactory);
+  const userRepository = userRepositoryFactory.getRepository(user_type);
+  const existingUser = await userRepository.getByEmail(email);
 
   if (!existingUser) {
     return responseUtils.unauthorized();
@@ -35,7 +39,7 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
   const {
     id,
     password: hashedPassword
-  } = existingUser as User;
+  } = existingUser as Doctor | Patient;
 
   if (!compareSync(password, hashedPassword)) {
     return responseUtils.unauthorized();
@@ -43,9 +47,9 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
 
   const jwt = sign(
     {
-      user_id: id,
-      email
-    } as JwtPayload,
+      ..._.omit(existingUser, [ "id", "password" ]),
+      user_type
+    },
     process.env.SECRET_KEY!
   );
 

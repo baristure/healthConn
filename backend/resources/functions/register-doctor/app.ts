@@ -35,7 +35,7 @@ const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStruc
   } = event;
 
   const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
-  const existingDoctor = await doctorRepository.getDoctorByEmail(email);
+  const existingDoctor = await doctorRepository.getByEmail(email);
 
   if (existingDoctor) {
     return responseUtils.validationError([ ErrorConstants.EMAIL_ALREADY_TAKEN ]);

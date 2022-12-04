@@ -22,7 +22,7 @@ const handler = async (event: GetPatientByIdEvent): Promise<APIGatewayProxyStruc
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const patient = await patientRepository.getPatientById(Number(patient_id));
+  const patient = await patientRepository.getById(Number(patient_id));
 
   if (!patient) {
     return responseUtils.notFound();

@@ -46,11 +46,14 @@
   "dependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^8.0.0",
+    "@types/http-errors": "^2.0.1",
     "aws-cdk-lib": "2.44.0",
     "constructs": "^10.0.0",
     "fs-extra": "^11.1.0",
     "glob": "^8.0.3",
+    "http-errors": "^2.0.0",
     "liquibase": "^4.4.0",
+    "lodash": "^4.17.21",
     "node-liquibase": "^4.1.1",
     "source-map-support": "^0.5.21"
   }
