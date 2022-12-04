@@ -14,5 +14,16 @@
     "turkish": "Турецкий",
     "product": "Сервисы",
     "pricing": "Стоимость",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "Radiology": "Рентгенология",
+    "Psychology": "Психолог",
+    "Pathology": "Паталогии",
+    "Oral and Dental Health": "Стоматология",
+    "Sports Medicine": "Спортивная медицина",
+    "Hematology": "Гематология",
+    "Gastroenterology": "Гастроэнтерология",
+    "Endocrinology": "Эндокринолог",
+    "Dermatology": "Дерматология",
+    "Cardiology": "Кардиология",
+    "Anesthesiology": "Анастезиология"
 }
