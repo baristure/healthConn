@@ -7,7 +7,7 @@ export const authenticationHandler = [
     return res(
       ctx.status(200),
       ctx.json(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZmlyc3RfbmFtZSI6IkpvaG4iLCJsYXN0X25hbWUiOiJEb2UiLCJpZCI6IjEyMzEyMyIsInVzZXJfdHlwZSI6InBhdGllbnQiLCJpYXQiOjE1MTYyMzkwMjJ9.qAc0sYAzSiQBiERGLwVuRRUEJbxoyIw8b-07FnGO6-I"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdF9uYW1lIjoiSm9obiIsImlhdCI6MTUxNjIzOTAyMiwiaWQiOiIxMjMxMjMiLCJsYXN0X25hbWUiOiJEb2UiLCJhZ2UiOjMyLCJ3ZWlnaHQiOjkwLCJoZWlnaHQiOjE4Nywic3ViIjoiMTIzNDU2Nzg5MCIsInVzZXJfdHlwZSI6InBhdGllbnQifQ.lo7LSt75KY-1Zo7RYru4vnQYJXVQp_pIAh0Kx7p72po"
       )
     );
   }),
