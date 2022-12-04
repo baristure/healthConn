@@ -1,7 +1,7 @@
-import { CustomResource, Duration, NestedStack } from "aws-cdk-lib";
+import { BundlingOutput, CustomResource, Duration, NestedStack } from "aws-cdk-lib";
 import { ISecurityGroup, IVpc } from "aws-cdk-lib/aws-ec2";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Architecture, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Code, Function, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { IServerlessCluster } from "aws-cdk-lib/aws-rds";
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -29,6 +29,7 @@ export class LambdaStack extends NestedStack {
   private readonly authorizer: IFunction;
   private readonly props: LambdaStackProps;
   private readonly login: IFunction;
+  private readonly databaseMigrator: IFunction;
 
   public getLinkToPrivateKey() {
     return this.linkToPrivateKey;
@@ -44,6 +45,10 @@ export class LambdaStack extends NestedStack {
 
   public getLogin() {
     return this.login;
+  }
+
+  public getDatabaseMigrator() {
+    return this.databaseMigrator;
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
@@ -151,5 +156,39 @@ export class LambdaStack extends NestedStack {
     props.dbCluster.grantDataApiAccess(this.login);
     this.login.addToRolePolicy(props.dbSecretAccessPolicy);
 
+    this.databaseMigrator = new Function(
+      this,
+      "database-migrator",
+      {
+        runtime: Runtime.JAVA_11,
+        memorySize: 2048,
+        timeout: Duration.minutes(1),
+        code: Code.fromAsset(
+          "../../resources/functions",
+          {
+            bundling: {
+              command: [
+                "/bin/sh",
+                "-c",
+                "cd database-migrator && mvn clean install && cp /asset-input/database-migrator/target/artifact.jar /asset-output/"
+              ],
+              image: Runtime.JAVA_11.bundlingImage,
+              user: "root",
+              outputType: BundlingOutput.ARCHIVED
+            }
+          }
+        ),
+        handler: "org.springframework.cloud.function.adapter.aws.FunctionInvoker",
+        environment: {
+          MAIN_CLASS: "com.healthconn.databasemigrator.DatabaseMigratorApplication",
+          SPRING_CLOUD_FUNCTION_DEFINITION: "applyMigrations",
+          DB_SECRET_ID: props.dbSecretName,
+          DB_NAME: "postgres"
+        }
+      }
+    )
+
+    props.dbCluster.grantDataApiAccess(this.databaseMigrator);
+    this.databaseMigrator.addToRolePolicy(props.dbSecretAccessPolicy);
   }
 }
