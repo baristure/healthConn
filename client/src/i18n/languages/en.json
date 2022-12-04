@@ -9,10 +9,16 @@
   "product": "Product",
   "pricing": "Pricing",
   "contact": "Contact",
-  "take.appointment": "Take Appointment",
+  "take.appointment": "Book an Appointment",
   "appointments": "Appointments",
   "services": "Services",
   "english": "English",
   "russian": "Russian",
-  "turkish": "Turkish"
+  "turkish": "Turkish",
+  "Doctors": "Doctors",
+  "Specialization": "Specialization",
+  "Resume": "Resume",
+  "Memberships": "Memberships",
+  "Publications": "Publications",
+  "Back": "Back"
 }

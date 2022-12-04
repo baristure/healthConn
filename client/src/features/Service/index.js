@@ -30,7 +30,7 @@ export const Service = () => {
               <Card
                 key={service.service_id}
                 img={`/images/${service.name}.jpg`}
-                title={t(service.name)}
+                title={t(service.name.toLowerCase())}
               />
             </NavLink>
           );
