@@ -17,6 +17,7 @@ export interface PostAppointmentEvent extends Omit<APIGatewayProxyEvent, "body">
   body: {
     userId: number;
     doctorId: number;
+    serviceId: number;
     recognization: string;
     date: string;
     complaints: Complaint[];
@@ -28,6 +29,8 @@ export const validationSchema = yup.object({
     userId: yup.number()
       .required(),
     doctorId: yup.number()
+      .required(),
+    serviceId: yup.number()
       .required(),
     date: yup.date()
       .required(),
