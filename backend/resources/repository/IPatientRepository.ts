@@ -1,7 +1,7 @@
 import { PatientInput } from "../dto/PatientRegisterEvent";
 import { Patient } from "../dto/Patient";
 
-export default interface IUserRepository {
+export default interface IPatientRepository {
   getById(id: number): Promise<Patient | null>;
   getByEmail(email: string): Promise<Patient | null>;
   save(patient: PatientInput): Promise<Patient | null>;

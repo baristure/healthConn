@@ -39,7 +39,7 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
   const {
     id,
     password: hashedPassword
-  } = existingUser as Doctor | Patient;
+  } = existingUser;
 
   if (!compareSync(password, hashedPassword)) {
     return responseUtils.unauthorized();
