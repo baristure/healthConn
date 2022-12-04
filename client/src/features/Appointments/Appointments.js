@@ -1,15 +1,28 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+
+import { Button, Loading, Pagination, SelectBox } from "../common/Elements";
 import { useTranslation } from "react-i18next";
-import { Button, Loading } from "../common/Elements";
 import { NavLink } from "react-router-dom";
 import http from "../../common/api/Axios.config";
-
 export const Appointments = ({ user }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState(null);
-
+  const options = [
+    {
+      value: 10,
+      label: "10",
+    },
+    {
+      value: 25,
+      label: "25",
+    },
+    {
+      value: 50,
+      label: "50",
+    },
+  ];
   const getAppointments = async () => {
     setLoading(true);
     const res = await http
@@ -116,6 +129,32 @@ export const Appointments = ({ user }) => {
                   )}
                 </tbody>
               </table>
+              {appointments && (
+                <div className="flex flex-row justify-between align-middle px-2 mt-2">
+                  <div className="flex flex-row justify-start items-center">
+                    <div className="flex flex-row justify-start items-center text-contrast-70 mr-6 text-md">
+                      <span className="mr-2">Kayıt Göster</span>
+                      <SelectBox
+                        options={options}
+                        name="sendType"
+                        placement="top"
+                        placeholder={10}
+                        onChange={(val) => console.log(val)}
+                      />
+                    </div>
+                    <Pagination
+                      className="pagination-bar"
+                      currentPage={1}
+                      totalCount={20}
+                      pageSize={10}
+                      onPageChange={(val) => console.log(val)}
+                    />
+                  </div>
+                  <div className="flex items-center text-contrast-70">
+                    Toplam Kayıt: {20}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

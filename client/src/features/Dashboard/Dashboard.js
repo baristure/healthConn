@@ -51,7 +51,7 @@ export const Dashboard = ({ user }) => {
     <>
       <main className="flex-1">
         {/* Page title & actions */}
-        <div className="border-b border-gray-200 px-4 py-4 flex flex-row flex-wrap items-center justify-between sm:px-6 lg:px-8">
+        <div className="border-b border-gray-200 p-4 flex flex-row flex-wrap items-center justify-between sm:px-6 lg:px-8">
           <span className="text-2xl font-medium leading-6 text-contrast-90 sm:truncate ">
             {t("welcome")} {user.first_name + " " + user.last_name}
           </span>
@@ -65,7 +65,11 @@ export const Dashboard = ({ user }) => {
                     <h2 className="text-center font-bold pl-6 pb-2">
                       BMI {t("chart")}
                     </h2>
-                    <img src="/images/bmi-chart.png" alt="bmichart" />
+                    <img
+                      src="/images/bmi-chart.png"
+                      alt="bmichart"
+                      className="max-h-160"
+                    />
                   </div>
                 </div>
               </div>
@@ -128,8 +132,8 @@ export const Dashboard = ({ user }) => {
           </div>
         )}
 
-        <div className="w-full flex flex-col">
-          <div className="m-4 p-4 bg-white shadow-md overflow-x-auto  overflow-y-auto">
+        <div className="w-full flex flex-col mt-6 sm:px-6 lg:px-8 px-4">
+          <div className="bg-white shadow-md overflow-x-auto rounded-md overflow-y-auto">
             <div className="inline-block min-w-full py-2 align-middle md:px-4 lg:px-6">
               <div className=" ">
                 <h1 className="text-center text-2xl py-6 mb-2 font-semibold">
