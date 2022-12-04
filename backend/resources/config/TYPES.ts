@@ -10,5 +10,7 @@ export const TYPES = {
   PatientRepository: Symbol("PatientRepository"),
   AppointmentRepository: Symbol("AppointmentRepository"),
   AppointmentService: Symbol("AppointmentService"),
-  UserRepositoryFactory: Symbol("UserRepositoryFactory")
+  UserRepositoryFactory: Symbol("UserRepositoryFactory"),
+  DoctorMembershipRepository: Symbol("DoctorMembershipRepository"),
+  ServiceRepository: Symbol("ServiceRepository"),
 };

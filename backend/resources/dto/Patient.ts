@@ -10,7 +10,7 @@ export enum BloodType {
 };
 
 export enum Gender {
-  MALE= "male",
+  MALE = "male",
   FEMALE = "female",
 };
 

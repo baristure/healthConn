@@ -1,15 +1,16 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
 
-export interface DeleteUserByIdEvent extends APIGatewayProxyEvent {
+export interface GetDoctorExtraDataEvent extends APIGatewayProxyEvent {
   pathParameters: {
-    user_id: string;
+    doctorId: string;
   }
 };
 
 export const validationSchema = yup.object({
   pathParameters: yup.object({
-    user_id: yup.string()
-      .required(),
-  }).required()
+    doctorId: yup.number()
+      .required()
+  })
+    .required()
 });

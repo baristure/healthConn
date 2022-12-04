@@ -23,7 +23,7 @@ export const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayPro
       resume,
       image_url,
       gender,
-      location,
+      office_location
     }
   } = event;
 
@@ -47,7 +47,7 @@ export const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayPro
       resume,
       image_url,
       gender,
-      location
+      office_location
     }
   );
 

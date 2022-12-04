@@ -13,7 +13,12 @@ interface ApiStackProps extends BaseNestedStackProps {
   loginFunction: IFunction;
   postAppointmentFunction: IFunction;
   getAppointmentByIdFunction: IFunction;
+  getDoctorExtraDataFunction: IFunction;
+  getDoctorByIdFunction: IFunction;
+  getPatientByIdFunction: IFunction;
+  getDoctorsByServiceFunction: IFunction;
   getAppointmentsFunction: IFunction;
+  getServicesFunction: IFunction;
 }
 
 export class ApiStack extends NestedStack {
@@ -116,6 +121,37 @@ export class ApiStack extends NestedStack {
       ),
       commonAuthorizerOptions
     )
+
+    const doctorsResource = this.restApi.root.addResource("doctors");
+    const doctorIdResource = doctorsResource.addResource("{doctorId}");
+
+    doctorIdResource.addMethod(
+      HttpMethod.GET,
+      new LambdaIntegration(
+        props.getDoctorExtraDataFunction,
+        commonLambdaIntegrationOptions
+      )
+    );
+
+    const servicesResource = this.restApi.root.addResource("services");
+    const serviceNameResource = servicesResource.addResource("{serviceName}");
+    const doctorsByServiceNameResource = serviceNameResource.addResource("doctors");
+
+    doctorsByServiceNameResource.addMethod(
+      HttpMethod.GET,
+      new LambdaIntegration(
+        props.getDoctorsByServiceFunction,
+        commonLambdaIntegrationOptions
+      )
+    );
+
+    servicesResource.addMethod(
+      HttpMethod.GET,
+      new LambdaIntegration(
+        props.getServicesFunction,
+        commonLambdaIntegrationOptions
+      )
+    );
 
     const deployment = new Deployment(
       this, 

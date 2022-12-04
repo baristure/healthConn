@@ -20,9 +20,9 @@ const handler = async (event: UpdateUserEvent): Promise<APIGatewayProxyStructure
     }, 
   } = event;
 
-  const userRepository = await container.getAsync<IPatientRepository>(TYPES.UserRepository);
+  const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
 
-  const user = await userRepository.update(user_id, body);
+  const user = await patientRepository.update(parseInt(user_id), body);
 
   if (!user) {
     return responseUtils.notFound();

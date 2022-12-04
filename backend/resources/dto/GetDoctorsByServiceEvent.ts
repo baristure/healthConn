@@ -1,15 +1,16 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
+import { Speciality } from "./Service";
 
-export interface GetPatientByIdEvent extends APIGatewayProxyEvent {
+export interface GetDoctorsByServiceEvent extends APIGatewayProxyEvent {
   pathParameters: {
-    patientId: string;
+    serviceName: Speciality;
   }
 };
 
 export const validationSchema = yup.object({
   pathParameters: yup.object({
-    patientId: yup.number()
+    serviceName: yup.string()
       .required()
   })
     .required()

@@ -16,13 +16,13 @@ const handler = async (event: GetPatientByIdEvent): Promise<APIGatewayProxyStruc
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
-    queryStringParameters: {
-      patient_id
+    pathParameters: {
+      patientId
     }
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const patient = await patientRepository.getById(Number(patient_id));
+  const patient = await patientRepository.getById(parseInt(patientId));
 
   if (!patient) {
     return responseUtils.notFound();

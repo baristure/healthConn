@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
 import { Title } from "./Doctor";
 import { Gender } from "./Patient";
+import { Speciality } from "./Service";
 
 export interface DoctorInput {
   first_name: string;
@@ -10,7 +11,7 @@ export interface DoctorInput {
   password: string;
   mobile_number: string;
   office_number: string;
-  location?: string;
+  office_location?: string;
   speciality: string;
   title: Title;
   resume?: string;
@@ -47,8 +48,9 @@ export const validationSchema = yup.object({
     office_number: yup.string()
       .matches(/^\+\d+$/, "mobile_number field should be a valid E.164 phone number")
       .required(),
-    location: yup.string(),
-    speciality: yup.string()     
+    office_location: yup.string(),
+    speciality: yup.string()
+      .oneOf(Object.values(Speciality))
       .required(),
     title: yup.string()
       .oneOf(Object.values(Title))

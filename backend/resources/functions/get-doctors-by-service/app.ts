@@ -5,31 +5,31 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import {
   APIGatewayProxyStructuredResultV2
 } from "aws-lambda";
-import { GetDoctorByEmailEvent, validationSchema } from "../../dto/GetDoctorByEmailEvent";
+import { GetDoctorsByServiceEvent, validationSchema } from "../../dto/GetDoctorsByServiceEvent";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
 import IDoctorRepository from "../../repository/IDoctorRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-const handler = async (event: GetDoctorByEmailEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+
+const handler = async (event: GetDoctorsByServiceEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
-    queryStringParameters: {
-      email
+    pathParameters: {
+      serviceName
     }
   } = event;
 
   const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
+  const doctors = await doctorRepository.getDoctorsByService(serviceName);
 
-  const doctor = await doctorRepository.getByEmail(email);
-
-  if (!doctor) {
+  if (!doctors) {
     return responseUtils.notFound();
   }
 
-  return responseUtils.success(doctor);
+  return responseUtils.success(doctors);
 };
 
 export const lambdaHandler = middy(handler)

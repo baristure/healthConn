@@ -1,7 +1,8 @@
 import  { Gender } from "./Patient";
+import { Speciality } from "./Service";
 
 export enum Title {
-  DOCTOR= "doctor",
+  DOCTOR = "doctor",
   PROFESSOR = "professor",
   NURSE = "nurse",
 };
@@ -14,12 +15,23 @@ export interface Doctor {
   password: string;
   mobile_number: string;
   office_number: string;
-  speciality: string;
-  rating: number;
+  speciality: Speciality;
   title: Title;
   resume: string;
   image_url: string;
   gender: Gender;
+  office_location: string;
   created_at: Date;
   updated_at: Date;
+};
+
+export interface DoctorByService {
+  id: number,
+  first_name: string,
+  last_name: string,
+  mobile_number: string,
+  office_number: number,
+  speciality: Speciality,
+  gender: Gender,
+  image_url: string,
 };
