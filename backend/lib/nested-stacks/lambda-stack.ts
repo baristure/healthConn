@@ -244,5 +244,45 @@ export class LambdaStack extends NestedStack {
 
     props.dbCluster.grantDataApiAccess(this.getAppointments);
     this.getAppointments.addToRolePolicy(props.dbSecretAccessPolicy);
+
+    this.getDoctorExtraData = new NodejsFunction(this, "get-doctor-extra-data", {
+      ...this.generateCommonLambdaProps("get-doctor-extra-data", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    })
+
+    props.dbCluster.grantDataApiAccess(this.getDoctorExtraData);
+    this.getDoctorExtraData.addToRolePolicy(props.dbSecretAccessPolicy);
+    
+    this.getDoctorsByService = new NodejsFunction(this, "get-doctors-by-service", {
+      ...this.generateCommonLambdaProps("get-doctors-by-service", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    })
+
+    props.dbCluster.grantDataApiAccess(this.getDoctorsByService);
+    this.getDoctorsByService.addToRolePolicy(props.dbSecretAccessPolicy);
+    
+    props.dbCluster.grantDataApiAccess(this.getDoctorExtraData);
+    this.getDoctorExtraData.addToRolePolicy(props.dbSecretAccessPolicy);
+    
+    this.getServices = new NodejsFunction(this, "get-services", {
+      ...this.generateCommonLambdaProps("get-services", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    })
+
+    props.dbCluster.grantDataApiAccess(this.getServices);
+    this.getServices.addToRolePolicy(props.dbSecretAccessPolicy);
+
   }
 }

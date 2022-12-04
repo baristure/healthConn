@@ -44,7 +44,6 @@ export default class DoctorRepository implements IDoctorRepository {
       "mobile_number",
       "office_number",
       "speciality",
-      "rating",
       "gender",
       "image_url",
     )
@@ -102,7 +101,7 @@ export default class DoctorRepository implements IDoctorRepository {
       resume,
       gender,
       image_url,
-      location
+      office_location
      } = changes;
     const [ updatedDoctor ] = await this.knex("doctors").update({
       first_name,
@@ -116,7 +115,7 @@ export default class DoctorRepository implements IDoctorRepository {
       resume,
       gender,
       image_url,
-      location
+      office_location
     })
       .where({
         id

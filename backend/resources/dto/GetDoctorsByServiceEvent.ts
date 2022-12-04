@@ -1,9 +1,10 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
+import { Speciality } from "./Service";
 
 export interface GetDoctorsByServiceEvent extends APIGatewayProxyEvent {
   pathParameters: {
-    serviceName: string;
+    serviceName: Speciality;
   }
 };
 

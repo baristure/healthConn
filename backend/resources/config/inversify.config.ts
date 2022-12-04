@@ -19,6 +19,10 @@ import PatientRepository from "../repository/PatientRepository";
 import IDoctorRepository from "../repository/IDoctorRepository";
 import DoctorRepository from "../repository/DoctorRepository";
 import { UserRepositoryFactory } from "../factory/UserRepositoryFactory";
+import { IServiceRepository } from "../repository/IServiceRepository";
+import ServiceRepository from "../repository/ServiceRepository";
+import IDoctorMembershipRepository from "../repository/IDoctorMembershipRepository";
+import DoctorMembershipRepository from "../repository/DoctorMembershipRepository";
 
 const container = new Container();
 
@@ -32,5 +36,7 @@ container.bind<IAuthService>(TYPES.JwtAuthService).to(JwtAuthService);
 container.bind<IPatientRepository>(TYPES.PatientRepository).to(PatientRepository);
 container.bind<IDoctorRepository>(TYPES.DoctorRepository).to(DoctorRepository);
 container.bind<UserRepositoryFactory>(TYPES.UserRepositoryFactory).to(UserRepositoryFactory);
+container.bind<IServiceRepository>(TYPES.ServiceRepository).to(ServiceRepository);
+container.bind<IDoctorMembershipRepository>(TYPES.DoctorMembershipRepository).to(DoctorMembershipRepository);
 
 export default container;

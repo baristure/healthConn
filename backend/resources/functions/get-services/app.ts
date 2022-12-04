@@ -33,6 +33,5 @@ const handler = async (event: GetServicesEvent): Promise<APIGatewayProxyStructur
 
 export const lambdaHandler = middy(handler)
   .use(httpErrorHandler())
-  .use(jsonBodyParser())
-  .use(validator(validationSchema));
+  .use(jsonBodyParser());
   

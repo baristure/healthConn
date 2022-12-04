@@ -13,6 +13,7 @@ import IDoctorRepository from "../../repository/IDoctorRepository";
 import IDoctorMembershipRepository from "../../repository/IDoctorMembershipRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 import { DoctorMembership } from "../../dto/DoctorMembership";
+import _ from "lodash";
 
 const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
@@ -25,26 +26,15 @@ const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyS
 
   const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
   const doctorMembershipRepository = await container.getAsync<IDoctorMembershipRepository>(TYPES.DoctorMembershipRepository);
-  const doctor = await doctorRepository.getDoctorById(parseInt(doctorId));
+  const doctor = await doctorRepository.getById(parseInt(doctorId));
   const doctorMemberships = await doctorMembershipRepository.filterByDoctorId(parseInt(doctorId));
 
   if (!doctor) {
     return responseUtils.notFound();
   }
 
-  const memberships = doctorMemberships.reduce((acc: string[], doctorMembership: DoctorMembership) => {
-    const { type, name } = doctorMembership;
-    return type === 'Membership'
-      ? [...acc, name]
-      : acc;
-  }, []);
-
-  const publications = doctorMemberships.reduce((acc: string[], doctorMembership: DoctorMembership) => {
-    const { type, name } = doctorMembership;
-    return type === 'Publication'
-      ? [...acc, name]
-      : acc;
-  }, []);
+  const memberships = doctorMemberships.filter(membership => membership.type as string == "membership"); 
+  const publications = doctorMemberships.filter(membership => membership.type as string == "publication");
 
   const {
     first_name,

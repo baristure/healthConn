@@ -15,9 +15,9 @@ export default class DoctorMembershipRepository implements IDoctorMembershipRepo
     this.knex = knex;
   }
 
-  public async filterByDoctorId(id: number): Promise<DoctorMembership[] | null> {
+  public async filterByDoctorId(id: number): Promise<DoctorMembership[]> {
     return this.knex.select("*")
-      .from("doctorMemberships")
+      .from("doctor_memberships")
       .where({
         doctor_id: id
       })
