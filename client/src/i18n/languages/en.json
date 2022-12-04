@@ -1,4 +1,6 @@
 {
+  "comment": "Comment",
+  "save": "Save",
   "success": "Success",
   "error": "Error",
   "failure": "Failure",

@@ -47,6 +47,7 @@ const db = factory({
     patient: () => faker.random.words(2),
     date: () => faker.date.soon(2),
     rating: nullable(() => faker.helpers.arrayElement([1, 2, 3, 4, 5, null])),
+    comment: nullable(() => faker.random.word(25)),
     doctorNote: nullable(() => faker.random.word(25)),
   },
   complaintSeverity: {

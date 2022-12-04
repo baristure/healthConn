@@ -8,10 +8,10 @@ export const appointmentHandler = [
   }),
   rest.post("/api/appointment-rating/:id", async (req, res, ctx) => {
     const { id } = req.params;
-    const { rating } = await req.json(); // request body
+    const { rating, comment } = await req.json(); // request body
     db.appointments.update({
       where: { id: { equals: +id } },
-      data: { rating },
+      data: { rating, comment},
     });
     return res(ctx.status(200));
   }),
@@ -48,6 +48,7 @@ export const appointmentHandler = [
       },
       date: appointment.date,
       rating: appointment.rating,
+      comment: appointment.comment,
       doctorNote: appointment.doctorNote,
       service: {
         name: "Cardiology",

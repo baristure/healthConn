@@ -13,7 +13,7 @@ export const useAuth = () => {
     // let userDetail = "";
     try {
       let userDetail = jwt_decode(user);
-      console.log("userDetail", userDetail);
+      // console.log("userDetail", userDetail);
 
       return [true, userDetail];
     } catch (err) {
