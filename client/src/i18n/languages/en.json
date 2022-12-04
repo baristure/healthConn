@@ -20,5 +20,12 @@
   "Resume": "Resume",
   "Memberships": "Memberships",
   "Publications": "Publications",
-  "Back": "Back"
+  "Back": "Back",
+  "Booking": "Booking",
+  "Complaints": "Complaints",
+  "Confirmation": "Confirmation",
+  "Next": "Next",
+  "Submit": "Submit",
+  "beReady": "Book an appointment by selecting the date and time you want from the calendar. Please be ready approximately 15 minutes before the appointment.",
+  "goCompliantsPage": "After the calendar step please select your complaints and try to explain."
 }

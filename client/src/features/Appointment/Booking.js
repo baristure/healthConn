@@ -1,14 +1,8 @@
-import {
-  getDay,
-  format,
-  setHours,
-  setMinutes,
-  nextMonday,
-  subDays,
-} from "date-fns";
+import { getDay, setHours, setMinutes, nextMonday, subDays } from "date-fns";
 import DatePicker from "react-datepicker";
 import * as FontAwesome from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { handleDateChange } from "./appointmentSlice";
 const startDate = () => {
@@ -24,6 +18,7 @@ const startDate = () => {
 
 export const Booking = () => {
   const Icon = FontAwesome["FaCalendarPlus"];
+  const { t } = useTranslation();
   const { selectedDate } = useSelector((state) => state.appointment);
   const dispatch = useDispatch();
 
@@ -55,17 +50,14 @@ export const Booking = () => {
                   <Icon className="block h-5 w-5 text-primary" />
                 </div>
                 <h5 className="text-xl m-6 mb-0 font-medium text-contrast-90 text-center">
-                  Book an Appointment
+                  {t("take.appointment")}
                 </h5>
 
                 <p className="text-md text-contrast-50 m-2 text-center px-6">
-                  Book an appointment by selecting the date and time you want
-                  from the calendar. Please be ready approximately 15 minutes
-                  before the appointment
+                  {t("beReady")}
                 </p>
                 <p className="text-md text-contrast-50 m-2 text-center px-6">
-                  After the calendar step please select your complaints and try
-                  to explain
+                  {t("goCompliantsPage")}
                 </p>
               </div>
             </div>

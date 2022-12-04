@@ -1,6 +1,6 @@
-import { format } from "date-fns";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { Button, Loading, Card } from "../common/Elements";
 import { Booking } from "./Booking";
@@ -15,6 +15,7 @@ import {
 
 export const Appointment = ({ doctor }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const state = useSelector((state) => state.appointment);
   const progress = state.progress;
 
@@ -67,7 +68,7 @@ export const Appointment = ({ doctor }) => {
                   <i className="fa fa-check w-full fill-current white"></i>
                 </span>
               </div>
-              <div className="text-xs text-center mt-1">Booking</div>
+              <div className="text-xs text-center mt-1">{t("Booking")}</div>
             </div>
             {/* First Line */}
             <div className="w-1/6 align-center items-center align-middle content-center flex pb-3">
@@ -97,7 +98,7 @@ export const Appointment = ({ doctor }) => {
                   <i className="fa fa-check w-full fill-current white"></i>
                 </span>
               </div>
-              <div className="text-xs text-center mt-1">Complaints</div>
+              <div className="text-xs text-center mt-1">{t("Complaints")}</div>
             </div>
 
             {/* Second Line */}
@@ -127,7 +128,7 @@ export const Appointment = ({ doctor }) => {
               >
                 <span className="text-contrast-50 text-center w-full"></span>
               </div>
-              <div className="text-xs text-center mt-1">Confirmation</div>
+              <div className="text-xs text-center mt-1">{t("Confirmation")}</div>
             </div>
 
             <div className="flex-1"></div>
@@ -145,7 +146,7 @@ export const Appointment = ({ doctor }) => {
               callback={() => dispatch(handleProgress(progress - 1))}
               className="mr-2 w-20"
             >
-              Back
+              {t("Back")}
             </Button>
           )}
           {progress === 1 && (
@@ -157,7 +158,7 @@ export const Appointment = ({ doctor }) => {
               callback={() => dispatch(handleProgress(progress + 1))}
               className="mr-2 w-20"
             >
-              Next
+              {t("Next")}
             </Button>
           )}
           {progress === 2 && (
@@ -169,7 +170,7 @@ export const Appointment = ({ doctor }) => {
               callback={() => dispatch(handleProgress(progress + 1))}
               className="mr-2 w-20"
             >
-              Next
+              {t("Next")}
             </Button>
           )}
           {progress === 3 && (
@@ -180,7 +181,7 @@ export const Appointment = ({ doctor }) => {
               className="mr-2 w-20"
               callback={() => onSubmit()}
             >
-              Submit
+              {t("Submit")}
             </Button>
           )}
         </div>
