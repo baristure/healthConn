@@ -1,19 +1,8 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import * as yup from "yup";
+import { Complaint, BodySide } from "./PostAppointmentEvent";
 
-export enum BodySide {
-  FRONT = "front",
-  BACK = "back"
-}
-
-export interface Complaint {
-  part: string;
-  side: string;
-  severity: number;
-  comment: string;
-}
-
-export interface PostAppointmentEvent extends Omit<APIGatewayProxyEvent, "body"> {
+export interface PutAppointmentEvent extends Omit<APIGatewayProxyEvent, "body"> {
   body: {
     userId: number;
     doctorId: number;
