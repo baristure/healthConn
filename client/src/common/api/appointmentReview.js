@@ -7,9 +7,9 @@ export const appointmentReviewAPI = {
     });
     return res.data;
   },
-  setPatientRating: async ({ id, rating }) => {
+  setPatientRating: async ({ id, rating, comment }) => {
     const res = await http.post(`/api/appointment-rating/${id}`, {
-      rating,
+      rating, comment
     });
     return res.data;
   },

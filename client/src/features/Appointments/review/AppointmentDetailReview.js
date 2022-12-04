@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { Button } from "../../common/Elements";
 import { useTranslation } from "react-i18next";
@@ -15,13 +15,18 @@ export const AppointmentDetailReview = ({
   date,
   userType,
   rating,
+  comment,
   doctorNote,
-  onRatingSet,
+  onReviewSet,
   onDoctorNoteSet,
 }) => {
   const { t } = useTranslation();
   const textAreaRef = useRef(document.createElement("textarea"));
+  const [ratingValue, setRatingValue] = useState(null);
 
+  const onReviewSubmit = () => {
+    onReviewSet({ rating: ratingValue, comment: textAreaRef.current.value });
+  };
   const isAppointmentCompleted = useMemo(() => {
     return new Date() > new Date(date);
   }, [date]);
@@ -29,12 +34,18 @@ export const AppointmentDetailReview = ({
   if (!isAppointmentCompleted) {
     if (userType === "patient") {
       return (
-        <Note txt={t("you.have.to.wait.to.review.until.the.appointment.is.done")} />
+        <Note
+          txt={t("you.have.to.wait.to.review.until.the.appointment.is.done")}
+        />
       );
     }
     if (userType === "doctor") {
       return (
-        <Note txt={t("you.have.to.wait.to.add.notes.for.your.patient.until.the.appointment.is.done")} />
+        <Note
+          txt={t(
+            "you.have.to.wait.to.add.notes.for.your.patient.until.the.appointment.is.done"
+          )}
+        />
       );
     }
     return null;
@@ -43,23 +54,46 @@ export const AppointmentDetailReview = ({
     if (rating === null) {
       // Editable
       return (
-        <Rating
-          initialValue={1}
-          readonly={false}
-          size={36}
-          showTooltip={true}
-          onClick={onRatingSet}
-        />
+        <div className="flex flex-col items-center">
+          <Rating
+            initialValue={ratingValue}
+            readonly={false}
+            size={36}
+            showTooltip={true}
+            onClick={setRatingValue}
+          />
+          <p>{t('comment')}</p>
+          <textarea
+            className="mb-4"
+            style={{ minHeight: 20, maxHeight: 240 }}
+            rows={4}
+            cols={50}
+            ref={textAreaRef}
+          />
+          <Button callback={onReviewSubmit}>{t("save")}</Button>
+        </div>
       );
     }
     // readonly
     return (
-      <Rating
-        initialValue={rating}
-        readonly={true}
-        size={36}
-        showTooltip={true}
-      />
+      <div className="flex flex-col items-center">
+        <Rating
+          initialValue={rating}
+          readonly
+          size={36}
+          showTooltip
+        />
+        <textarea
+          className="mb-4"
+          readOnly
+          disabled
+          value={comment}
+          style={{ minHeight: 20, maxHeight: 240 }}
+          rows={4}
+          cols={50}
+          ref={textAreaRef}
+        />
+      </div>
     );
   }
   if (userType !== "doctor") {

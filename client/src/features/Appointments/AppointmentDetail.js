@@ -33,8 +33,8 @@ export const AppointmentDetail = ({ user }) => {
   const onDoctorNoteSet = async (doctorNote) => {
     dispatch(setDoctorNote({ id: appointmentId, doctorNote }));
   };
-  const onRatingSet = async (rating) => {
-    dispatch(setPatientReview({ id: appointmentId, rating }));
+  const onReviewSet = async ({rating, comment}) => {
+    dispatch(setPatientReview({ id: appointmentId, rating, comment }));
   };
 
   useEffect(() => {
@@ -271,10 +271,11 @@ export const AppointmentDetail = ({ user }) => {
             <AppointmentDetailReview
               date={data.date}
               rating={data.rating}
+              comment={data.comment}
               userType={user.user_type}
               doctorNote={data.doctorNote}
               onDoctorNoteSet={onDoctorNoteSet}
-              onRatingSet={onRatingSet}
+              onReviewSet={onReviewSet}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import FormObserver from "./FormObserver";
 import Loading from "./Loading/Loading";
 import FormRadioButton from "./RadioButton/FormRadioButton";
 import Card from "./Card/Card";
+import Pagination from "./Pagination/Pagination";
 export {
   Button,
   Input,
@@ -17,4 +18,5 @@ export {
   Loading,
   FormRadioButton,
   Card,
+  Pagination,
 };

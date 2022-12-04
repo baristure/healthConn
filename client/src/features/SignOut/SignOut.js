@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { clearState } from "../Login/loginSlice";
 export const SignOut = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     localStorage.clear();
-    dispatch(clearState())
-    navigate("/login", { replace: true });
+    dispatch(clearState());
+    navigate("/", { replace: true });
   }, [navigate, dispatch]);
 
   return null;
