@@ -1,4 +1,11 @@
 {
+  "success": "Başarılı",
+  "error": "Hata",
+  "failure": "Hata",
+  "note": "Note",
+  "doctor.notes": "Doktor Notları",
+  "you.have.to.wait.to.add.notes.for.your.patient.until.the.appointment.is.done": "Hastanız ile ilgili not eklemek için randevu tamamlanmasını beklemelisin",
+  "you.have.to.wait.to.review.until.the.appointment.is.done": "Değerlendirme yapmak için randevu tamamlanmasını beklemelisin",
   "your.profile": "Profilim",
   "settings": "Ayarlar",
   "sign.out": "Çıkış Yap",
