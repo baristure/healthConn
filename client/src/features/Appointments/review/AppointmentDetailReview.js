@@ -62,7 +62,7 @@ export const AppointmentDetailReview = ({
             showTooltip={true}
             onClick={setRatingValue}
           />
-          <p>{t('patient.comments')}</p>
+          <p>{t('comment')}</p>
           <textarea
             className="mb-4"
             style={{ minHeight: 20, maxHeight: 240 }}
