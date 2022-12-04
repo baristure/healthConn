@@ -84,7 +84,8 @@ export class MainStack extends cdk.Stack {
       authorizerFunction: lambdaStack.getAuthorizer(),
       loginFunction: lambdaStack.getLogin(),
       getAppointmentByIdFunction: lambdaStack.getGetAppointmentById(),
-      postAppointmentFunction: lambdaStack.getPostAppointment()
+      postAppointmentFunction: lambdaStack.getPostAppointment(),
+      getAppointmentsFunction: lambdaStack.getGetAppointments()
     });
 
     const {

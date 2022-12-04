@@ -1,7 +1,7 @@
-import { BundlingOutput, CustomResource, Duration, NestedStack } from "aws-cdk-lib";
+import { CustomResource, Duration, NestedStack } from "aws-cdk-lib";
 import { ISecurityGroup, IVpc } from "aws-cdk-lib/aws-ec2";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Architecture, Code, Function, IFunction, Runtime, LayerVersion } from "aws-cdk-lib/aws-lambda";
+import { Architecture, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { IServerlessCluster } from "aws-cdk-lib/aws-rds";
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -9,7 +9,6 @@ import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 import path from "path";
 import BaseNestedStackProps from "../types/BaseNestedStackProps";
-import glob from "glob";
 
 interface LambdaStackProps extends BaseNestedStackProps {
   assetsBucket: IBucket;
@@ -33,6 +32,7 @@ export class LambdaStack extends NestedStack {
   private readonly postAppointment: IFunction;
   private readonly getAppointmentById: IFunction;
   private readonly databaseMigrator: IFunction;
+  private readonly getAppointments: IFunction;
 
   public getLinkToPrivateKey() {
     return this.linkToPrivateKey;
@@ -60,6 +60,10 @@ export class LambdaStack extends NestedStack {
   
   public getDatabaseMigrator() {
     return this.databaseMigrator;
+  }
+
+  public getGetAppointments() {
+    return this.getAppointments;
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
@@ -203,5 +207,16 @@ export class LambdaStack extends NestedStack {
     props.dbCluster.grantDataApiAccess(this.databaseMigrator);
     this.databaseMigrator.addToRolePolicy(props.dbSecretAccessPolicy);
 
+    this.getAppointments = new NodejsFunction(this, "get-appointments", {
+      ...this.generateCommonLambdaProps("get-appointments", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    })
+
+    props.dbCluster.grantDataApiAccess(this.getAppointments);
+    this.getAppointments.addToRolePolicy(props.dbSecretAccessPolicy);
   }
 }

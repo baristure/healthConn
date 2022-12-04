@@ -13,6 +13,7 @@ interface ApiStackProps extends BaseNestedStackProps {
   loginFunction: IFunction;
   postAppointmentFunction: IFunction;
   getAppointmentByIdFunction: IFunction;
+  getAppointmentsFunction: IFunction;
 }
 
 export class ApiStack extends NestedStack {
@@ -98,6 +99,14 @@ export class ApiStack extends NestedStack {
       ),
       commonAuthorizerOptions 
     );
+
+    appointments.addMethod(
+      HttpMethod.GET,
+      new LambdaIntegration(
+        props.getAppointmentsFunction,
+        commonLambdaIntegrationOptions
+      )
+    )
 
     appointmentId.addMethod(
       HttpMethod.GET,
