@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
@@ -5,12 +6,9 @@ import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import _ from "lodash";
-import "reflect-metadata";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
-import { Doctor } from "../../dto/Doctor";
 import { LoginEvent, validationSchema } from "../../dto/LoginEvent";
-import { Patient } from "../../dto/Patient";
 import { UserRepositoryFactory } from "../../factory/UserRepositoryFactory";
 import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";

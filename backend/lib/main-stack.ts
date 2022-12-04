@@ -90,6 +90,7 @@ export class MainStack extends cdk.Stack {
       getDoctorExtraDataFunction: lambdaStack.getGetDoctorExtraData(),
       getServicesFunction: lambdaStack.getGetServices(),
       getDoctorsByServiceFunction: lambdaStack.getGetDoctorsByService(),
+      getAppointmentsFunction: lambdaStack.getGetAppointments()
     });
 
     const {
