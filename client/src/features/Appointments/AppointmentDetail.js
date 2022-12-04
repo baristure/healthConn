@@ -5,12 +5,22 @@ import { format } from "date-fns";
 import { bodyPartExplanations } from "../../constants/bodyPartExplanations";
 import http from "../../common/api/Axios.config";
 import { Loading } from "../common/Elements";
+import { AppointmentDetailReview } from "./review/AppointmentDetailReview";
+import { useDispatch } from "react-redux";
+import {
+  clearDoctorNoteState,
+  clearPatientReviewState,
+  setDoctorNote,
+  setPatientReview,
+} from "./review/appointmentReviewSlice";
+import { useTranslation } from "react-i18next";
 
 export const AppointmentDetail = ({ user }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
   const { appointmentId } = useParams();
-
+  const dispatch = useDispatch();
   const fetchAppointmentDetail = async () => {
     setLoading(true);
     const response = await http
@@ -18,12 +28,20 @@ export const AppointmentDetail = ({ user }) => {
       .then((res) => res.data)
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-    console.log(response);
     setData(response);
+  };
+
+  const onDoctorNoteSet = async (doctorNote) => {
+    dispatch(setDoctorNote({ id: appointmentId, doctorNote }));
+  };
+  const onRatingSet = async (rating) => {
+    dispatch(setPatientReview({ id: appointmentId, rating }));
   };
 
   useEffect(() => {
     fetchAppointmentDetail();
+    dispatch(clearDoctorNoteState());
+    dispatch(clearPatientReviewState());
   }, []);
 
   const getBodyPartExplanation = (bodyPart) => {
@@ -40,7 +58,7 @@ export const AppointmentDetail = ({ user }) => {
   return (
     <div>
       <div className="p-4 mt-3 w-full">
-        <div className="w-full flex flex-col justify-center items-center w-full">
+        <div className="w-full flex flex-col justify-center items-center">
           <h2 className="text-2xl font-semibold py-2">Appointment Details</h2>
           <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8 pb-8 w-full">
             <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
@@ -239,6 +257,16 @@ export const AppointmentDetail = ({ user }) => {
               </section>
               <div className="lg:col-span-2"></div>
             </div>
+          </div>
+          <div className="w-full flex justify-center">
+            <AppointmentDetailReview
+              date={data.date}
+              rating={data.rating}
+              userType={user.user_type}
+              doctorNote={data.doctorNote}
+              onDoctorNoteSet={onDoctorNoteSet}
+              onRatingSet={onRatingSet}
+            />
           </div>
         </div>
       </div>

@@ -1,4 +1,11 @@
 {
+  "success": "Success",
+  "error": "Error",
+  "failure": "Failure",
+  "note": "Note",
+  "doctor.notes": "Doctor Notes",
+  "you.have.to.wait.to.add.notes.for.your.patient.until.the.appointment.is.done": "You have to wait to add notes for your patient until the appointment is done",
+  "you.have.to.wait.to.review.until.the.appointment.is.done": "You have to wait to review until the appointment is done",
   "your.profile": "Your Profile",
   "settings": "Settings",
   "sign.out": "Sign out",
