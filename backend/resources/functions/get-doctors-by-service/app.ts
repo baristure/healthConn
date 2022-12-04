@@ -5,30 +5,31 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import {
   APIGatewayProxyStructuredResultV2
 } from "aws-lambda";
-import { GetPatientByIdEvent, validationSchema } from "../../dto/GetPatientByIdEvent";
+import { GetDoctorsByServiceEvent, validationSchema } from "../../dto/GetDoctorsByServiceEvent";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
-import IPatientRepository from "../../repository/IPatientRepository";
+import IDoctorRepository from "../../repository/IDoctorRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-const handler = async (event: GetPatientByIdEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+
+const handler = async (event: GetDoctorsByServiceEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
     pathParameters: {
-      patientId
+      serviceName
     }
   } = event;
 
-  const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const patient = await patientRepository.getPatientById(parseInt(patientId));
+  const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
+  const doctors = await doctorRepository.getDoctorsByService(serviceName);
 
-  if (!patient) {
+  if (!doctors) {
     return responseUtils.notFound();
   }
 
-  return responseUtils.success(patient);
+  return responseUtils.success(doctors);
 };
 
 export const lambdaHandler = middy(handler)

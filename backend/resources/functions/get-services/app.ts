@@ -5,31 +5,30 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import {
   APIGatewayProxyStructuredResultV2
 } from "aws-lambda";
-import { GetDoctorByEmailEvent, validationSchema } from "../../dto/GetDoctorByEmailEvent";
+import { GetServicesEvent, validationSchema } from "../../dto/GetServicesEvent";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
-import IDoctorRepository from "../../repository/IDoctorRepository";
+import { IServiceRepository } from "../../repository/IServiceRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
+import { Service } from "../../dto/Service";
 
-const handler = async (event: GetDoctorByEmailEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+const handler = async (event: GetServicesEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
-  const {
-    queryStringParameters: {
-      email
-    }
-  } = event;
+  const serviceRepository = await container.getAsync<IServiceRepository>(TYPES.ServiceRepository);
+  const services = await serviceRepository.getAll();
 
-  const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
-
-  const doctor = await doctorRepository.getByEmail(email);
-
-  if (!doctor) {
+  if (!services) {
     return responseUtils.notFound();
   }
 
-  return responseUtils.success(doctor);
+  const formattedServices = services.map((service: Service) => {
+    const { id: service_id, name }: { id: number, name: string } = service;
+    return { service_id, name };
+  });
+
+  return responseUtils.success(formattedServices);
 };
 
 export const lambdaHandler = middy(handler)

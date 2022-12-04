@@ -33,6 +33,12 @@ export class LambdaStack extends NestedStack {
   private readonly postAppointment: IFunction;
   private readonly getAppointmentById: IFunction;
   private readonly databaseMigrator: IFunction;
+  private readonly getDoctorExtraData: IFunction;
+  private readonly getDoctorById: IFunction;
+  private readonly getPatientById: IFunction;
+  private readonly getDoctorsByService: IFunction;
+  private readonly getServices: IFunction;
+
 
   public getLinkToPrivateKey() {
     return this.linkToPrivateKey;
@@ -60,6 +66,26 @@ export class LambdaStack extends NestedStack {
   
   public getDatabaseMigrator() {
     return this.databaseMigrator;
+  }
+
+  public getGetDoctorExtraData() {
+    return this.getDoctorExtraData;
+  }
+
+  public getGetDoctorById() {
+    return this.getDoctorById;
+  }
+
+  public getGetPatientById() {
+    return this.getPatientById;
+  }
+
+  public getGetDoctorsByService() {
+    return this.getDoctorsByService;
+  }
+
+  public getGetServices() {
+    return this.getServices;
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {

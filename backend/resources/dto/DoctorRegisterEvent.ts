@@ -10,7 +10,7 @@ export interface DoctorInput {
   password: string;
   mobile_number: string;
   office_number: string;
-  location?: string;
+  office_location?: string;
   speciality: string;
   title: Title;
   resume?: string;

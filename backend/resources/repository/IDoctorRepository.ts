@@ -1,9 +1,12 @@
 import { DoctorInput } from "../dto/DoctorRegisterEvent";
-import { Doctor } from "../dto/Doctor";
+import { Doctor, DoctorByService } from "../dto/Doctor";
+import { Speciality } from "../dto/Service";
 
 export default interface IDoctorRepository {
-  getById(id: number): Promise<Doctor | null>;
+
   getByEmail(email: string): Promise<Doctor | null>;
+  getById(id: number): Promise<Doctor | null>;
+  getDoctorsByService(serviceName: Speciality): Promise<DoctorByService[] | null>;
   save(doctor: DoctorInput): Promise<Doctor | null>;
   update(id: number, changes: Partial<DoctorInput>): Promise<Doctor | null>;
 };

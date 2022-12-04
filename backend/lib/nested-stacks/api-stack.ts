@@ -13,6 +13,11 @@ interface ApiStackProps extends BaseNestedStackProps {
   loginFunction: IFunction;
   postAppointmentFunction: IFunction;
   getAppointmentByIdFunction: IFunction;
+  getDoctorExtraData: IFunction;
+  getDoctorById: IFunction;
+  getPatientById: IFunction;
+  getDoctorsByService: IFunction;
+  getServices: IFunction;
 }
 
 export class ApiStack extends NestedStack {

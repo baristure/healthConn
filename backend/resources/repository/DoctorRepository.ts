@@ -2,8 +2,9 @@ import { inject, injectable } from "inversify";
 import { Knex } from "knex";
 import { TYPES } from "../config/types";
 import { DoctorInput } from "../dto/DoctorRegisterEvent";
-import { Doctor } from "../dto/Doctor";
+import { Doctor, DoctorByService } from "../dto/Doctor";
 import IDoctorRepository from "./IDoctorRepository";
+import { Speciality } from "../dto/Service";
 
 @injectable()
 export default class DoctorRepository implements IDoctorRepository {
@@ -31,7 +32,26 @@ export default class DoctorRepository implements IDoctorRepository {
       .where({
         email
       })
-      .first();
+      .first()
+  }
+
+  // TODO add paging 
+  public async getDoctorsByService(serviceName: Speciality): Promise<DoctorByService[] | null> {
+    return this.knex.select(
+      "id",
+      "first_name",
+      "last_name",
+      "mobile_number",
+      "office_number",
+      "speciality",
+      "rating",
+      "gender",
+      "image_url",
+    )
+    .from("doctors")
+    .where({
+      speciality: serviceName
+    })
   }
 
   public async save(doctor: DoctorInput): Promise<Doctor | null> {
@@ -47,7 +67,7 @@ export default class DoctorRepository implements IDoctorRepository {
       resume,
       gender,
       image_url,
-      location
+      office_location
      } = doctor;
     const [ savedDoctor ] = await this.knex.insert({
       first_name,
@@ -61,7 +81,7 @@ export default class DoctorRepository implements IDoctorRepository {
       resume,
       gender,
       image_url,
-      location
+      office_location
     })
       .into("doctors")
       .returning("*");
