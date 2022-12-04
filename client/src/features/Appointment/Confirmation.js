@@ -31,7 +31,7 @@ export const Confirmation = ({ doctor }) => {
                         <div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              {t("Service Name")}:
+                              {t("service.name")}:
                               <span className="text-gray-700">
                                 {" " + t(doctor.speciality)}
                               </span>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Form, Formik } from "formik";
 import axios from "axios";
@@ -11,6 +11,7 @@ import {
   FormRadioButton,
 } from "../common/Elements";
 import { registerSchema } from "./registerValidator";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
   first_name: "",
@@ -22,9 +23,9 @@ const initialValues = {
 };
 
 export const Register = () => {
+  const { t, i18n } = useTranslation();
   const [formValues, setFormValues] = useState(initialValues);
   const [loading, setLoading] = useState(false);
-
   const onSubmit = async (values, { resetForm }) => {
     setLoading(true);
     let { data, status } = await axios
@@ -54,72 +55,72 @@ export const Register = () => {
         >
           <Form className="space-y-4 min-h-screen w-full px-4 flex flex-col sm:justify-center justify-start  items-center">
             <FormObserver watch={onUpdate} />
-            <h1 className="  font-semibold text-2xl text">Register</h1>
+            <h1 className="  font-semibold text-2xl text">{t("register")}</h1>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
-                label="Name"
+                label={t("name")}
                 type="text"
                 name="first_name"
-                placeholder="Enter a your name"
+                placeholder={t("enter.name.placeholder")}
               />
             </div>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
-                label="Surname"
+                label={t("surname")}
                 type="text"
                 name="last_name"
-                placeholder="Enter a your surname"
+                placeholder={t("enter.surname.placeholder")}
               />
             </div>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
-                label="Phone number"
+                label={t("phone.number")}
                 type="text"
                 name="mobile_number"
-                placeholder="+90 (532) 112 0911  OR  5321120911"
+                placeholder={t("phone.number.placeholder")}
               />
             </div>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
-                label="Email"
+                label={t("email")}
                 type="email"
                 name="email"
-                placeholder="Enter a your email"
+                placeholder={t("enter.email.placeholder")}
               />
             </div>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
-                label="Password"
+                label={t("password")}
                 type="password"
                 name="password"
-                placeholder="Enter a password"
+                placeholder={t("enter.password.placeholder")}
                 className=""
               />
             </div>
             <div className="sm:w-1/3 w-full flex flex-row justify-center ">
               <FormRadioButton
                 items={[
-                  { label: "Patient", value: "patient" },
-                  { label: "Doctor", value: "doctor" },
+                  { label: t("patient"), value: "patient" },
+                  { label: t("doctor"), value: "doctor" },
                 ]}
                 checked={formValues.usertype}
                 name="usertype"
-                label="Account type"
+                label={t("account.type")}
               />
             </div>
 
             <br />
             <Button type="submit" loading={loading} className="sm:w-1/3">
-              Register
+              {t("register")}
             </Button>
             <div className="flex flex-col items-end my-16">
               <NavLink className="underline" to="/login">
-                Go back to Login Page
+                {t("back.to.login")}
               </NavLink>
             </div>
           </Form>

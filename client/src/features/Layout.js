@@ -76,10 +76,15 @@ const AppRoutes = (loggedIn, userDetail) => {
         path="/services"
         element={<ProtectedRoute component={Service} />}
       />
-      <Route path="/services/:service" element={<DoctorList />} />
+      <Route
+        path="/services/:service"
+        element={<ProtectedRoute component={DoctorList} />}
+      />
       <Route
         path="/services/:service/:doctor_id"
-        element={<DoctorInfo setDoctor={setDoctor} />}
+        element={
+          <ProtectedRoute component={DoctorInfo} setDoctor={setDoctor} />
+        }
       />
       <Route
         path="/profile"
@@ -95,7 +100,6 @@ const AppRoutes = (loggedIn, userDetail) => {
 
 function Layout() {
   const [loggedIn, userDetail] = useAuth();
-  //const [loggedIn, userDetail] = useState(true);
   const navbarState = useSelector((state) => state.navbar);
   const isOpen = navbarState.isOpen;
   return (

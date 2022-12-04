@@ -76,7 +76,7 @@ export const AppointmentDetail = ({ user }) => {
                         <div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              {t("Service Name")}:&nbsp;
+                              {t("service.name")}:&nbsp;
                               <span className="text-gray-700">
                                 {t(data.service.name.toLowerCase())}
                               </span>
@@ -151,15 +151,15 @@ export const AppointmentDetail = ({ user }) => {
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                {t("Gender")}:
+                                {t("gender")}:
                                 <span className="text-gray-700">
-                                  {" " + t(data.user.gender)}
+                                  {" " + t(data.user.gender.toLowercase())}
                                 </span>
                               </p>
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                {t("Blood Type")}:
+                                {t("blood.type")}:
                                 <span className="text-gray-700">
                                   {" " + data.user.blood_type}
                                 </span>

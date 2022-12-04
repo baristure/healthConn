@@ -45,15 +45,15 @@ export const Appointments = ({ user }) => {
                       scope="col"
                       className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-6 text-left"
                     >
-                      {t("Service Name")}
+                      {t("service.name")}
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-left text-sm font-semibold text-gray-900 text-left"
                     >
                       {user.user_type === "doctor"
-                        ? t("Patient Name")
-                        : t("Doctor Name")}
+                        ? t("patient.name")
+                        : t("doctor.name")}
                     </th>
                     <th
                       scope="col"
@@ -107,7 +107,7 @@ export const Appointments = ({ user }) => {
                         <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
                           <NavLink to={`/appointments/${appointment.id}`}>
                             <Button color="primary" hover="primary" size="xs">
-                              {t("Detail")}
+                              {t("detail")}
                             </Button>
                           </NavLink>
                         </td>

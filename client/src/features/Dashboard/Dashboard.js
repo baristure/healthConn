@@ -37,6 +37,16 @@ export const Dashboard = ({ user }) => {
       : t("obesity");
   };
 
+  const textColor = (val) => {
+    return val < 18.5
+      ? "text-blue-600"
+      : val >= 18.5 && val <= 24.9
+      ? "text-green-600"
+      : val >= 25 && val <= 29.9
+      ? "text-yellow-600"
+      : "text-red-600";
+  };
+
   return (
     <>
       <main className="flex-1">
@@ -60,7 +70,7 @@ export const Dashboard = ({ user }) => {
                 </div>
               </div>
             </div>
-            <div className="flex shadow-md rounded-md bg-white py-6 justify-center w-full">
+            <div className="flex shadow-md rounded-md bg-white py-6 justify-center w-full p-5">
               <div className="space-y-2">
                 <h2 className="text-center font-bold">{t("your.summary")}</h2>
                 {user.gender && (
@@ -97,16 +107,20 @@ export const Dashboard = ({ user }) => {
                 )}
                 <div className="text-left">
                   <span className="font-bold">BMI:</span>{" "}
-                  <span className="pl-2">
+                  <span className={`pl-2 ${textColor(bmi)}`}>
                     {bmi + " "} {getBMIValue(bmi)}
                   </span>
                 </div>
                 <div className="text-left">
-                  <ul className="list-disc pl-2">
-                    <li>{t("underweight.explain")}</li>
-                    <li>{t("healty.explain")}</li>
-                    <li>{t("overweight.explain")}</li>
-                    <li>{t("obesity.explain")}</li>
+                  <ul className="list-none">
+                    <li className="text-blue-600">
+                      {t("underweight.explain")}
+                    </li>
+                    <li className="text-green-600">{t("healty.explain")}</li>
+                    <li className="text-yellow-600">
+                      {t("overweight.explain")}
+                    </li>
+                    <li className="text-red-600">{t("obesity.explain")}</li>
                   </ul>
                 </div>
               </div>
