@@ -1,20 +1,13 @@
-import "reflect-metadata";
-import middy from "@middy/core";
-import httpErrorHandler from "@middy/http-error-handler";
-import jsonBodyParser from "@middy/http-json-body-parser";
-import {
-  APIGatewayProxyStructuredResultV2
-} from "aws-lambda";
+import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { hashSync } from "bcryptjs";
 import container from "../../config/inversify.config";
-import { TYPES } from "../../config/types";
+import { TYPES } from "../../config/TYPES";
 import ErrorConstants from "../../constants/ErrorConstants";
-import { DoctorRegisterEvent, validationSchema } from "../../dto/DoctorRegisterEvent";
-import validator from "../../middlewares/validator";
+import { DoctorRegisterEvent } from "../../dto/DoctorRegisterEvent";
 import IDoctorRepository from "../../repository/IDoctorRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+export const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
@@ -30,7 +23,7 @@ const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStruc
       resume,
       image_url,
       gender,
-      rating,
+      location,
     }
   } = event;
 
@@ -54,15 +47,10 @@ const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayProxyStruc
       resume,
       image_url,
       gender,
-      rating,
+      location
     }
   );
 
   return responseUtils.success(savedDoctor);
 };
-
-export const lambdaHandler = middy(handler)
-  .use(httpErrorHandler())
-  .use(jsonBodyParser())
-  .use(validator(validationSchema));
   

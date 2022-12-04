@@ -9,13 +9,13 @@ export interface DoctorInput {
   email: string;
   password: string;
   mobile_number: string;
-  office_number?: string;
+  office_number: string;
+  location?: string;
   speciality: string;
   title: Title;
-  resume: string;
-  image_url: string;
+  resume?: string;
+  image_url?: string;
   gender: Gender;
-  rating?: number;
 };
 
 export interface DoctorRegisterEvent extends Omit<APIGatewayProxyEvent, "body"> {
@@ -45,21 +45,19 @@ export const validationSchema = yup.object({
       .matches(/^\+\d+$/, "mobile_number field should be a valid E.164 phone number")
       .required(),
     office_number: yup.string()
+      .matches(/^\+\d+$/, "mobile_number field should be a valid E.164 phone number")
       .required(),
+    location: yup.string(),
     speciality: yup.string()     
       .required(),
     title: yup.string()
       .oneOf(Object.values(Title))
       .required(),
-    resume: yup.string()
-      .required(),
+    resume: yup.string(),
     image_url: yup.string()
-      .url()
-      .required(),
+      .url(),
     gender: yup.string()
       .oneOf(Object.values(Gender))
-      .required(),
-    rating: yup.number()
-      .positive(),
+      .required()
   }).required()
 });
