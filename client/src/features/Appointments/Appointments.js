@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 import { Button, Loading } from "../common/Elements";
 import { NavLink } from "react-router-dom";
 import http from "../../common/api/Axios.config";
 
 export const Appointments = ({ user }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState(null);
 
@@ -34,7 +36,7 @@ export const Appointments = ({ user }) => {
           <div className="inline-block min-w-full py-2 align-middle md:px-4 lg:px-6">
             <div className=" ">
               <h1 className="text-center text-2xl py-6 mb-2 font-semibold">
-                Appointment List
+                {t("Appointment List")}
               </h1>
               <table className="min-w-full divide-y divide-gray-300 border">
                 <thead className="bg-gray-50">
@@ -43,21 +45,21 @@ export const Appointments = ({ user }) => {
                       scope="col"
                       className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-6 text-left"
                     >
-                      Service Name
+                      {t("Service Name")}
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-left text-sm font-semibold text-gray-900 text-left"
                     >
                       {user.user_type === "doctor"
-                        ? "Patient Name"
-                        : "Doctor Name"}
+                        ? t("Patient Name")
+                        : t("Doctor Name")}
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pr-6 text-center"
                     >
-                      Date
+                      {t("Date")}
                     </th>
                   </tr>
                 </thead>
@@ -74,7 +76,7 @@ export const Appointments = ({ user }) => {
                         <div className="w-full text-center m-4 p-4">
                           <div className="min-w-full py-2 align-middle md:px-2 lg:px-2">
                             <div className="text-center font-semibold py-48 sm:py-16 md:py-24">
-                              No appointment found
+                              {t("noAppointment")}
                             </div>
                           </div>
                         </div>
@@ -105,7 +107,7 @@ export const Appointments = ({ user }) => {
                         <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
                           <NavLink to={`/appointments/${appointment.id}`}>
                             <Button color="primary" hover="primary" size="xs">
-                              Detail
+                              {t("Detail")}
                             </Button>
                           </NavLink>
                         </td>

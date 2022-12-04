@@ -94,8 +94,8 @@ const AppRoutes = (loggedIn, userDetail) => {
 };
 
 function Layout() {
-  // const [loggedIn, userDetail] = useAuth();
-  const [loggedIn, userDetail] = useState(true);
+  const [loggedIn, userDetail] = useAuth();
+  //const [loggedIn, userDetail] = useState(true);
   const navbarState = useSelector((state) => state.navbar);
   const isOpen = navbarState.isOpen;
   return (
