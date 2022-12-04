@@ -1,7 +1,7 @@
 import { BundlingOutput, CustomResource, Duration, NestedStack } from "aws-cdk-lib";
 import { ISecurityGroup, IVpc } from "aws-cdk-lib/aws-ec2";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Architecture, Code, Function, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Code, Function, IFunction, Runtime, LayerVersion } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { IServerlessCluster } from "aws-cdk-lib/aws-rds";
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -9,6 +9,7 @@ import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 import path from "path";
 import BaseNestedStackProps from "../types/BaseNestedStackProps";
+import glob from "glob";
 
 interface LambdaStackProps extends BaseNestedStackProps {
   assetsBucket: IBucket;
@@ -125,8 +126,8 @@ export class LambdaStack extends NestedStack {
 
     this.linkToPrivateKey = customResourceForLinkToPrivateKey.getAttString("url");
 
-    this.register = new NodejsFunction(this, "register", {
-      ...this.generateCommonLambdaProps("register", true),
+    this.register = new NodejsFunction(this, "register-patient", {
+      ...this.generateCommonLambdaProps("register-patient", true),
       environment: {
         NODE_OPTIONS: "--enable-source-maps",
         DB_SECRET_ID: props.dbSecretName
@@ -156,37 +157,14 @@ export class LambdaStack extends NestedStack {
     props.dbCluster.grantDataApiAccess(this.login);
     this.login.addToRolePolicy(props.dbSecretAccessPolicy);
 
-    this.databaseMigrator = new Function(
-      this,
-      "database-migrator",
-      {
-        runtime: Runtime.JAVA_11,
-        memorySize: 2048,
-        timeout: Duration.minutes(1),
-        code: Code.fromAsset(
-          "../../resources/functions",
-          {
-            bundling: {
-              command: [
-                "/bin/sh",
-                "-c",
-                "cd database-migrator && mvn clean install && cp /asset-input/database-migrator/target/artifact.jar /asset-output/"
-              ],
-              image: Runtime.JAVA_11.bundlingImage,
-              user: "root",
-              outputType: BundlingOutput.ARCHIVED
-            }
-          }
-        ),
-        handler: "org.springframework.cloud.function.adapter.aws.FunctionInvoker",
-        environment: {
-          MAIN_CLASS: "com.healthconn.databasemigrator.DatabaseMigratorApplication",
-          SPRING_CLOUD_FUNCTION_DEFINITION: "applyMigrations",
-          DB_SECRET_ID: props.dbSecretName,
-          DB_NAME: "postgres"
-        }
+    this.databaseMigrator = new NodejsFunction(this, "database-migrator", {
+      ...this.generateCommonLambdaProps("database-migrator"),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
       }
-    )
+    })
 
     props.dbCluster.grantDataApiAccess(this.databaseMigrator);
     this.databaseMigrator.addToRolePolicy(props.dbSecretAccessPolicy);
