@@ -1,4 +1,11 @@
 {
+    "success": "Успех",
+    "error": "Ошибка",
+    "failure": "Ошибка",
+    "note": "Примечание",
+    "doctor.notes": "Заметки доктора",
+    "you.have.to.wait.to.add.notes.for.your.patient.until.the.appointment.is.done": "Вам нужно подождать, чтобы добавить заметки для вашего пациента, пока не будет назначена встреча.",
+    "you.have.to.wait.to.review.until.the.appointment.is.done": "Вы должны подождать, чтобы рассмотреть, пока назначение не будет сделано",
     "your.profile": "Мой Профиль",
     "settings": "Настройки",
     "sign.out": "Выход",

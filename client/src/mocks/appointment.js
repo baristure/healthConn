@@ -1,59 +1,39 @@
 import { rest } from "msw";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
+import db from "./db";
 
 export const appointmentHandler = [
   rest.post("/appointment", (req, res, ctx) => {
     return res(ctx.status(200));
   }),
-  rest.get("/appointments-data", (req, res, ctx) => {
-    const data = [
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-      {
-        id: faker.random.numeric(5),
-        service: faker.random.word(),
-        doctor: "Prof. " + faker.random.words(2),
-        patient: faker.random.words(2),
-        date: new Date(),
-      },
-    ];
+  rest.post("/api/appointment-rating/:id", async (req, res, ctx) => {
+    const { id } = req.params;
+    const { rating } = await req.json(); // request body
+    db.appointments.update({
+      where: { id: { equals: +id } },
+      data: { rating },
+    });
+    return res(ctx.status(200));
+  }),
+  rest.post("/api/appointment-doctor-note/:id", async (req, res, ctx) => {
+    const { id } = req.params;
+    const { doctorNote } = await req.json(); // request body
 
-    return res(ctx.status(200), ctx.json(data));
+    db.appointments.update({
+      where: { id: { equals: +id } },
+      data: { doctorNote },
+    });
+    return res(ctx.status(200));
+  }),
+  rest.get("/appointments-data", (req, res, ctx) => {
+    const appointments = db.appointments.findMany({});
+    return res(ctx.status(200), ctx.json(appointments));
   }),
   rest.get("/appointment-detail-data", (req, res, ctx) => {
+    const id = req.url.searchParams.get("appointment");
+    const appointment = db.appointments.findFirst({
+      where: { id: { equals: +id } },
+    })
     const data = {
       user: {
         first_name: "John",
@@ -66,7 +46,9 @@ export const appointmentHandler = [
         story:
           "Nisi eiusmod est ut commodo aliqua non sunt ipsum consectetur voluptate laboris. Ea pariatur officia enim non in ex ad ipsum officia ipsum minim anim enim. Adipisicing labore sint Lorem adipisicing minim minim nulla id Lorem amet. Officia laboris sint ea elit dolore excepteur. Lorem magna et ea aliquip aliquip ut irure anim excepteur excepteur nisi eu amet. Officia culpa aute ullamco elit ullamco proident duis excepteur. Officia ipsum reprehenderit tempor aute exercitation.",
       },
-      date: new Date(),
+      date: appointment.date,
+      rating: appointment.rating,
+      doctorNote: appointment.doctorNote,
       service: {
         name: "Cardiology",
       },

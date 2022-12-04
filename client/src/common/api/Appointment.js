@@ -14,5 +14,17 @@ const appointmentAPI = {
       });
     return response;
   },
+  getAll: async () => {
+    const response = await http
+      .get(`/appointments-data`)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+    return response;
+  },
 };
 export default appointmentAPI;

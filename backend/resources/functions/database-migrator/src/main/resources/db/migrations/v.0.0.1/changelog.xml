@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <include
+            file="scripts/2022-11-27-baseline.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-patients-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-doctors-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-appointments-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-complaint_severity-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-doctor-memberships-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-doctor-reviews-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-services-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-patient-relatives-table.sql"
+            relativeToChangelogFile="true"
+    />
+    <include
+            file="scripts/2022-11-27-create-doctors-services-table.sql"
+            relativeToChangelogFile="true"
+    />
+</databaseChangeLog>
