@@ -200,7 +200,7 @@ export const BodyComponent = ({ partName }) => {
     chest: (selected) => (
       <svg
         onClick={!partName && onClickSvg}
-        data-position="chest"
+        data-position="chest1"
         key="chest"
         id="chest"
         className={(selected ? "selected " : "") + "chest"}

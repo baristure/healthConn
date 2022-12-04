@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { faker } from "@faker-js/faker";
 import doctorAPI from "../../common/api/DoctorInfo";
 import { Loading } from "../common/Elements";
@@ -7,6 +8,7 @@ import { Button } from "../common/Elements";
 
 export const DoctorInfo = ({ setDoctor }) => {
   const { service, doctor_id } = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [doctorInfo, setDoctorInfo] = React.useState();
   const fetchDoctorInfo = async () => {
@@ -33,7 +35,7 @@ export const DoctorInfo = ({ setDoctor }) => {
               <div className="w-full flex flex-col justify-center items-center">
                 <img
                   className="h-40 w-40 bg-transparent rounded-full flex items-center justify-center mr-"
-                  src={doctor.image_url}
+                  src={doctor.image_url || "/images/unknow_doctor.jpg"}
                   alt={doctor.image_url}
                 />
                 <h2 className="text-2xl font-semibold py-2">
@@ -41,7 +43,7 @@ export const DoctorInfo = ({ setDoctor }) => {
                 </h2>
                 <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8 pb-8 w-full">
                   <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-                    Resume
+                    {t("Resume")}
                   </h1>
                   <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                     <div className="lg:col-span-2"></div>
@@ -67,7 +69,7 @@ export const DoctorInfo = ({ setDoctor }) => {
                 </div>
                 <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8  w-full">
                   <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-                    Memberships
+                    {t("Memberships")}
                   </h1>
                   <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                     <div className="lg:col-span-2"></div>
@@ -94,7 +96,7 @@ export const DoctorInfo = ({ setDoctor }) => {
                 </div>
                 <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8  w-full">
                   <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-                    Publications
+                    {t("Publications")}
                   </h1>
                   <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                     <div className="lg:col-span-2"></div>
@@ -128,7 +130,7 @@ export const DoctorInfo = ({ setDoctor }) => {
                     callback={() => navigate(`/services/${doctor.speciality}`)}
                     className="mr-2 w-20"
                   >
-                    Back
+                    {t("Back")}
                   </Button>
                   <Button
                     type="submit"
@@ -138,7 +140,7 @@ export const DoctorInfo = ({ setDoctor }) => {
                     className="mr-3"
                     callback={() => bookAppointment(doctor)}
                   >
-                    Book an Appointment &rarr;
+                    {t("take.appointment")} &rarr;
                   </Button>
                 </div>
               </div>

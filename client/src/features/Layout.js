@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
@@ -72,11 +72,19 @@ const AppRoutes = (loggedIn, userDetail) => {
         path="/appointments/:appointmentId"
         element={<ProtectedRoute component={AppointmentDetail} />}
       />
-      <Route path="/services" element={<Service />} />
-      <Route path="/services/:service" element={<DoctorList />} />
+      <Route
+        path="/services"
+        element={<ProtectedRoute component={Service} />}
+      />
+      <Route
+        path="/services/:service"
+        element={<ProtectedRoute component={DoctorList} />}
+      />
       <Route
         path="/services/:service/:doctor_id"
-        element={<DoctorInfo setDoctor={setDoctor} />}
+        element={
+          <ProtectedRoute component={DoctorInfo} setDoctor={setDoctor} />
+        }
       />
       <Route
         path="/profile"

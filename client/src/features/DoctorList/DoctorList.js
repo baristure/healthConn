@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import doctorListAPI from "../../common/api/DoctorList";
 import { Card } from "../common/Elements";
@@ -6,6 +7,7 @@ import Button from "../common/Elements/Button/Button";
 
 export const DoctorList = () => {
   const { service } = useParams();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = React.useState([]);
   const fetchDoctorList = async () => {
@@ -17,16 +19,16 @@ export const DoctorList = () => {
     if (!service) return;
     fetchDoctorList();
   }, [service]);
-  console.log("doctorList ", doctorList);
+
   return (
     <div className="p-5 h-screen">
       <h1 className="font-sans text-4xl font-bold tracking-wider text-blue-900 mb-4">
-        Doctors
+        {t("Doctors")}
       </h1>
       <h2 className="font-sans text-2xl font-normal tracking-normal text-gray-700 mb-6">
-        Specialization:&nbsp;
+        {t("Specialization")}:&nbsp;
         <span className="font-sans text-2xl font-medium tracking-normal text-gray-900 mb-6">
-          {service}
+          {t(service)}
         </span>
       </h2>
       <div className="grid xl:grid-cols-4 md:grid-cols-3 md:gap-10 xs:grid-cols-2 xs:gap-8">

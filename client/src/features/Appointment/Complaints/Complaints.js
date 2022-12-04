@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { BodyComponent } from "./BodyComponent";
 
 import { ComplaintForm } from "./ComplaintForm";
 export const Complaints = () => {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState(false);
   const { bodyParts } = useSelector((state) => state.appointment);
   useEffect(() => {
@@ -20,7 +22,7 @@ export const Complaints = () => {
     <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 xl:grid-cols-2 min-h-screen ">
       <div className="  lg:relative flex justify-center ">
         <div className="  lg:fixed flex flex-col justify-start  border-2 border-gray-200 rounded-md p-6 px-14">
-          <div className="text-center">Select Part</div>
+          <div className="text-center">{t("Select Part")}</div>
           <BodyComponent />
         </div>
       </div>
@@ -33,7 +35,7 @@ export const Complaints = () => {
             })}
             {!selected && (
               <div className="text-center rounded-md p-6 px-14">
-                Please select which part of do you feel pain
+                {t("selectingTitle")}
               </div>
             )}
           </ul>
