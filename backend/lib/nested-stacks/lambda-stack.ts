@@ -30,6 +30,8 @@ export class LambdaStack extends NestedStack {
   private readonly authorizer: IFunction;
   private readonly props: LambdaStackProps;
   private readonly login: IFunction;
+  private readonly postAppointment: IFunction;
+  private readonly getAppointmentById: IFunction;
   private readonly databaseMigrator: IFunction;
 
   public getLinkToPrivateKey() {
@@ -48,8 +50,17 @@ export class LambdaStack extends NestedStack {
     return this.login;
   }
 
+<<<<<<< HEAD
+  public getPostAppointment() {
+    return this.postAppointment;
+  }
+
+  public getGetAppointmentById() {
+    return this.getAppointmentById;
+=======
   public getDatabaseMigrator() {
     return this.databaseMigrator;
+>>>>>>> 060ff75c937bd0e09779ca6e72d8ab1c15754208
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
@@ -157,16 +168,41 @@ export class LambdaStack extends NestedStack {
     props.dbCluster.grantDataApiAccess(this.login);
     this.login.addToRolePolicy(props.dbSecretAccessPolicy);
 
-    this.databaseMigrator = new NodejsFunction(this, "database-migrator", {
-      ...this.generateCommonLambdaProps("database-migrator"),
+    this.postAppointment = new NodejsFunction(this, "post-appointment", {
+      ...this.generateCommonLambdaProps("post-appointment", true),
       environment: {
         NODE_OPTIONS: "--enable-source-maps",
         SECRET_KEY: props.secretKey,
         DB_SECRET_ID: props.dbSecretName
       }
-    })
+    });
+
+    props.dbCluster.grantDataApiAccess(this.postAppointment);
+    this.postAppointment.addToRolePolicy(props.dbSecretAccessPolicy);
+    
+    this.getAppointmentById = new NodejsFunction(this, "get-appointment-by-id", {
+      ...this.generateCommonLambdaProps("get-appointment-by-id", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    });
+
+    props.dbCluster.grantDataApiAccess(this.getAppointmentById);
+    this.getAppointmentById.addToRolePolicy(props.dbSecretAccessPolicy);
+
+    this.databaseMigrator = new NodejsFunction(this, "database-migrator", {
+      ...this.generateCommonLambdaProps("database-migrator", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    });
 
     props.dbCluster.grantDataApiAccess(this.databaseMigrator);
     this.databaseMigrator.addToRolePolicy(props.dbSecretAccessPolicy);
+
   }
 }
