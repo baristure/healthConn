@@ -50,17 +50,16 @@ export class LambdaStack extends NestedStack {
     return this.login;
   }
 
-<<<<<<< HEAD
   public getPostAppointment() {
     return this.postAppointment;
   }
 
   public getGetAppointmentById() {
     return this.getAppointmentById;
-=======
+  }
+  
   public getDatabaseMigrator() {
     return this.databaseMigrator;
->>>>>>> 060ff75c937bd0e09779ca6e72d8ab1c15754208
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
