@@ -57,7 +57,7 @@ export const Booking = () => {
                   {t("beReady")}
                 </p>
                 <p className="text-md text-contrast-50 m-2 text-center px-6">
-                  {t("goCompliantsPage")}
+                  {t("beforeDescribeCompliants")}
                 </p>
               </div>
             </div>
