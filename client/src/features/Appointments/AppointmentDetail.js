@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { bodyPartExplanations } from "../../constants/bodyPartExplanations";
 import http from "../../common/api/Axios.config";
@@ -13,7 +13,6 @@ import {
   setDoctorNote,
   setPatientReview,
 } from "./review/appointmentReviewSlice";
-import { useTranslation } from "react-i18next";
 
 export const AppointmentDetail = ({ user }) => {
   const { t } = useTranslation();
@@ -45,6 +44,7 @@ export const AppointmentDetail = ({ user }) => {
   }, []);
 
   const getBodyPartExplanation = (bodyPart) => {
+    console.log(bodyPartExplanations[bodyPart]);
     return bodyPartExplanations[bodyPart];
   };
   if (!data) return <div>Hello</div>;
@@ -59,10 +59,12 @@ export const AppointmentDetail = ({ user }) => {
     <div>
       <div className="p-4 mt-3 w-full">
         <div className="w-full flex flex-col justify-center items-center">
-          <h2 className="text-2xl font-semibold py-2">Appointment Details</h2>
+          <h2 className="text-2xl font-semibold py-2">
+            {t("Appointment Details")}
+          </h2>
           <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8 pb-8 w-full">
             <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-              Service Summary
+              {t("Service Summary")}
             </h1>
             <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
               <div className="lg:col-span-2"></div>
@@ -74,23 +76,25 @@ export const AppointmentDetail = ({ user }) => {
                         <div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              Service Name:
+                              {t("service.name")}:&nbsp;
                               <span className="text-gray-700">
-                                {" " + data.service.name}
+                                {t(data.service.name.toLowerCase())}
                               </span>
                             </p>
                           </div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              Location:
+                              {t("Location")}:&nbsp;
                               <span className="text-gray-700">
-                                {" Floor 2, Room 9"}
+                                {"Floor 2, Room 9"}
                               </span>
                             </p>
                           </div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              {user.user_type === "patient" && "Doctor Detail:"}
+                              {user.user_type === "patient" &&
+                                t("Doctor Detail") + ":"}
+                              &nbsp;
                               <span className="text-gray-700">
                                 {user.user_type === "patient" &&
                                   data.doctor.title +
@@ -103,13 +107,12 @@ export const AppointmentDetail = ({ user }) => {
                           </div>
                           <div className="mt-1 flex text-base w-full">
                             <p className="font-semibold">
-                              Appointment Date:
+                              {t("Appointment Date")}:&nbsp;
                               <span className="text-gray-700">
-                                {" " +
-                                  format(
-                                    Date.parse(data.date),
-                                    "MM/dd/yyyy HH:mm"
-                                  )}
+                                {format(
+                                  Date.parse(data.date),
+                                  "MM/dd/yyyy HH:mm"
+                                )}
                               </span>
                             </p>
                           </div>
@@ -125,7 +128,7 @@ export const AppointmentDetail = ({ user }) => {
           {user.user_type === "doctor" && (
             <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8 pb-8 w-full">
               <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-                Patient Details
+                {t("Patient Details")}
               </h1>
               <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                 <div className="lg:col-span-2"></div>
@@ -137,7 +140,7 @@ export const AppointmentDetail = ({ user }) => {
                           <div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Patient Detail:
+                                {t("Patient Details")}:
                                 <span className="text-gray-700">
                                   {" " +
                                     data.user.first_name +
@@ -148,15 +151,15 @@ export const AppointmentDetail = ({ user }) => {
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Gender:
+                                {t("gender")}:
                                 <span className="text-gray-700">
-                                  {" " + data.user.gender}
+                                  {" " + t(data.user.gender.toLowercase())}
                                 </span>
                               </p>
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Blood Type:
+                                {t("blood.type")}:
                                 <span className="text-gray-700">
                                   {" " + data.user.blood_type}
                                 </span>
@@ -164,7 +167,7 @@ export const AppointmentDetail = ({ user }) => {
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Weight:
+                                {t("Weight")}:
                                 <span className="text-gray-700">
                                   {" " + data.user.weight + " kg"}
                                 </span>
@@ -172,7 +175,7 @@ export const AppointmentDetail = ({ user }) => {
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Height:
+                                {t("Height")}:
                                 <span className="text-gray-700">
                                   {" " + data.user.height + " meter"}
                                 </span>
@@ -180,7 +183,7 @@ export const AppointmentDetail = ({ user }) => {
                             </div>
                             <div className="mt-1 flex text-base w-full">
                               <p className="font-semibold">
-                                Story:
+                                {t("Story")}:
                                 <span className="text-gray-700">
                                   {" " + data.user.story}
                                 </span>
@@ -198,7 +201,7 @@ export const AppointmentDetail = ({ user }) => {
           )}
           <div className="mx-auto max-w-2xl px-4 pt-4 sm:px-6 lg:max-w-7xl lg:px-8  w-full">
             <h1 className="text-xl font-bold tracking-tight text-gray-900 text-center">
-              Complaints Summary
+              {t("Complaints Summary")}
             </h1>
             <div className="mt-4 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
               <div className="lg:col-span-2"></div>
@@ -214,22 +217,28 @@ export const AppointmentDetail = ({ user }) => {
                           <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0 w-full">
                             <div>
                               <div className="mt-1 flex text-base w-full">
-                                <p className="font-semibold">Body Part: </p>
-                                {getBodyPartExplanation(complaint.part) +
+                                <p className="font-semibold">
+                                  {t("Body Part")}:&nbsp;
+                                </p>
+                                {t(getBodyPartExplanation(complaint.part)) +
                                   " | " +
-                                  complaint.side}
+                                  t(complaint.side)}
                               </div>
                               <div className="mt-1 flex text-base w-full">
-                                <p className="font-semibold">Pain level: </p>
+                                <p className="font-semibold">
+                                  {t("Pain level")}:&nbsp;
+                                </p>
                                 {complaint.severity <= 0.5
-                                  ? ` ${complaint.severity} | No pain`
+                                  ? ` ${complaint.severity} | ${t("No pain")}`
                                   : complaint.severity <= 3
-                                  ? ` ${complaint.severity} | Mild`
+                                  ? ` ${complaint.severity} | ${t("Mild")}`
                                   : complaint.severity <= 6
-                                  ? ` ${complaint.severity} | Moderate`
+                                  ? ` ${complaint.severity} | ${t("Moderate")}`
                                   : complaint.severity <= 9
-                                  ? ` ${complaint.severity} | Severe`
-                                  : ` ${complaint.severity} | Very severe`}
+                                  ? ` ${complaint.severity} | ${t("Severe")}`
+                                  : ` ${complaint.severity} | ${t(
+                                      "Very severe"
+                                    )}`}
                               </div>
                             </div>
 

@@ -1,8 +1,11 @@
 import InputMask from "react-input-mask";
 import NumberFormat from "react-number-format";
 import { useField } from "formik";
+import { useTranslation } from "react-i18next";
 export default function Input({ label, ...props }) {
   const [field, meta] = useField(props);
+  const { t } = useTranslation();
+
   return (
     <div>
       {label && (
@@ -87,7 +90,7 @@ export default function Input({ label, ...props }) {
         <p className="mt-2 text-sm text-error-text">{props.error}</p>
       )} */}
       {(meta.touched || meta.error) && (
-        <p className="mt-2 text-sm text-error-text">{meta.error}</p>
+        <p className="mt-2 text-sm text-error-text">{t(meta.error)}</p>
       )}
 
       {props.successText && (

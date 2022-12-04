@@ -212,7 +212,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                       className="mr-3"
                       callback={() => navigate("/login")}
                     >
-                      Log in
+                      {t("login")}
                     </Button>
                     <Button
                       type="button"
@@ -222,7 +222,7 @@ export default function NavBar({ isOpen, loggedIn }) {
                       className="mr-3"
                       callback={() => navigate("/register")}
                     >
-                      Join us &rarr;
+                      {t("join")} &rarr;
                     </Button>
                   </div>
                 )}
