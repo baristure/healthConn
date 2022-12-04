@@ -1,7 +1,3 @@
-import "reflect-metadata";
-import middy from "@middy/core";
-import httpErrorHandler from "@middy/http-error-handler";
-import jsonBodyParser from "@middy/http-json-body-parser";
 import {
   APIGatewayProxyStructuredResultV2
 } from "aws-lambda";
@@ -9,12 +5,11 @@ import { hashSync } from "bcryptjs";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/types";
 import ErrorConstants from "../../constants/ErrorConstants";
-import { PatientRegisterEvent, validationSchema } from "../../dto/PatientRegisterEvent";
-import validator from "../../middlewares/validator";
+import { PatientRegisterEvent } from "../../dto/PatientRegisterEvent";
 import IPatientRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 
-const handler = async (event: PatientRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+export const handler = async (event: PatientRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
   const {
@@ -58,8 +53,3 @@ const handler = async (event: PatientRegisterEvent): Promise<APIGatewayProxyStru
 
   return responseUtils.success(savedPatient);
 };
-
-export const lambdaHandler = middy(handler)
-  .use(httpErrorHandler())
-  .use(jsonBodyParser())
-  .use(validator(validationSchema));
