@@ -39,7 +39,13 @@ const AppRoutes = (loggedIn, userDetail) => {
       <Route path="/signout" element={<SignOut />} />
       <Route
         path="/dashboard"
-        element={<ProtectedRoute component={Dashboard} loggedIn={loggedIn} />}
+        element={
+          <ProtectedRoute
+            component={Dashboard}
+            loggedIn={loggedIn}
+            user={userDetail}
+          />
+        }
       />
       <Route
         path="/example"

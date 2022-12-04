@@ -84,7 +84,7 @@ module.exports = {
       "8xl": "5rem",
     },
     screens: {
-      xs: "420px",
+      xs: "300px",
       sm: "640px",
       md: "821px",
       lg: "1024px",
@@ -109,8 +109,8 @@ module.exports = {
     },
     extend: {
       height: {
-        'xl': '30rem',
-      }
+        xl: "30rem",
+      },
     },
   },
   variants: {

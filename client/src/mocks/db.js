@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { factory, primaryKey } from "@mswjs/data";
+import { factory, primaryKey, nullable } from "@mswjs/data";
+import { getNextXMonth, sequentialNumberPrimaryKey } from "./util";
 
 const db = factory({
   users: {
@@ -40,11 +41,13 @@ const db = factory({
     resume: () => faker.lorem.sentences(5, "\n"),
   },
   appointments: {
-    doctor_id: primaryKey(faker.datatype.uuid),
-    patient_id: faker.datatype.uuid,
-    recognization: () => "user1",
-    start_date: () => faker.date.soon(2),
-    end_date: () => faker.date.soon(2),
+    id: primaryKey(sequentialNumberPrimaryKey()),
+    service: () => faker.random.word(2),
+    doctor: () => "Prof. " + faker.random.words(2),
+    patient: () => faker.random.words(2),
+    date: () => faker.date.soon(2),
+    rating: nullable(() => faker.helpers.arrayElement([1, 2, 3, 4, 5, null])),
+    doctorNote: nullable(() => faker.random.word(25)),
   },
   complaintSeverity: {
     appointment_id: primaryKey(faker.datatype.uuid),
@@ -70,6 +73,10 @@ db.patientDetails.create();
 db.patientDetails.create();
 db.doctorDetails.create();
 db.doctorDetails.create();
+db.appointments.create({ doctorNote: null, rating: null, date: getNextXMonth(1) });
+db.appointments.create({ doctorNote: null, rating: null, date: getNextXMonth(-1) });
+db.appointments.create();
+db.appointments.create();
 db.appointments.create();
 db.appointments.create();
 db.complaintSeverity.create();

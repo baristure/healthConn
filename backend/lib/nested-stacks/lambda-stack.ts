@@ -1,7 +1,7 @@
-import { CustomResource, Duration, NestedStack } from "aws-cdk-lib";
+import { BundlingOutput, CustomResource, Duration, NestedStack } from "aws-cdk-lib";
 import { ISecurityGroup, IVpc } from "aws-cdk-lib/aws-ec2";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Architecture, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Code, Function, IFunction, Runtime, LayerVersion } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, NodejsFunctionProps } from "aws-cdk-lib/aws-lambda-nodejs";
 import { IServerlessCluster } from "aws-cdk-lib/aws-rds";
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -9,6 +9,7 @@ import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 import path from "path";
 import BaseNestedStackProps from "../types/BaseNestedStackProps";
+import glob from "glob";
 
 interface LambdaStackProps extends BaseNestedStackProps {
   assetsBucket: IBucket;
@@ -31,6 +32,7 @@ export class LambdaStack extends NestedStack {
   private readonly login: IFunction;
   private readonly postAppointment: IFunction;
   private readonly getAppointmentById: IFunction;
+  private readonly databaseMigrator: IFunction;
 
   public getLinkToPrivateKey() {
     return this.linkToPrivateKey;
@@ -48,12 +50,17 @@ export class LambdaStack extends NestedStack {
     return this.login;
   }
 
+<<<<<<< HEAD
   public getPostAppointment() {
     return this.postAppointment;
   }
 
   public getGetAppointmentById() {
     return this.getAppointmentById;
+=======
+  public getDatabaseMigrator() {
+    return this.databaseMigrator;
+>>>>>>> 060ff75c937bd0e09779ca6e72d8ab1c15754208
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
@@ -130,8 +137,8 @@ export class LambdaStack extends NestedStack {
 
     this.linkToPrivateKey = customResourceForLinkToPrivateKey.getAttString("url");
 
-    this.register = new NodejsFunction(this, "register", {
-      ...this.generateCommonLambdaProps("register", true),
+    this.register = new NodejsFunction(this, "register-patient", {
+      ...this.generateCommonLambdaProps("register-patient", true),
       environment: {
         NODE_OPTIONS: "--enable-source-maps",
         DB_SECRET_ID: props.dbSecretName
@@ -184,5 +191,18 @@ export class LambdaStack extends NestedStack {
 
     props.dbCluster.grantDataApiAccess(this.getAppointmentById);
     this.getAppointmentById.addToRolePolicy(props.dbSecretAccessPolicy);
+
+    this.databaseMigrator = new NodejsFunction(this, "database-migrator", {
+      ...this.generateCommonLambdaProps("database-migrator", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    });
+
+    props.dbCluster.grantDataApiAccess(this.databaseMigrator);
+    this.databaseMigrator.addToRolePolicy(props.dbSecretAccessPolicy);
+
   }
 }

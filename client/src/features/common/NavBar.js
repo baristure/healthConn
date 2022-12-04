@@ -48,10 +48,10 @@ export default function NavBar({ isOpen, loggedIn }) {
                   <img
                     className="text-white ml-2 mr-2 h-12 block w-auto hidden sm:block "
                     src="/icons/logo-new.png"
-                    alt="Workflow"
+                    alt="Healthconn"
                   />
                 </div>
-                <div className="md:flex xs:w-80 xs:hidden sm:ml-6">
+                <div className="sm:hidden xs:hidden   flex justfiy-center align-center flew-row  ">
                   {!loggedIn && (
                     <Tab.Group className="flex items-center justify-between w-full font-sans font-medium text-white tracking-wide antialiased">
                       <Tab.List>
@@ -70,7 +70,6 @@ export default function NavBar({ isOpen, loggedIn }) {
                       </Tab.List>
                     </Tab.Group>
                   )}
-                  {/* </div> */}
                 </div>
               </div>
               <div className="h-full absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text">
