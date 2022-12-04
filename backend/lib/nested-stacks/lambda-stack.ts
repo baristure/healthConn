@@ -136,8 +136,8 @@ export class LambdaStack extends NestedStack {
 
     this.linkToPrivateKey = customResourceForLinkToPrivateKey.getAttString("url");
 
-    this.register = new NodejsFunction(this, "register-patient", {
-      ...this.generateCommonLambdaProps("register-patient", true),
+    this.register = new NodejsFunction(this, "register", {
+      ...this.generateCommonLambdaProps("register", true),
       environment: {
         NODE_OPTIONS: "--enable-source-maps",
         DB_SECRET_ID: props.dbSecretName

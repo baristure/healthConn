@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as FontAwesome from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 import { Input, SelectBox } from "../../common/Elements";
 import {
@@ -19,15 +20,16 @@ const sideOptions = [
   },
 ];
 export const ComplaintForm = ({ bodyPart }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { bodyParts } = useSelector((state) => state.appointment);
   const Icon = FontAwesome["FaRegTimesCircle"];
 
   const getBodyPartExplanation = (bodyPart) => {
+    console.log(bodyPartExplanations[bodyPart])
     return bodyPartExplanations[bodyPart];
   };
   const removePart = (target) => {
-    console.log("target", target);
     const obj = {
       id: target,
     };
@@ -42,18 +44,17 @@ export const ComplaintForm = ({ bodyPart }) => {
     dispatch(
       handleBodyPartComplaintForm({ key: bodyPart, value: partComplaints })
     );
-    console.log("partComplaints", partComplaints);
   };
 
   return (
     <>
       <li key={bodyPart} className="flex py-6 sm:py-10">
         <div className=" flex flex-1 flex-col justify-between">
-          <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0 mb-2">
-            <div>
+          <div className="relative pr-9 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:pr-0 mb-2">
+            <div className="col-span-2">
               <div className="flex justify-between">
                 <h3 className="text-center">
-                  Body Part: {getBodyPartExplanation(bodyPart)}
+                  {t("Body Part")}: {t(getBodyPartExplanation(bodyPart))}
                 </h3>
               </div>
             </div>
@@ -67,7 +68,7 @@ export const ComplaintForm = ({ bodyPart }) => {
                     removePart(bodyPart);
                   }}
                 >
-                  <span className="sr-only">Remove</span>
+                  <span className="sr-only">{t("Remove")}</span>
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
@@ -76,7 +77,7 @@ export const ComplaintForm = ({ bodyPart }) => {
           <SelectBox
             options={sideOptions}
             name="bodyPartSide"
-            label="Please select a side*"
+            label={t("selectSide") + " *"}
             value={
               sideOptions.find(
                 (item) => item.value === bodyParts[bodyPart].side
@@ -90,16 +91,16 @@ export const ComplaintForm = ({ bodyPart }) => {
               htmlFor="steps-range"
               className="block text-sm py-1 text-contrast-70 whitespace-nowrap"
             >
-              Pain level:{" "}
+              {t("Pain level")}:{" "}
               {bodyParts[bodyPart].painLevel <= 0.5
-                ? `${bodyParts[bodyPart].painLevel}: No pain`
+                ? `${bodyParts[bodyPart].painLevel}: ${t("No pain")}`
                 : bodyParts[bodyPart].painLevel <= 3
-                ? `${bodyParts[bodyPart].painLevel}: Mild`
+                ? `${bodyParts[bodyPart].painLevel}: ${t("Mild")}`
                 : bodyParts[bodyPart].painLevel <= 6
-                ? `${bodyParts[bodyPart].painLevel}: Moderate`
+                ? `${bodyParts[bodyPart].painLevel}: ${t("Moderate")}`
                 : bodyParts[bodyPart].painLevel <= 9
-                ? `${bodyParts[bodyPart].painLevel}: Severe`
-                : `${bodyParts[bodyPart].painLevel}: Very severe`}
+                ? `${bodyParts[bodyPart].painLevel}: ${t("Severe")}`
+                : `${bodyParts[bodyPart].painLevel}: ${t("Very severe")}`}
             </label>
             <input
               id="steps-range"
@@ -117,7 +118,7 @@ export const ComplaintForm = ({ bodyPart }) => {
           <div className="flex space-x-2 text-sm text-left text-gray-700">
             <div className="mt-2 w-full">
               <Input
-                label="Explain your complaint"
+                label={t("Explain your complaint")}
                 name={bodyPart}
                 type="textarea"
                 value={bodyParts[bodyPart].comment || ""}

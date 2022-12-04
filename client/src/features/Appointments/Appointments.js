@@ -1,13 +1,28 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { Button, Loading } from "../common/Elements";
+
+import { Button, Loading, Pagination, SelectBox } from "../common/Elements";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import http from "../../common/api/Axios.config";
-
 export const Appointments = ({ user }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState(null);
-
+  const options = [
+    {
+      value: 10,
+      label: "10",
+    },
+    {
+      value: 25,
+      label: "25",
+    },
+    {
+      value: 50,
+      label: "50",
+    },
+  ];
   const getAppointments = async () => {
     setLoading(true);
     const res = await http
@@ -34,7 +49,7 @@ export const Appointments = ({ user }) => {
           <div className="inline-block min-w-full py-2 align-middle md:px-4 lg:px-6">
             <div className=" ">
               <h1 className="text-center text-2xl py-6 mb-2 font-semibold">
-                Appointment List
+                {t("Appointment List")}
               </h1>
               <table className="min-w-full divide-y divide-gray-300 border">
                 <thead className="bg-gray-50">
@@ -43,21 +58,21 @@ export const Appointments = ({ user }) => {
                       scope="col"
                       className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-6 text-left"
                     >
-                      Service Name
+                      {t("service.name")}
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-left text-sm font-semibold text-gray-900 text-left"
                     >
                       {user.user_type === "doctor"
-                        ? "Patient Name"
-                        : "Doctor Name"}
+                        ? t("patient.name")
+                        : t("doctor.name")}
                     </th>
                     <th
                       scope="col"
                       className="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pr-6 text-center"
                     >
-                      Date
+                      {t("Date")}
                     </th>
                   </tr>
                 </thead>
@@ -74,7 +89,7 @@ export const Appointments = ({ user }) => {
                         <div className="w-full text-center m-4 p-4">
                           <div className="min-w-full py-2 align-middle md:px-2 lg:px-2">
                             <div className="text-center font-semibold py-48 sm:py-16 md:py-24">
-                              No appointment found
+                              {t("noAppointment")}
                             </div>
                           </div>
                         </div>
@@ -105,7 +120,7 @@ export const Appointments = ({ user }) => {
                         <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
                           <NavLink to={`/appointments/${appointment.id}`}>
                             <Button color="primary" hover="primary" size="xs">
-                              Detail
+                              {t("detail")}
                             </Button>
                           </NavLink>
                         </td>
@@ -114,6 +129,32 @@ export const Appointments = ({ user }) => {
                   )}
                 </tbody>
               </table>
+              {appointments && (
+                <div className="flex flex-row justify-between align-middle px-2 mt-2">
+                  <div className="flex flex-row justify-start items-center">
+                    <div className="flex flex-row justify-start items-center text-contrast-70 mr-6 text-md">
+                      <span className="mr-2">Kayıt Göster</span>
+                      <SelectBox
+                        options={options}
+                        name="sendType"
+                        placement="top"
+                        placeholder={10}
+                        onChange={(val) => console.log(val)}
+                      />
+                    </div>
+                    <Pagination
+                      className="pagination-bar"
+                      currentPage={1}
+                      totalCount={20}
+                      pageSize={10}
+                      onPageChange={(val) => console.log(val)}
+                    />
+                  </div>
+                  <div className="flex items-center text-contrast-70">
+                    Toplam Kayıt: {20}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

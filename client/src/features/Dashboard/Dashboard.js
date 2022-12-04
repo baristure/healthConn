@@ -37,11 +37,21 @@ export const Dashboard = ({ user }) => {
       : t("obesity");
   };
 
+  const textColor = (val) => {
+    return val < 18.5
+      ? "text-blue-600"
+      : val >= 18.5 && val <= 24.9
+      ? "text-green-600"
+      : val >= 25 && val <= 29.9
+      ? "text-yellow-600"
+      : "text-red-600";
+  };
+
   return (
     <>
       <main className="flex-1">
         {/* Page title & actions */}
-        <div className="border-b border-gray-200 px-4 py-4 flex flex-row flex-wrap items-center justify-between sm:px-6 lg:px-8">
+        <div className="border-b border-gray-200 p-4 flex flex-row flex-wrap items-center justify-between sm:px-6 lg:px-8">
           <span className="text-2xl font-medium leading-6 text-contrast-90 sm:truncate ">
             {t("welcome")} {user.first_name + " " + user.last_name}
           </span>
@@ -55,12 +65,16 @@ export const Dashboard = ({ user }) => {
                     <h2 className="text-center font-bold pl-6 pb-2">
                       BMI {t("chart")}
                     </h2>
-                    <img src="/images/bmi-chart.png" alt="bmichart" />
+                    <img
+                      src="/images/bmi-chart.png"
+                      alt="bmichart"
+                      className="max-h-160"
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex shadow-md rounded-md bg-white py-6 justify-center w-full">
+            <div className="flex shadow-md rounded-md bg-white py-6 justify-center w-full p-5">
               <div className="space-y-2">
                 <h2 className="text-center font-bold">{t("your.summary")}</h2>
                 {user.gender && (
@@ -97,16 +111,20 @@ export const Dashboard = ({ user }) => {
                 )}
                 <div className="text-left">
                   <span className="font-bold">BMI:</span>{" "}
-                  <span className="pl-2">
+                  <span className={`pl-2 ${textColor(bmi)}`}>
                     {bmi + " "} {getBMIValue(bmi)}
                   </span>
                 </div>
                 <div className="text-left">
-                  <ul className="list-disc pl-2">
-                    <li>{t("underweight.explain")}</li>
-                    <li>{t("healty.explain")}</li>
-                    <li>{t("overweight.explain")}</li>
-                    <li>{t("obesity.explain")}</li>
+                  <ul className="list-none">
+                    <li className="text-blue-600">
+                      {t("underweight.explain")}
+                    </li>
+                    <li className="text-green-600">{t("healty.explain")}</li>
+                    <li className="text-yellow-600">
+                      {t("overweight.explain")}
+                    </li>
+                    <li className="text-red-600">{t("obesity.explain")}</li>
                   </ul>
                 </div>
               </div>
@@ -114,8 +132,8 @@ export const Dashboard = ({ user }) => {
           </div>
         )}
 
-        <div className="w-full flex flex-col">
-          <div className="m-4 p-4 bg-white shadow-md overflow-x-auto  overflow-y-auto">
+        <div className="w-full flex flex-col mt-6 sm:px-6 lg:px-8 px-4">
+          <div className="bg-white shadow-md overflow-x-auto rounded-md overflow-y-auto">
             <div className="inline-block min-w-full py-2 align-middle md:px-4 lg:px-6">
               <div className=" ">
                 <h1 className="text-center text-2xl py-6 mb-2 font-semibold">
