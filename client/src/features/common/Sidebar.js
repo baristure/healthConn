@@ -7,29 +7,31 @@ import { useTranslation } from "react-i18next";
 
 import { changeOpen, changeSideBarOpen } from "../../store/slices/navbarSlice";
 import Button from "./Elements/Button/Button";
-const navBarItems = [
-  {
-    icon: "/icons/home.svg",
-    url: "/dashboard",
-    text: "dashboard",
-  },
-  {
-    icon: "/icons/reports.svg",
-    url: "/appointment",
-    text: "take.appointment",
-  },
-  {
-    icon: "/icons/reports.svg",
-    url: "/appointments",
-    text: "appointments",
-  },
-  {
-    icon: "/icons/reports.svg",
-    url: "/services",
-    text: "services",
-  },
-];
 export default function Sidebar({ isShowing, loggedIn }) {
+  const navBarItems = loggedIn
+    ? [
+        {
+          icon: "/icons/home.svg",
+          url: "/dashboard",
+          text: "dashboard",
+        },
+        {
+          icon: "/icons/reports.svg",
+          url: "/appointments",
+          text: "appointments",
+        },
+        {
+          icon: "/icons/list.svg",
+          url: "/services",
+          text: "services",
+        },
+        {
+          icon: "/icons/settings.svg",
+          url: "/settings",
+          text: "settings",
+        },
+      ]
+    : [];
   let activeStyle = {
     backgroundColor: "#E8EDF2",
   };
@@ -188,7 +190,6 @@ export default function Sidebar({ isShowing, loggedIn }) {
                             onClick={() => dispatch(changeSideBarOpen())}
                           >
                             <img src={navItem.icon} alt={navItem.text} />
-
                             <>
                               <span
                                 data-tooltip-target="tooltip-light"

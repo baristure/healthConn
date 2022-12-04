@@ -9,12 +9,13 @@ import { loadingReducer } from "./slices/loadingSlice";
 import { loginReducer } from "../features/Login/loginSlice";
 import { appointmentReducer } from "../features/Appointment/appointmentSlice";
 import { profileReducer } from "../features/Profile/profileSlice";
+import { appointmentReviewReducer } from "../features/Appointments/review/appointmentReviewSlice";
 
 const rootPersistConfig = {
   key: "root",
   storage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ['profile']
+  blacklist: ['profile', 'appointmentReview']
 };
 
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   login: loginReducer,
   profile: profileReducer,
   appointment: appointmentReducer,
+  appointmentReview: appointmentReviewReducer,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
