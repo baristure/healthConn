@@ -1,9 +1,9 @@
 import http from "./Axios.config";
 
 const loginAPI = {
-  post: async ({ username, password }) => {
+  post: async ({ email, password, user_type }) => {
     const response = await http
-      .post(`/login`, { username, password })
+      .post(`/login?user_type=${user_type}`, { email, password })
       .then((res) => {
         return res;
       })

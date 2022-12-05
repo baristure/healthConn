@@ -18,8 +18,5 @@ export const registerSchema = object({
     .required("empty.phone.number")
     // phone number regex
     // https://stackoverflow.com/a/16699507/7975831
-    .matches(
-      /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/gm,
-      "valid.phone.number"
-    ),
+    .matches(/^\+\d+$/gm, "valid.phone.number"),
 });

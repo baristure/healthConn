@@ -14,7 +14,7 @@ export const Dashboard = ({ user }) => {
   const getAppointments = async () => {
     setLoading(true);
     const { data } = await appointmentAPI
-      .getAll()
+      .getAll({ pageNumber: 1, pageSize: 5 })
       .finally(() => setLoading(false));
     setAppointments(data);
   };
@@ -177,7 +177,7 @@ export const Dashboard = ({ user }) => {
                           <div className="w-full text-center m-4 p-4">
                             <div className="min-w-full py-2 align-middle md:px-2 lg:px-2">
                               <div className="text-center font-semibold py-48 sm:py-16 md:py-24">
-                                {t("no.appointment.found")}
+                                {t("noAppointment")}
                               </div>
                             </div>
                           </div>
@@ -191,26 +191,32 @@ export const Dashboard = ({ user }) => {
                           className="divide-x divide-gray-200"
                         >
                           <td className="whitespace-nowrap p-4 text-sm text-contrast-90 sm:pl-6 text-left">
-                            {appointment.service}
+                            {appointment.service.name}
                           </td>
                           <td className="whitespace-nowrap p-4 text-sm text-contrast-90  text-left">
                             {user.user_type === "doctor"
-                              ? appointment.patient
-                              : appointment.doctor}
+                              ? appointment.patient.first_name +
+                                " " +
+                                appointment.patient.last_name
+                              : appointment.doctor.title +
+                                " " +
+                                appointment.doctor.first_name +
+                                " " +
+                                appointment.doctor.last_name}
                           </td>
 
                           <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm text-contrast-90 sm:pr-6 text-left w-20">
                             {format(
-                              Date.parse(appointment.date),
+                              Date.parse(appointment.start_date),
                               "dd MMMM yyy - HH:mm"
                             )}
                           </td>
                           <td className="whitespace-nowrap text-sm text-contrast-90 text-center">
-                            <Button color="primary" hover="primary" size="xs">
-                              <NavLink to={`/appointments/${appointment.id}`}>
+                            <NavLink to={`/appointments/${appointment.id}`}>
+                              <Button color="primary" hover="primary" size="xs">
                                 {t("detail")}
-                              </NavLink>
-                            </Button>
+                              </Button>
+                            </NavLink>
                           </td>
                         </tr>
                       ))

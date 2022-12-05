@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 const initialValues = {
   email: "",
   password: "",
+  user_type: "doctor",
 };
 export const DoctorLogin = () => {
   const [formValues, setFormValues] = useState(initialValues);

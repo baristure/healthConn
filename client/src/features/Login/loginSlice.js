@@ -38,7 +38,7 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginWithCredentials.fulfilled, (state, { payload }) => {
-      state.user = payload;
+      state.user = payload.data;
       state.isFetching = false;
       state.isSuccess = true;
       state.isError = false;

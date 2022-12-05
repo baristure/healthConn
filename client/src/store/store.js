@@ -15,7 +15,7 @@ const rootPersistConfig = {
   key: "root",
   storage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ['profile', 'appointmentReview']
+  blacklist: ["profile", "appointmentReview"],
 };
 
 const rootReducer = combineReducers({

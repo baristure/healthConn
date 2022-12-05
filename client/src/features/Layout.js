@@ -30,6 +30,7 @@ import {
 
 const AppRoutes = (loggedIn, userDetail) => {
   const [doctor, setDoctor] = React.useState();
+  const [service, setService] = React.useState();
   return (
     <Routes>
       <Route exact path="/" element={<WelcomePage />} />
@@ -57,7 +58,14 @@ const AppRoutes = (loggedIn, userDetail) => {
       />
       <Route
         path="/appointment"
-        element={<ProtectedRoute component={Appointment} doctor={doctor} />}
+        element={
+          <ProtectedRoute
+            component={Appointment}
+            doctor={doctor}
+            service={service}
+            user={userDetail}
+          />
+        }
       />
       <Route
         path="/appointment/success"
@@ -83,7 +91,11 @@ const AppRoutes = (loggedIn, userDetail) => {
       <Route
         path="/services/:service/:doctor_id"
         element={
-          <ProtectedRoute component={DoctorInfo} setDoctor={setDoctor} />
+          <ProtectedRoute
+            component={DoctorInfo}
+            setDoctor={setDoctor}
+            setService={setService}
+          />
         }
       />
       <Route

@@ -2,9 +2,8 @@ import http from "./Axios.config";
 
 const appointmentAPI = {
   post: async (params) => {
-    console.log(params);
     const response = await http
-      .post(`/appointment`, params)
+      .post(`/appointments`, params)
       .then((res) => {
         return res;
       })
@@ -14,11 +13,11 @@ const appointmentAPI = {
       });
     return response;
   },
-  getAll: async () => {
+  getAll: async ({ pageNumber, pageSize }) => {
     const response = await http
-      .get(`/appointments-data`)
+      .get(`/appointments?pageNumber=${pageNumber}&pageSize=${pageSize}`)
       .then((res) => {
-        return res;
+        return res.data;
       })
       .catch((err) => {
         console.log(err);

@@ -10,6 +10,7 @@ import { Navigate, NavLink } from "react-router-dom";
 const initialValues = {
   email: "",
   password: "",
+  user_type: "patient",
 };
 export const Login = () => {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ export const Login = () => {
   }
   if (isFetching)
     return (
-      <div>
+      <div className="min-w-screen min-h-screen flex flex-col justify-center align-center">
         <Loading />
       </div>
     );

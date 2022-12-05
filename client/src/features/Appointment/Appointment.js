@@ -1,8 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useLayoutEffect, useEffect } from "react";
 
-import { Button, Loading, Card } from "../common/Elements";
+import { Button, Loading } from "../common/Elements";
 import { Booking } from "./Booking";
 import { Complaints } from "./Complaints/Complaints";
 import { Confirmation } from "./Confirmation";
@@ -13,23 +14,26 @@ import {
   submitAppointment,
 } from "./appointmentSlice";
 
-export const Appointment = ({ doctor }) => {
+export const Appointment = ({ service, doctor, user }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const state = useSelector((state) => state.appointment);
   const progress = state.progress;
+  useLayoutEffect(() => {
+    dispatch(clearState());
+  }, []);
 
   const onSubmit = () => {
     const submitAppointmentForm = {
       date: state.selectedDate,
-      compaints: [],
-      userId: state.userId,
-      doctorId: state.doctorId,
-      serviceId: state.serviceId,
+      complaints: [],
+      userId: Number(user.id),
+      doctorId: Number(doctor.id),
+      serviceName: service,
     };
     Object.keys(state.bodyParts).forEach((key) => {
       if (state.bodyParts[key].selected) {
-        submitAppointmentForm.compaints.push({
+        submitAppointmentForm.complaints.push({
           part: key,
           side: state.bodyParts[key].side,
           severity: state.bodyParts[key].painLevel,
@@ -128,7 +132,9 @@ export const Appointment = ({ doctor }) => {
               >
                 <span className="text-contrast-50 text-center w-full"></span>
               </div>
-              <div className="text-xs text-center mt-1">{t("Confirmation")}</div>
+              <div className="text-xs text-center mt-1">
+                {t("Confirmation")}
+              </div>
             </div>
 
             <div className="flex-1"></div>

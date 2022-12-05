@@ -114,5 +114,7 @@
   "short.password": "Şifre 3 karakterden kısa olamaz",
   "long.password": "Şifre 12 karakterden uzun olamaz",
   "empty.phone.number": "Telefon numarası boş olamaz",
-  "valid.phone.number": "Telefon numarası geçerli değil"
+  "valid.phone.number": "Telefon numarası geçerli değil",
+  "show.records":"Kayıt Göster",
+  "total.records":"Toplam Kayıt"
 }

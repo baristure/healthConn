@@ -22,18 +22,22 @@ export const AppointmentDetail = ({ user }) => {
   const dispatch = useDispatch();
   const fetchAppointmentDetail = async () => {
     setLoading(true);
-    const response = await http
-      .get(`/appointment-detail-data?appointment=${appointmentId}`)
-      .then((res) => res.data)
+    const { data } = await http
+      .get(`/appointments/${appointmentId}`)
+      .then((res) => {
+        console.log("res", res);
+        return res.data;
+      })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-    setData(response);
+
+    setData(data);
   };
 
   const onDoctorNoteSet = async (doctorNote) => {
     dispatch(setDoctorNote({ id: appointmentId, doctorNote }));
   };
-  const onReviewSet = async ({rating, comment}) => {
+  const onReviewSet = async ({ rating, comment }) => {
     dispatch(setPatientReview({ id: appointmentId, rating, comment }));
   };
 
@@ -47,13 +51,13 @@ export const AppointmentDetail = ({ user }) => {
     console.log(bodyPartExplanations[bodyPart]);
     return bodyPartExplanations[bodyPart];
   };
-  if (!data) return <div>Hello</div>;
   if (loading)
     return (
-      <div>
+      <div className="min-w-screen min-h-screen flex flex-col justify-center align-center">
         <Loading />
       </div>
     );
+  if (!data) return <div>Hello</div>;
 
   return (
     <div>
@@ -110,7 +114,7 @@ export const AppointmentDetail = ({ user }) => {
                               {t("Appointment Date")}:&nbsp;
                               <span className="text-gray-700">
                                 {format(
-                                  Date.parse(data.date),
+                                  Date.parse(data.start_date),
                                   "MM/dd/yyyy HH:mm"
                                 )}
                               </span>
@@ -269,11 +273,11 @@ export const AppointmentDetail = ({ user }) => {
           </div>
           <div className="w-full flex justify-center">
             <AppointmentDetailReview
-              date={data.date}
-              rating={data.rating}
-              comment={data.comment}
+              date={data.start_date}
+              rating={data.review.point || null}
+              comment={data.review.comment || ""}
               userType={user.user_type}
-              doctorNote={data.doctorNote}
+              doctorNote={data.recognization}
               onDoctorNoteSet={onDoctorNoteSet}
               onReviewSet={onReviewSet}
             />

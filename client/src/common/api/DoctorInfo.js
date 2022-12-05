@@ -1,10 +1,11 @@
 import http from "./Axios.config";
 
 const doctorAPI = {
-  get: async (service, doctor_id) => {
+  get: async (doctor_id) => {
     const response = await http
-      .get(`/services/${service}/${doctor_id}`)
+      .get(`/doctors/${doctor_id}`)
       .then((res) => {
+        console.log("res", res);
         return res;
       })
       .catch((err) => {

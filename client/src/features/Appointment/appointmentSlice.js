@@ -101,6 +101,7 @@ export const appoinmentSlice = createSlice({
 
 export const {
   clearState,
+
   handleProgress,
   handleBodyPart,
   handleBodyPartComplaintForm,

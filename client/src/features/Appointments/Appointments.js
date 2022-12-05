@@ -4,11 +4,13 @@ import { format } from "date-fns";
 import { Button, Loading, Pagination, SelectBox } from "../common/Elements";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import http from "../../common/api/Axios.config";
+import appointmentAPI from "../../common/api/Appointment";
 export const Appointments = ({ user }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const options = [
     {
       value: 10,
@@ -25,8 +27,8 @@ export const Appointments = ({ user }) => {
   ];
   const getAppointments = async () => {
     setLoading(true);
-    const res = await http
-      .get("/appointments-data") // TODO endpoint have to be change
+    const res = await appointmentAPI
+      .getAll({ pageNumber: 1, pageSize: 10 }) // TODO endpoint have to be change
       .then((res) => res.data)
       .catch((err) => console.log(err))
       .finally(
@@ -103,17 +105,23 @@ export const Appointments = ({ user }) => {
                         className="divide-x divide-gray-200"
                       >
                         <td className="whitespace-nowrap p-4 text-sm text-contrast-90 sm:pl-6 text-left">
-                          {appointment.service}
+                          {appointment.service.name}
                         </td>
                         <td className="whitespace-nowrap p-4 text-sm text-contrast-90  text-left">
                           {user.user_type === "doctor"
-                            ? appointment.patient
-                            : appointment.doctor}
+                            ? appointment.patient.first_name +
+                              " " +
+                              appointment.patient.last_name
+                            : appointment.doctor.title +
+                              " " +
+                              appointment.doctor.first_name +
+                              " " +
+                              appointment.doctor.last_name}
                         </td>
 
                         <td className="whitespace-nowrap py-4 pl-4 pr-4 text-sm text-contrast-90 sm:pr-6 text-left w-20">
                           {format(
-                            Date.parse(appointment.date),
+                            Date.parse(appointment.start_date),
                             "dd MMMM yyy - HH:mm"
                           )}
                         </td>
@@ -132,8 +140,8 @@ export const Appointments = ({ user }) => {
               {appointments && (
                 <div className="flex flex-row justify-between align-middle px-2 mt-2">
                   <div className="flex flex-row justify-start items-center">
-                    <div className="flex flex-row justify-start items-center text-contrast-70 mr-6 text-md">
-                      <span className="mr-2">Kayıt Göster</span>
+                    <div className="flex flex-row justify-start items-center text-contrast-70 mr-6 text-sm">
+                      <span className="mr-2 text-sm">{t("show.records")}</span>
                       <SelectBox
                         options={options}
                         name="sendType"
@@ -150,8 +158,8 @@ export const Appointments = ({ user }) => {
                       onPageChange={(val) => console.log(val)}
                     />
                   </div>
-                  <div className="flex items-center text-contrast-70">
-                    Toplam Kayıt: {20}
+                  <div className="flex items-center text-contrast-70 text-sm">
+                    {t("total.records")}: {20}
                   </div>
                 </div>
               )}

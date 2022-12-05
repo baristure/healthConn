@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Form, Formik } from "formik";
-import axios from "axios";
 import { toast } from "react-toastify";
-
+import registerAPI from "../../common/api/Register";
 import {
   Input,
   FormObserver,
@@ -19,7 +18,7 @@ const initialValues = {
   email: "",
   password: "",
   mobile_number: "",
-  usertype: "patient",
+  user_type: "patient",
 };
 
 export const Register = () => {
@@ -28,8 +27,8 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const onSubmit = async (values, { resetForm }) => {
     setLoading(true);
-    let { data, status } = await axios
-      .post("register", values)
+    let { data, status } = await registerAPI
+      .post(values)
       .then((res) => res)
       .catch((err) => err)
       .finally(() => setLoading(false));
@@ -43,6 +42,7 @@ export const Register = () => {
   };
   const onUpdate = (value) => {
     setFormValues({ ...formValues, ...value });
+    console.log(formValues);
   };
 
   return (
@@ -56,6 +56,18 @@ export const Register = () => {
           <Form className="space-y-4 min-h-screen w-full px-4 flex flex-col sm:justify-center justify-start  items-center">
             <FormObserver watch={onUpdate} />
             <h1 className="  font-semibold text-2xl text">{t("register")}</h1>
+            <div className="sm:w-1/3 w-full flex flex-row justify-center ">
+              <FormRadioButton
+                items={[
+                  { label: t("patient"), value: "patient" },
+                  { label: t("doctor"), value: "doctor" },
+                ]}
+                value={formValues.usertype}
+                checked={formValues.usertype}
+                name="user_type"
+                label={t("account.type")}
+              />
+            </div>
             <div className="sm:w-1/3 w-full">
               <Input
                 isform
@@ -102,17 +114,60 @@ export const Register = () => {
                 className=""
               />
             </div>
-            <div className="sm:w-1/3 w-full flex flex-row justify-center ">
-              <FormRadioButton
-                items={[
-                  { label: t("patient"), value: "patient" },
-                  { label: t("doctor"), value: "doctor" },
-                ]}
-                checked={formValues.usertype}
-                name="usertype"
-                label={t("account.type")}
-              />
-            </div>
+            {formValues.user_type === "patient" ? (
+              <>
+                <div className="sm:w-1/3 w-full">
+                  <Input
+                    isform
+                    label={t("weight")}
+                    type="weight"
+                    name="weight"
+                    placeholder={t("enter.weight.placeholder")}
+                    className=""
+                  />
+                </div>
+                <div className="sm:w-1/3 w-full">
+                  <Input
+                    isform
+                    label={t("height")}
+                    type="height"
+                    name="height"
+                    placeholder={t("enter.height.placeholder")}
+                    className=""
+                  />
+                </div>
+                <div className="sm:w-1/3 w-full flex flex-row justify-center ">
+                  <FormRadioButton
+                    isform
+                    items={[
+                      { label: "0+", value: "0+" },
+                      { label: "0-", value: "0-" },
+                      { label: "A+", value: "A+" },
+                      { label: "A-", value: "A-" },
+                      { label: "B+", value: "B+" },
+                      { label: "B-", value: "B-" },
+                      { label: "AB+", value: "AB+" },
+                      { label: "AB-", value: "AB-" },
+                    ]}
+                    name="blood_type"
+                    label="Blood Group"
+                  />
+                </div>
+                <div className="sm:w-1/3 w-full flex flex-row justify-center ">
+                  <FormRadioButton
+                    isform
+                    items={[
+                      { label: t("male"), value: "male" },
+                      { label: t("female"), value: "female" },
+                    ]}
+                    name="gender"
+                    label={t("gender")}
+                  />
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
 
             <br />
             <Button type="submit" loading={loading} className="sm:w-1/3">

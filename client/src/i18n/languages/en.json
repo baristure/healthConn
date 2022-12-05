@@ -115,5 +115,7 @@
   "short.password": "Password can not be shorter than 3 chars",
   "long.password": "Password can not be longer than 12 chars.",
   "empty.phone.number": "Phone number can not be blank",
-  "valid.phone.number": "Your number does not match with pattern"
+  "valid.phone.number": "Your number does not match with pattern",
+  "show.records": "Show Records",
+  "total.records": "Total Records"
 }
