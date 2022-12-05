@@ -12,6 +12,7 @@ import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import * as yup from "yup";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: PatientRegisterEvent | DoctorRegisterEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
@@ -54,5 +55,6 @@ const handler = async (event: PatientRegisterEvent | DoctorRegisterEvent): Promi
 }
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(jsonBodyParser());

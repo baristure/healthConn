@@ -11,6 +11,7 @@ import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";
 import _ from "lodash";
 import moment from "moment";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
@@ -76,6 +77,7 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
 };
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(jsonBodyParser())
   .use(validator(validationSchema))
   .use(httpErrorHandler())

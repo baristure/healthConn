@@ -4,6 +4,7 @@ import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/TYPES";
 import { GetAppointmentByIdEvent, validationSchema } from "../../dto/GetAppointmentByIdEvent";
+import cors from "../../middlewares/cors";
 import validator from "../../middlewares/validator";
 import { IAppointmentRepository } from "../../repository/IAppointmentRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
@@ -29,5 +30,6 @@ const handler = async (event: GetAppointmentByIdEvent): Promise<APIGatewayProxyS
 }
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(validator(validationSchema));

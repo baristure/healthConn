@@ -11,6 +11,7 @@ import { TYPES } from "../../config/types";
 import validator from "../../middlewares/validator";
 import IPatientRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: GetPatientByIdEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
@@ -32,6 +33,7 @@ const handler = async (event: GetPatientByIdEvent): Promise<APIGatewayProxyStruc
 };
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(jsonBodyParser())
   .use(validator(validationSchema));

@@ -10,6 +10,7 @@ import { PutAppointmentEvent, validationSchema } from "../../dto/PutAppointmentE
 import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";
 import _ from "lodash";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: PutAppointmentEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
@@ -70,6 +71,7 @@ const handler = async (event: PutAppointmentEvent): Promise<APIGatewayProxyStruc
 };
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(jsonBodyParser())
   .use(validator(validationSchema))
   .use(httpErrorHandler())
