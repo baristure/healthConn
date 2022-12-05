@@ -5,4 +5,5 @@ export interface Appointment {
   recognization: string;
   date: string;
   complaints: string;
+  service_id: number;
 }
