@@ -6,4 +6,5 @@ export default interface IPatientRepository {
   getByEmail(email: string): Promise<Patient | null>;
   save(patient: PatientInput): Promise<Patient | null>;
   update(id: number, changes: Partial<PatientInput>): Promise<Patient | null>;
+  getByMobileNumber(mobile_number: string): Promise<Patient | null>;
 };

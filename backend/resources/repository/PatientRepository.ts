@@ -33,6 +33,15 @@ export default class PatientRepository implements IPatientRepository {
       })
       .first();
   }
+  
+  public async getByMobileNumber(mobile_number: string): Promise<Patient | null> {
+    return this.knex.select("*")
+      .from("patients")
+      .where({
+        mobile_number
+      })
+      .first();
+  }
 
   public async save(patient: PatientInput): Promise<Patient | null> {
     const {

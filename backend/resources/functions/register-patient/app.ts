@@ -29,10 +29,16 @@ export const handler = async (event: PatientRegisterEvent): Promise<APIGatewayPr
   } = event;
 
   const patientRepository = await container.getAsync<IPatientRepository>(TYPES.PatientRepository);
-  const existingPatient = await patientRepository.getByEmail(email);
+  let existingPatient = await patientRepository.getByEmail(email);
 
   if (existingPatient) {
     return responseUtils.validationError([ ErrorConstants.EMAIL_ALREADY_TAKEN ]);
+  }
+
+  existingPatient = await patientRepository.getByMobileNumber(mobile_number);
+
+  if (existingPatient) {
+    return responseUtils.validationError([ "Mobile number has already being used." ]);
   }
 
   const savedPatient = await patientRepository.save(

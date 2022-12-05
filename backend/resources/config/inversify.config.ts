@@ -23,6 +23,10 @@ import { IServiceRepository } from "../repository/IServiceRepository";
 import ServiceRepository from "../repository/ServiceRepository";
 import IDoctorMembershipRepository from "../repository/IDoctorMembershipRepository";
 import DoctorMembershipRepository from "../repository/DoctorMembershipRepository";
+import { IAppointmentRepository } from "../repository/IAppointmentRepository";
+import { AppointmentRepository } from "../repository/AppointmentRepository";
+import { IAppointmentService } from "../service/IAppointmentService";
+import { AppointmentService } from "../service/AppointmentService";
 
 const container = new Container();
 
@@ -38,5 +42,7 @@ container.bind<IDoctorRepository>(TYPES.DoctorRepository).to(DoctorRepository);
 container.bind<UserRepositoryFactory>(TYPES.UserRepositoryFactory).to(UserRepositoryFactory);
 container.bind<IServiceRepository>(TYPES.ServiceRepository).to(ServiceRepository);
 container.bind<IDoctorMembershipRepository>(TYPES.DoctorMembershipRepository).to(DoctorMembershipRepository);
+container.bind<IAppointmentRepository>(TYPES.AppointmentRepository).to(AppointmentRepository);
+container.bind<IAppointmentService>(TYPES.AppointmentService).to(AppointmentService);
 
 export default container;

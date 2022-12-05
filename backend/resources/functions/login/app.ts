@@ -46,7 +46,7 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
 
   const jwt = sign(
     {
-      ..._.omit(existingUser, [ "id", "password" ]),
+      ..._.omit(existingUser, [ "password" ]),
       user_type
     },
     process.env.SECRET_KEY!

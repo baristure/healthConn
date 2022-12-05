@@ -4,17 +4,17 @@ import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { Knex } from "knex";
+import _ from "lodash";
+import moment from "moment";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/TYPES";
 import { PostAppointmentEvent, validationSchema } from "../../dto/PostAppointmentEvent";
-import validator from "../../middlewares/validator";
-import ResponseUtils from "../../utils/ResponseUtils";
-import _ from "lodash";
-import moment from "moment";
 import cors from "../../middlewares/cors";
+import validator from "../../middlewares/validator";
+import RequestUtils from "../../utils/RequestUtils";
+import ResponseUtils from "../../utils/ResponseUtils";
 
 const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStructuredResultV2> => {
-
   const {
     body: {
       userId: patient_id,
@@ -26,8 +26,16 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
     }
   } = event;
 
-  const knex = await container.getAsync<Knex>(TYPES.Knex);
+  const requestUtils = container.get<RequestUtils>(TYPES.RequestUtils);
   const responseUtils = await container.get<ResponseUtils>(TYPES.ResponseUtils);
+
+  const { id } = requestUtils.decodeJwt(event);
+
+  if (id !== doctor_id) {
+    return responseUtils.unauthorized();
+  }
+
+  const knex = await container.getAsync<Knex>(TYPES.Knex);
 
   const existingDoctor = await knex.select("*")
     .from("doctors")
@@ -54,6 +62,22 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
 
   if (!existingService) {
     return responseUtils.validationError([`Service with id ${service_id} not found.`]);
+  }
+
+  const existingAppointment = await knex.select("*")
+    .from("appointments")
+    .where({
+      doctor_id,
+      patient_id,
+      start_date: moment(date).toDate(),
+      end_date: moment(date).add("minutes", 30).toDate(),
+    })
+    .first();
+
+  if (existingAppointment) {
+    return responseUtils.validationError([
+      "Requested appointment is overlapping. Please choose another date."
+    ]);
   }
 
   const [ savedAppointment ] = await knex.insert({
