@@ -28,10 +28,22 @@ export const handler = async (event: DoctorRegisterEvent): Promise<APIGatewayPro
   } = event;
 
   const doctorRepository = await container.getAsync<IDoctorRepository>(TYPES.DoctorRepository);
-  const existingDoctor = await doctorRepository.getByEmail(email);
+  let existingDoctor = await doctorRepository.getByEmail(email);
 
   if (existingDoctor) {
     return responseUtils.validationError([ ErrorConstants.EMAIL_ALREADY_TAKEN ]);
+  }
+
+  existingDoctor = await doctorRepository.getByMobileNumber(mobile_number);
+
+  if (existingDoctor) {
+    return responseUtils.validationError([ "Mobile number has already being used." ]);
+  }
+
+  existingDoctor = await doctorRepository.getByOfficeNumber(office_number);
+
+  if (existingDoctor) {
+    return responseUtils.validationError([ "Office number has already being used." ]);
   }
 
   const savedDoctor = await doctorRepository.save(

@@ -10,6 +10,7 @@ import { GetAppointmentsEvent, validationSchema } from "../../dto/GetAppointment
 import { UserType } from "../../dto/LoginEvent";
 import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";
+import cors from "../../middlewares/cors";
 
 const mapAppointments = (rows: any[], knex: Knex) => Promise.all((rows as any[]).map(async row => {
   const patient = await knex.select("*")
@@ -57,7 +58,7 @@ const handler = async (event: GetAppointmentsEvent): Promise<APIGatewayProxyStru
       `
       select *
       from appointments a
-      order by a.start_date asc
+      order by a.start_date desc
       limit ${parseInt(pageSize)}
       offset ${(parseInt(pageNumber) - 1) * parseInt(pageSize)}
       `
@@ -81,5 +82,7 @@ const handler = async (event: GetAppointmentsEvent): Promise<APIGatewayProxyStru
 }
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(validator(validationSchema));
+  

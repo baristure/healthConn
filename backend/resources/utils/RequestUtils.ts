@@ -1,7 +1,10 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { injectable } from "inversify";
 import { decode } from "jsonwebtoken";
-import JwtPayload from "../dto/JwtPayload";
+import { Doctor } from "../dto/Doctor";
+import { Patient } from "../dto/Patient";
+
+type JwtPayload = Omit<Doctor, "password"> | Omit<Patient, "password">;
 
 @injectable()
 export default class RequestUtils {

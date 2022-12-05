@@ -8,6 +8,7 @@ import validator from "../../middlewares/validator";
 import IPatientRepository from "../../repository/IPatientRepository";
 import ResponseUtils from "../../utils/ResponseUtils";
 import { UpdateUserEvent, validationSchema } from "../../dto/UpdateUserEvent";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: UpdateUserEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
@@ -32,5 +33,6 @@ const handler = async (event: UpdateUserEvent): Promise<APIGatewayProxyStructure
 };
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(validator(validationSchema));

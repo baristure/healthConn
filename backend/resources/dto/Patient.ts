@@ -3,8 +3,8 @@ export enum BloodType {
   A_MINUS = "A-",
   B_PLUS = "B+",
   B_MINUS = "B-",
-  O_PLUS = "O+",
-  O_MINUS = "O-",
+  O_PLUS = "0+",
+  O_MINUS = "0-",
   AB_PLUS = "AB+",
   AB_MINUS = "AB-",
 };

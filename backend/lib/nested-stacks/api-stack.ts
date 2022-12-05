@@ -12,6 +12,7 @@ interface ApiStackProps extends BaseNestedStackProps {
   authorizerFunction: IFunction;
   loginFunction: IFunction;
   postAppointmentFunction: IFunction;
+  putAppointmentFunction: IFunction;
   getAppointmentByIdFunction: IFunction;
   getDoctorExtraDataFunction: IFunction;
   getDoctorByIdFunction: IFunction;
@@ -39,7 +40,18 @@ export class ApiStack extends NestedStack {
       "rest-api",
       {
         restApiName: `${envName}-${appName}-rest-api`,
-        deploy: false
+        deploy: false,
+        defaultCorsPreflightOptions: {
+          allowHeaders: [
+            'Content-Type',
+            'X-Amz-Date',
+            'Authorization',
+            'X-Api-Key',
+          ],
+          allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+          allowCredentials: true,
+          allowOrigins: ['*'],
+        },
       }
     );
 
@@ -100,6 +112,15 @@ export class ApiStack extends NestedStack {
       HttpMethod.POST,
       new LambdaIntegration(
         props.postAppointmentFunction,
+        commonLambdaIntegrationOptions
+      ),
+      commonAuthorizerOptions 
+    );
+
+    appointments.addMethod(
+      HttpMethod.PUT,
+      new LambdaIntegration(
+        props.putAppointmentFunction,
         commonLambdaIntegrationOptions
       ),
       commonAuthorizerOptions 

@@ -12,6 +12,7 @@ import { LoginEvent, validationSchema } from "../../dto/LoginEvent";
 import { UserRepositoryFactory } from "../../factory/UserRepositoryFactory";
 import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
@@ -45,7 +46,7 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
 
   const jwt = sign(
     {
-      ..._.omit(existingUser, [ "id", "password" ]),
+      ..._.omit(existingUser, [ "password" ]),
       user_type
     },
     process.env.SECRET_KEY!
@@ -55,6 +56,7 @@ const handler = async (event: LoginEvent): Promise<APIGatewayProxyStructuredResu
 }
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(jsonBodyParser())
   .use(validator(validationSchema));

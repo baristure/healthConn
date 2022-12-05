@@ -34,6 +34,24 @@ export default class DoctorRepository implements IDoctorRepository {
       })
       .first()
   }
+  
+  public async getByMobileNumber(mobile_number: string): Promise<Doctor | null> {
+    return this.knex.select("*")
+      .from("doctors")
+      .where({
+        mobile_number
+      })
+      .first()
+  }
+  
+  public async getByOfficeNumber(office_number: string): Promise<Doctor | null> {
+    return this.knex.select("*")
+      .from("doctors")
+      .where({
+        office_number
+      })
+      .first()
+  }
 
   // TODO add paging 
   public async getDoctorsByService(serviceName: Speciality): Promise<DoctorByService[] | null> {

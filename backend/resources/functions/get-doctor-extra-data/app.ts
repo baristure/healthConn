@@ -14,6 +14,7 @@ import IDoctorMembershipRepository from "../../repository/IDoctorMembershipRepos
 import ResponseUtils from "../../utils/ResponseUtils";
 import { DoctorMembership } from "../../dto/DoctorMembership";
 import _ from "lodash";
+import cors from "../../middlewares/cors";
 
 const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
@@ -59,6 +60,7 @@ const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyS
 };
 
 export const lambdaHandler = middy(handler)
+  .use(cors())
   .use(httpErrorHandler())
   .use(jsonBodyParser())
   .use(validator(validationSchema));
