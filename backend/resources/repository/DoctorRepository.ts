@@ -46,6 +46,7 @@ export default class DoctorRepository implements IDoctorRepository {
       "speciality",
       "gender",
       "image_url",
+      "rating"
     )
     .from("doctors")
     .where({

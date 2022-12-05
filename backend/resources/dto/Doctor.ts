@@ -16,6 +16,7 @@ export interface Doctor {
   mobile_number: string;
   office_number: string;
   speciality: Speciality;
+  rating: number;
   title: Title;
   resume: string;
   image_url: string;
@@ -34,4 +35,5 @@ export interface DoctorByService {
   speciality: Speciality,
   gender: Gender,
   image_url: string,
+  rating: number,
 };

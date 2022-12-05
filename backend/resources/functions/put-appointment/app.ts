@@ -6,21 +6,18 @@ import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
 import { Knex } from "knex";
 import container from "../../config/inversify.config";
 import { TYPES } from "../../config/TYPES";
-import { PostAppointmentEvent, validationSchema } from "../../dto/PostAppointmentEvent";
+import { PutAppointmentEvent, validationSchema } from "../../dto/PutAppointmentEvent";
 import validator from "../../middlewares/validator";
 import ResponseUtils from "../../utils/ResponseUtils";
 import _ from "lodash";
-import moment from "moment";
 
-const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStructuredResultV2> => {
+const handler = async (event: PutAppointmentEvent): Promise<APIGatewayProxyStructuredResultV2> => {
 
   const {
+    pathParameters: {
+      id: appointmentId
+    },
     body: {
-      userId: patient_id,
-      doctorId: doctor_id,
-      serviceId: service_id,
-      complaints,
-      date,
       recognization
     }
   } = event;
@@ -28,50 +25,47 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
   const knex = await container.getAsync<Knex>(TYPES.Knex);
   const responseUtils = await container.get<ResponseUtils>(TYPES.ResponseUtils);
 
-  const existingDoctor = await knex.select("*")
+  const appointment = await knex.select("*")
+    .from("appointments")
+    .where({ id: appointmentId })
+    .first();
+
+  const {
+    doctor_id: doctorId,
+    patient_id: patientId,
+    service_id: serviceId
+  } = appointment;
+
+  const doctor = await knex.select("*")
     .from("doctors")
-    .where({ id: doctor_id })
+    .where({ id: doctorId })
     .first();
 
-  if (!existingDoctor) {
-    return responseUtils.validationError([`Doctor with id ${doctor_id} not found.`]);
-  }
-
-  const existingPatient = await knex.select("*")
+  const patient = await knex.select("*")
     .from("patients")
-    .where({ id: patient_id })
+    .where({ id: patientId })
     .first();
 
-  if (!existingPatient) {
-    return responseUtils.validationError([`Patient with id ${patient_id} not found`]);
-  }
-
-  const existingService = await knex.select("*")
+  const service = await knex.select("*")
     .from("services")
-    .where({ id: service_id })
+    .where({ id: serviceId })
     .first();
 
-  if (!existingService) {
-    return responseUtils.validationError([`Service with id ${service_id} not found.`]);
-  }
-
-  const [ savedAppointment ] = await knex.insert({
-    patient_id,
-    doctor_id,
-    service_id,
-    recognization,
-    start_date: moment(date).toDate(),
-    end_date: moment(date).add("minutes", 30).toDate(),
-    complaints: JSON.stringify(complaints),
+  const [ updatedAppointment ] = await knex("appointments")
+    .update({
+      recognization,
   })
-  .into("appointments")
+  .where ({
+    id: appointmentId
+  })
   .returning("*");
 
   return responseUtils.success({
-    doctor: _.omit(existingDoctor, [ "password" ]),
-    patient: _.omit(existingPatient, [ "password" ]),
-    ..._.omit(savedAppointment, [ "patient_id", "doctor_id", "service_id" ]),
-    complaints: savedAppointment?.complaints ? JSON.parse(savedAppointment.complaints) : null
+    doctor: _.omit(doctor, [ "password" ]),
+    patient: _.omit(patient, [ "password" ]),
+    service,
+    ..._.omit(updatedAppointment, [ "patient_id", "doctor_id", "service_id" ]),
+    complaints: updatedAppointment?.complaints ? JSON.parse(updatedAppointment.complaints) : null
   });
 };
 

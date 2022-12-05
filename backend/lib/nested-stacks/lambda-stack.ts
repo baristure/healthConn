@@ -31,6 +31,7 @@ export class LambdaStack extends NestedStack {
   private readonly login: IFunction;
   private readonly postAppointment: IFunction;
   private readonly getAppointmentById: IFunction;
+  private readonly putAppointment: IFunction;
   private readonly databaseMigrator: IFunction;
   private readonly getDoctorExtraData: IFunction;
   private readonly getDoctorById: IFunction;
@@ -58,6 +59,10 @@ export class LambdaStack extends NestedStack {
 
   public getPostAppointment() {
     return this.postAppointment;
+  }
+
+  public getPutAppointment() {
+    return this.putAppointment;
   }
 
   public getGetAppointmentById() {
@@ -208,6 +213,18 @@ export class LambdaStack extends NestedStack {
 
     props.dbCluster.grantDataApiAccess(this.postAppointment);
     this.postAppointment.addToRolePolicy(props.dbSecretAccessPolicy);
+
+    this.putAppointment = new NodejsFunction(this, "put-appointment", {
+      ...this.generateCommonLambdaProps("put-appointment", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    });
+
+    props.dbCluster.grantDataApiAccess(this.putAppointment);
+    this.putAppointment.addToRolePolicy(props.dbSecretAccessPolicy);
     
     this.getAppointmentById = new NodejsFunction(this, "get-appointment-by-id", {
       ...this.generateCommonLambdaProps("get-appointment-by-id", true),

@@ -57,7 +57,7 @@ const handler = async (event: GetAppointmentsEvent): Promise<APIGatewayProxyStru
       `
       select *
       from appointments a
-      order by a.start_date asc
+      order by a.start_date desc
       limit ${parseInt(pageSize)}
       offset ${(parseInt(pageNumber) - 1) * parseInt(pageSize)}
       `
@@ -83,3 +83,4 @@ const handler = async (event: GetAppointmentsEvent): Promise<APIGatewayProxyStru
 export const lambdaHandler = middy(handler)
   .use(httpErrorHandler())
   .use(validator(validationSchema));
+  
