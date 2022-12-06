@@ -6,10 +6,10 @@
 Healthconn breaks the communication difficulties between doctors and patients.
 
 
-- Effective booking
+- Effective booking flow
 - Easy complaint explanation
 - Multilanguage support
-- ✨Many other thing
+- ✨Many other things
  
 ## Tech Stack
 
