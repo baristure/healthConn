@@ -132,7 +132,7 @@ export const Dashboard = ({ user }) => {
           </div>
         )}
 
-        <div className="w-full flex flex-col mt-6 sm:px-6 lg:px-8 px-4">
+        <div className="w-full flex flex-col mt-6 sm:px-6 lg:px-8 px-4 mb-6">
           <div className="bg-white shadow-md overflow-x-auto rounded-md overflow-y-auto">
             <div className="inline-block min-w-full py-2 align-middle md:px-4 lg:px-6">
               <div className=" ">

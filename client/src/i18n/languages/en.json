@@ -117,5 +117,7 @@
   "empty.phone.number": "Phone number can not be blank",
   "valid.phone.number": "Your number does not match with pattern",
   "show.records": "Show Records",
-  "total.records": "Total Records"
+  "total.records": "Total Records",
+  "email": "Email",
+  "password": "Password"
 }

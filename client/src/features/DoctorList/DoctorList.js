@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import doctorListAPI from "../../common/api/DoctorList";
-import { Card } from "../common/Elements";
+import { Card, Loading } from "../common/Elements";
 import Button from "../common/Elements/Button/Button";
 
 export const DoctorList = () => {
@@ -10,8 +10,17 @@ export const DoctorList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const fetchDoctorList = async () => {
-    const doctorList = await doctorListAPI.get(service);
+    setLoading(true);
+    const doctorList = await doctorListAPI
+      .get(service)
+      .then((res) => {
+        console.log("res", res);
+        return res.data;
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     setDoctorList(doctorList.data);
   };
 
@@ -19,7 +28,12 @@ export const DoctorList = () => {
     if (!service) return;
     fetchDoctorList();
   }, [service]);
-
+  if (loading)
+    return (
+      <div className="min-w-screen min-h-screen flex flex-col justify-center align-center">
+        <Loading />
+      </div>
+    );
   return (
     <div className="p-5 h-screen">
       <h1 className="font-sans text-4xl font-bold tracking-wider text-blue-900 mb-4">

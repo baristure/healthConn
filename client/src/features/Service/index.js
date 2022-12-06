@@ -36,7 +36,7 @@ export const Service = () => {
             <NavLink
               className="hover:shadow-lg hover:shadow-blue-200"
               key={service.service_id}
-              to={`/services/${service.name.toLowerCase()}`}
+              to={`/services/${service.name}`}
             >
               <Card
                 key={service.service_id}

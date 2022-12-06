@@ -2,6 +2,7 @@ import http from "./Axios.config";
 
 const doctorListAPI = {
   get: async (service) => {
+    service = service.replaceAll("%20", " ");
     const response = await http
       .get(`/services/${service}/doctors`)
       .then((res) => {
