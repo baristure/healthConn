@@ -19,7 +19,7 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
     body: {
       userId: patient_id,
       doctorId: doctor_id,
-      serviceId: service_id,
+      serviceName: service_name,
       complaints,
       date,
       recognization
@@ -31,7 +31,7 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
 
   const { id } = requestUtils.decodeJwt(event);
 
-  if (id !== doctor_id) {
+  if (id != doctor_id && id != patient_id) {
     return responseUtils.unauthorized();
   }
 
@@ -57,11 +57,11 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
 
   const existingService = await knex.select("*")
     .from("services")
-    .where({ id: service_id })
+    .where({ name: service_name })
     .first();
 
   if (!existingService) {
-    return responseUtils.validationError([`Service with id ${service_id} not found.`]);
+    return responseUtils.validationError([`Service ${service_name} not found.`]);
   }
 
   const existingAppointment = await knex.select("*")
@@ -83,7 +83,7 @@ const handler = async (event: PostAppointmentEvent): Promise<APIGatewayProxyStru
   const [ savedAppointment ] = await knex.insert({
     patient_id,
     doctor_id,
-    service_id,
+    service_id: existingService.id,
     recognization,
     start_date: moment(date).toDate(),
     end_date: moment(date).add("minutes", 30).toDate(),

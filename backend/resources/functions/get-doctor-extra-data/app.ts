@@ -36,6 +36,7 @@ const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyS
 
   const memberships = doctorMemberships.filter(membership => membership.type as string == "membership"); 
   const publications = doctorMemberships.filter(membership => membership.type as string == "publication");
+  const rating = doctorRepository.getDoctorRating(doctor.id);
 
   const {
     first_name,
@@ -54,6 +55,7 @@ const handler = async (event: GetDoctorExtraDataEvent): Promise<APIGatewayProxyS
     image_url,
     memberships,
     publications,
+    rating
   };
 
   return responseUtils.success(doctorExtraData);

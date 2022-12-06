@@ -25,13 +25,6 @@ export interface Doctor {
   updated_at: Date;
 };
 
-export interface DoctorByService {
-  id: number,
-  first_name: string,
-  last_name: string,
-  mobile_number: string,
-  office_number: number,
-  speciality: Speciality,
-  gender: Gender,
-  image_url: string,
+export interface DoctorByService extends Omit<Doctor, "password"> {
+  rating: number;
 };

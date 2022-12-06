@@ -21,7 +21,7 @@ export default class ServiceRepository implements IServiceRepository {
       .from("services")
     }
 
-  async getByName(name: Speciality): Promise<Service> {
+  async getByName(name: string): Promise<Service> {
     return this.knex.select("*")
       .from("services")
       .where({ name })

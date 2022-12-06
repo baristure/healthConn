@@ -4,7 +4,7 @@ import { Speciality } from "./Service";
 
 export interface GetServiceByNameEvent extends APIGatewayProxyEvent {
   pathParameters: {
-    serviceName: Speciality;
+    serviceName: string;
   }
 };
 

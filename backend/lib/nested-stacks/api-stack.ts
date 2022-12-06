@@ -20,6 +20,7 @@ interface ApiStackProps extends BaseNestedStackProps {
   getDoctorsByServiceFunction: IFunction;
   getAppointmentsFunction: IFunction;
   getServicesFunction: IFunction;
+  postReviewFunction: IFunction;
 }
 
 export class ApiStack extends NestedStack {
@@ -107,6 +108,16 @@ export class ApiStack extends NestedStack {
     
     const appointments = this.restApi.root.addResource("appointments");
     const appointmentId = appointments.addResource("{id}");
+    const reviews = appointmentId.addResource("reviews");
+
+    reviews.addMethod(
+      HttpMethod.POST,
+      new LambdaIntegration(
+        props.postReviewFunction,
+        commonLambdaIntegrationOptions
+      ),
+      commonAuthorizerOptions
+    );
 
     appointments.addMethod(
       HttpMethod.POST,

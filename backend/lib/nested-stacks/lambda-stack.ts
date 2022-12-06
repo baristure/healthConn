@@ -38,8 +38,8 @@ export class LambdaStack extends NestedStack {
   private readonly getPatientById: IFunction;
   private readonly getDoctorsByService: IFunction;
   private readonly getServices: IFunction;
-
   private readonly getAppointments: IFunction;
+  private readonly postReview: IFunction;
 
   public getLinkToPrivateKey() {
     return this.linkToPrivateKey;
@@ -95,6 +95,10 @@ export class LambdaStack extends NestedStack {
   
   public getGetAppointments() {
     return this.getAppointments;
+  }
+
+  public getPostReview() {
+    return this.postReview;
   }
 
   private generateCommonLambdaProps(lambdaFunctionName: string, lambdaNeedsToConnectToRds: boolean = false): NodejsFunctionProps {
@@ -300,6 +304,18 @@ export class LambdaStack extends NestedStack {
 
     props.dbCluster.grantDataApiAccess(this.getServices);
     this.getServices.addToRolePolicy(props.dbSecretAccessPolicy);
+    
+    
+    this.postReview = new NodejsFunction(this, "post-review", {
+      ...this.generateCommonLambdaProps("post-review", true),
+      environment: {
+        NODE_OPTIONS: "--enable-source-maps",
+        SECRET_KEY: props.secretKey,
+        DB_SECRET_ID: props.dbSecretName
+      }
+    })
 
+    props.dbCluster.grantDataApiAccess(this.postReview);
+    this.postReview.addToRolePolicy(props.dbSecretAccessPolicy);
   }
 }

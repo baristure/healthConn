@@ -7,6 +7,14 @@ import HttpStatusCode from "../constants/HttpStatusCode";
 @injectable()
 export default class ResponseUtils {
 
+  private static corsHeaders = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Origin": "*"
+  }
+
   public generateAuthResponse(principal: string, resource: string, effect: Effect): AuthResponse {
     return {
       principalId: principal,
@@ -32,6 +40,8 @@ export default class ResponseUtils {
       response.body = JSON.stringify({ data });
     }
 
+    response.headers = ResponseUtils.corsHeaders;
+
     return response;
   }
 
@@ -41,7 +51,8 @@ export default class ResponseUtils {
       body: JSON.stringify({
         error: ErrorConstants.VALIDATION_ERROR,
         details
-      })
+      }),
+      headers: ResponseUtils.corsHeaders
     };
   }
 
@@ -50,7 +61,8 @@ export default class ResponseUtils {
       statusCode: HttpStatusCode.NOT_FOUND,
       body: JSON.stringify({
         error: ErrorConstants.NOT_FOUND
-      })
+      }),
+      headers: ResponseUtils.corsHeaders
     };
   }
 
@@ -59,14 +71,16 @@ export default class ResponseUtils {
       statusCode: HttpStatusCode.UNAUTHORIZED,
       body: JSON.stringify({
         error: ErrorConstants.UNAUTHORIZED
-      })
+      }),
+      headers: ResponseUtils.corsHeaders
     };
   }
 
   public internalServerError(): APIGatewayProxyStructuredResultV2 {
     return {
       statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
-      body: ErrorConstants.INTERNAL_SERVER_ERROR
+      body: ErrorConstants.INTERNAL_SERVER_ERROR,
+      headers: ResponseUtils.corsHeaders
     };
   }
 }

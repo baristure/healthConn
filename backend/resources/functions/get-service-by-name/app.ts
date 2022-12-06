@@ -16,11 +16,13 @@ import cors from "../../middlewares/cors";
 const handler = async (event: GetServiceByNameEvent): Promise<APIGatewayProxyStructuredResultV2> => {
   const responseUtils = container.get<ResponseUtils>(TYPES.ResponseUtils);
 
-  const {
+  let {
     pathParameters: {
       serviceName
     }
   } = event;
+
+  serviceName = decodeURIComponent(serviceName);
 
   const serviceRepository = await container.getAsync<IServiceRepository>(TYPES.ServiceRepository);
   const service = await serviceRepository.getByName(serviceName);
