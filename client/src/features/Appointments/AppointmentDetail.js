@@ -57,7 +57,7 @@ export const AppointmentDetail = ({ user }) => {
         <Loading />
       </div>
     );
-  if (!data) return <div>Hello</div>;
+  if (!data) return <div>Details can not fetched</div>;
 
   return (
     <div>

@@ -3,7 +3,7 @@ import http from "./Axios.config";
 const doctorListAPI = {
   get: async (service) => {
     const response = await http
-      .get(`/services/${service}`)
+      .get(`/services/${service}/doctors`)
       .then((res) => {
         return res;
       })
